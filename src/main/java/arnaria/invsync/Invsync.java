@@ -2,24 +2,24 @@ package arnaria.invsync;
 
 import arnaria.invsync.api.event.PlayerJoinCallBack;
 import arnaria.invsync.api.event.PlayerLeaveCallBack;
+import arnaria.invsync.util.ConfigManager;
 import net.fabricmc.api.ModInitializer;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
+import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.util.ActionResult;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.util.UUID;
-
 public class Invsync implements ModInitializer {
 
     public static final Logger LOGGER = LogManager.getLogger();
-    public static final String MOD_NAME = "invsync";
+    public static final String MODID = "invsync";
 
     @Override
     public void onInitialize() {
         log(Level.INFO, "Initializing");
+
+        ConfigManager.loadConfig();
 
         PlayerJoinCallBack.EVENT.register((player, server) -> {
             log(Level.INFO, "Getting Player Data From SQL Server");
@@ -32,7 +32,8 @@ public class Invsync implements ModInitializer {
             return ActionResult.PASS;
         });
 
-        log(Level.INFO, "Done");
+        if (FabricLoader.getInstance().isModLoaded(MODID))
+            log(Level.INFO, "Done");
     }
 
     public static void log(Level level, String message) {
@@ -40,6 +41,6 @@ public class Invsync implements ModInitializer {
     }
 
     public static void log(Level level, String message, Object ... fields){
-        LOGGER.log(level, "["+MOD_NAME+"] " + message, fields);
+        LOGGER.log(level, "[" + MODID + "] " + message, fields);
     }
 }
