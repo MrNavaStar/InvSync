@@ -32,8 +32,9 @@ public class NBTtoSQL {
         if (ConfigManager.Sync_Xp) xp = player.experienceLevel;
         if (ConfigManager.Sync_Score) score = player.getScore();
         if (ConfigManager.Sync_Health) health = player.getHealth();
-        if (ConfigManager.Sync_Food_Level) foodLevel = player.getHungerManager().getFoodLevel();
-        if (ConfigManager.Sync_Saturation) saturation = player.getHungerManager().getSaturationLevel();
+        if (ConfigManager.Sync_Food_Level)
+            foodLevel = player.getHungerManager().getFoodLevel();
+            saturation = player.getHungerManager().getSaturationLevel();
     }
 
     public static void convertEnderChest(PlayerEntity player, UUID uuid) {
