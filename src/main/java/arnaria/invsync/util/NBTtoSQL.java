@@ -2,7 +2,6 @@ package arnaria.invsync.util;
 
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import sun.security.x509.CertificatePolicyMap;
 
 import java.util.UUID;
 

@@ -22,6 +22,8 @@ dependencies {
     // PSA: Some older mods, compiled on Loom 0.2.1, might have outdated Maven POMs.
     // You may need to force-disable transitiveness on them.
 
+    //Json Support
+    compile 'com.googlecode.json-simple:json-simple:1.1.1'
 }
 
 processResources {

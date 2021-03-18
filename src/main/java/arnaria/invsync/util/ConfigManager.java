@@ -1,10 +1,8 @@
 package arnaria.invsync.util;
 
-import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import net.fabricmc.loader.api.FabricLoader;
 import org.apache.logging.log4j.Level;
-import org.lwjgl.system.CallbackI;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -17,13 +15,13 @@ public class ConfigManager {
 
     public static File configFile;
 
-    public static String mySQL_User;
-    public static String mySQL_Password;
-    public static String mySQL_Server_Address;
-    public static String mySQL_Server_Port;
-    public static String mySQL_Database_Name;
-    public static String mySQL_Database_Table_Name;
-    
+    public static String SQL_User;
+    public static String SQL_Password;
+    public static String SQL_Server_Address;
+    public static String SQL_Server_Port;
+    public static String SQL_Database_Name;
+    public static String SQL_Database_Table_Name;
+
     public static boolean Sync_Inv;
     public static boolean Sync_Armour;
     public static boolean Sync_eChest;
@@ -43,12 +41,12 @@ public class ConfigManager {
     public static void createConfig() {
         JsonObject invSyncProperties = new JsonObject();
 
-        invSyncProperties.addProperty("mySQL_User", "admin");
-        invSyncProperties.addProperty("mySQL_Password", "1234");
-        invSyncProperties.addProperty("mySQL_Server_Address", "0.0.0.0");
-        invSyncProperties.addProperty("mySQL_Server_Port", "3301");
-        invSyncProperties.addProperty("mySQL_Database_Name", "database");
-        invSyncProperties.addProperty("mySQL_Database_Table_Name", "playerData"); //This is optional
+        invSyncProperties.addProperty("SQL_User", "admin");
+        invSyncProperties.addProperty("SQL_Password", "1234");
+        invSyncProperties.addProperty("SQL_Server_Address", "0.0.0.0");
+        invSyncProperties.addProperty("SQL_Server_Port", "3301");
+        invSyncProperties.addProperty("SQL_Database_Name", "database");
+        invSyncProperties.addProperty("SQL_Database_Table_Name", "playerData"); //This is optional
 
         invSyncProperties.addProperty("Sync_Inv", true);
         invSyncProperties.addProperty("Sync_Armour", true);
