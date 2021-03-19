@@ -16,7 +16,7 @@ public class SQLHandler {
         try (Connection connection = DriverManager.getConnection(url, username, password)) {
             System.out.println("Database connected!");
         } catch (SQLException e) {
-            throw new IllegalStateException("Cannot connect the database!", e);
+            System.out.println("Cannot connect the database!");
         }
     }
 }
