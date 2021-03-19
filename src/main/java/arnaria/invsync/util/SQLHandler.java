@@ -9,7 +9,7 @@ public class SQLHandler {
     public static void connectToSQL() {
         String url = "jdbc:mysql://192.168.1.87:3306/invsync";
         String username = "root";
-        String password = "cichlid1";
+        String password = "1234";
 
         System.out.println("Connecting database...");
 
