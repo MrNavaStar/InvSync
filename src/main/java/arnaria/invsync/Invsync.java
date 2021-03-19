@@ -21,7 +21,7 @@ public class Invsync implements ModInitializer {
         log(Level.INFO, "Initializing");
 
         ConfigManager.loadConfig();
-        SQLHandler.connectToSQL();
+        SQLHandler.start();
 
         //Copy data from sql to player data when player joins server
         PlayerJoinCallBack.EVENT.register((player, server) -> {
