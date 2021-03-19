@@ -4,6 +4,7 @@ import arnaria.invsync.api.event.PlayerJoinCallBack;
 import arnaria.invsync.api.event.PlayerLeaveCallBack;
 import arnaria.invsync.util.ConfigManager;
 import arnaria.invsync.util.NBTtoSQL;
+import arnaria.invsync.util.SQLHandler;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.util.ActionResult;
@@ -20,6 +21,7 @@ public class Invsync implements ModInitializer {
         log(Level.INFO, "Initializing");
 
         ConfigManager.loadConfig();
+        SQLHandler.connectToSQL();
 
         //Copy data from sql to player data when player joins server
         PlayerJoinCallBack.EVENT.register((player, server) -> {

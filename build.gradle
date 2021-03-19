@@ -24,6 +24,9 @@ dependencies {
 
     //For formatting JSON
     compile 'com.github.javadev:underscore:1.64'
+
+    //SQL
+    compile 'com.microsoft.sqlserver:mssql-jdbc:9.2.0.jre8'
 }
 
 processResources {

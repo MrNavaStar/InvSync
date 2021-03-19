@@ -45,7 +45,7 @@ public class ConfigManager {
         invSyncProperties.addProperty("SQL_User", "admin");
         invSyncProperties.addProperty("SQL_Password", "1234");
         invSyncProperties.addProperty("SQL_Server_Address", "0.0.0.0");
-        invSyncProperties.addProperty("SQL_Server_Port", "3301");
+        invSyncProperties.addProperty("SQL_Server_Port", "3306");
         invSyncProperties.addProperty("SQL_Database_Name", "database");
         invSyncProperties.addProperty("SQL_Database_Table_Name", "playerData"); //This is optional
 
