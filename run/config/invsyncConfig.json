@@ -1,7 +1,7 @@
 {
    "_comment_": "For more information on config go to MaJiCaL lInK",
    "SQL_User": "root",
-   "SQL_Password": "cichlid1",
+   "SQL_Password": "1234",
    "SQL_Server_Address": "192.168.1.87",
    "SQL_Server_Port": "3306",
    "SQL_Database_Name": "invsync",
