@@ -1,6 +1,6 @@
-package arnaria.invsync.api.mixin;
+package com.mrnavastar.invsync.api.mixin;
 
-import arnaria.invsync.api.event.PlayerJoinCallBack;
+import com.mrnavastar.invsync.api.event.PlayerJoinCallBack;
 import net.minecraft.network.ClientConnection;
 import net.minecraft.server.PlayerManager;
 import net.minecraft.server.network.ServerPlayerEntity;

@@ -26,7 +26,8 @@ dependencies {
     compile 'com.github.javadev:underscore:1.64'
 
     //SQL
-    compile 'com.microsoft.sqlserver:mssql-jdbc:9.2.0.jre8'
+    compile group: 'mysql', name: 'mysql-connector-java', version: '8.0.15'
+    runtime "mysql:mysql-connector-java:8.0.15"
 }
 
 processResources {

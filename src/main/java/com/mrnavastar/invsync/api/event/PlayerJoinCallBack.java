@@ -1,4 +1,4 @@
-package arnaria.invsync.api.event;
+package com.mrnavastar.invsync.api.event;
 
 import net.fabricmc.fabric.api.event.Event;
 import net.fabricmc.fabric.api.event.EventFactory;

@@ -1,4 +1,4 @@
-package arnaria.invsync.util;
+package com.mrnavastar.invsync.util;
 
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;

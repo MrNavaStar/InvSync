@@ -10,7 +10,7 @@
   "environment": "server",
   "entrypoints": {
     "main": [
-      "arnaria.invsync.Invsync"
+      "com.mrnavastar.invsync.Invsync"
     ]
   },
   "mixins": [

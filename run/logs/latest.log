@@ -1,39 +1,38 @@
-[00:52:06] [main/INFO] (FabricLoader) Loading for game Minecraft 1.16.5
-[00:52:06] [main/INFO] (Fabric|Loader) [FabricLoader] Loading 43 mods: fabric-renderer-api-v1@0.3.3+a4467d2a3a, fabric-screen-handler-api-v1@1.1.0+872498413a, fabric-networking-blockentity-v0@0.2.5+b50ffc7b3a, minecraft@1.16.5, fabric-keybindings-v0@0.2.0+3fa9f7c53a, fabric-command-api-v1@1.0.9+a4467d2a3a, fabricloader@0.11.3, fabric-tool-attribute-api-v1@1.2.4+2b4623793a, fabric-structure-api-v1@1.1.0+f8ac1db23a, fabric-renderer-indigo@0.4.3+a4467d2a3a, fabric-containers-v0@0.1.8+045df74f3a, fabric-object-builder-api-v1@1.9.2+a89534ab3a, java@8, fabric-events-interaction-v0@0.4.1+f8ac1db23a, fabric-crash-report-info-v1@0.1.2+b7f9825d3a, invsync@1.0, fabric-item-api-v1@1.2.0+f8ac1db23a, fabric-game-rule-api-v1@1.0.3+a4467d2a3a, fabric-api-base@0.2.0+9f0fb4b83a, fabric-rendering-v0@1.1.1+f8ac1db23a, fabric-rendering-v1@1.3.1+f8ac1db23a, fabric-key-binding-api-v1@1.0.1+730711c63a, fabric-rendering-data-attachment-v1@0.1.4+f8ac1db23a, fabric-resource-loader-v0@0.3.1+facf3bbf3a, fabric-textures-v0@1.0.5+a4467d2a3a, fabric-content-registries-v0@0.1.9+059ea8663a, fabric-tag-extensions-v0@1.0.3+ac8e8c593a, fabric-rendering-fluids-v1@0.1.12+f8ac1db23a, fabric-biome-api-v1@3.0.0+8367596d3a, fabric-commands-v0@0.2.0+52d308363a, fabric-registry-sync-v0@0.6.1+a4467d2a3a, fabric-blockrenderlayer-v1@1.1.4+c6a8ea893a, fabric-lifecycle-events-v1@1.2.0+74cc3b203a, fabric-mining-levels-v0@0.1.2+b764ce993a, fabric-renderer-registries-v1@2.2.0+f8ac1db23a, fabric-events-lifecycle-v0@0.2.0+16acbe5b3a, fabric-loot-tables-v1@1.0.1+432ea1883a, fabric@0.25.1+build.416-1.16, fabric-models-v0@0.1.1+f8ac1db23a, fabric-particles-v1@0.2.2+fb0d9b0e3a, fabric-item-groups-v0@0.2.1+a4467d2a3a, fabric-networking-v0@0.1.10+e00ecb5f3a, fabric-object-builders-v0@0.7.1+a4467d2a3a
-[00:52:07] [main/INFO] (mixin) SpongePowered MIXIN Subsystem Version=0.8.2 Source=file:/C:/Users/MrNav/.gradle/caches/modules-2/files-2.1/net.fabricmc/sponge-mixin/0.9.2+mixin.0.8.2/12c437eebf031967eaa7daad861e115932772cc7/sponge-mixin-0.9.2+mixin.0.8.2.jar Service=Knot/Fabric Env=SERVER
-[00:52:07] [main/INFO] (Fabric|MixinBootstrap) Loaded Fabric development mappings for mixin remapper!
-[00:52:07] [main/INFO] (mixin) Remapping refMap fabric-networking-v0-refmap.json using remapper chain
-[00:52:07] [main/INFO] (mixin) Remapping refMap fabric-networking-blockentity-v0-refmap.json using remapper chain
-[00:52:07] [main/INFO] (mixin) Remapping refMap fabric-screen-handler-api-v1-refmap.json using remapper chain
-[00:52:07] [main/INFO] (mixin) Remapping refMap fabric-lifecycle-events-v1-refmap.json using remapper chain
-[00:52:07] [main/INFO] (mixin) Remapping refMap fabric-containers-v0-refmap.json using remapper chain
-[00:52:07] [main/INFO] (mixin) Remapping refMap fabric-rendering-data-attachment-v1-refmap.json using remapper chain
-[00:52:07] [main/INFO] (mixin) Remapping refMap fabric-structure-api-v1-refmap.json using remapper chain
-[00:52:07] [main/INFO] (mixin) Remapping refMap fabric-events-interaction-v0-refmap.json using remapper chain
-[00:52:07] [main/INFO] (mixin) Remapping refMap fabric-item-api-v1-refmap.json using remapper chain
-[00:52:07] [main/INFO] (mixin) Remapping refMap fabric-loot-tables-v1-refmap.json using remapper chain
-[00:52:07] [main/INFO] (mixin) Remapping refMap fabric-object-builder-api-v1-refmap.json using remapper chain
-[00:52:07] [main/INFO] (mixin) Remapping refMap fabric-registry-sync-v0-refmap.json using remapper chain
-[00:52:07] [main/INFO] (mixin) Remapping refMap fabric-containers-v0-refmap.json using remapper chain
-[00:52:07] [main/INFO] (mixin) Remapping refMap fabric-biome-api-v1-refmap.json using remapper chain
-[00:52:07] [main/INFO] (mixin) Remapping refMap fabric-resource-loader-v0-refmap.json using remapper chain
-[00:52:07] [main/INFO] (mixin) Remapping refMap fabric-game-rule-api-v1-refmap.json using remapper chain
-[00:52:07] [main/INFO] (mixin) Remapping refMap fabric-particles-v1-refmap.json using remapper chain
-[00:52:07] [main/INFO] (mixin) Remapping refMap fabric-object-builders-refmap.json using remapper chain
-[00:52:07] [main/INFO] (mixin) Remapping refMap fabric-tag-extensions-v0-refmap.json using remapper chain
-[00:52:07] [main/INFO] (mixin) Remapping refMap fabric-tool-attribute-api-v1-refmap.json using remapper chain
-[00:52:07] [main/INFO] (mixin) Remapping refMap fabric-item-groups-v0-refmap.json using remapper chain
-[00:52:07] [main/INFO] (mixin) Remapping refMap fabric-content-registries-v0-refmap.json using remapper chain
-[00:52:07] [main/INFO] (mixin) Remapping refMap fabric-command-api-v1-refmap.json using remapper chain
-[00:52:07] [main/INFO] (mixin) Remapping refMap fabric-crash-report-info-v1-refmap.json using remapper chain
-[00:52:07] [main/WARN] (mixin) @Mixin target net/minecraft/server/world/ThreadedAnvilChunkStorage$EntityTracker is public in fabric-networking-v0.mixins.json:MixinEntityTracker and should be specified in value
-[00:52:07] [main/WARN] (mixin) @Mixin target net/minecraft/village/TradeOffers$TypeAwareBuyForOneEmeraldFactory is public in fabric-object-builder-v1.mixins.json:TypeAwareTradeMixin and should be specified in value
-[00:52:07] [main/WARN] (mixin) @Mixin target net/minecraft/server/command/GameRuleCommand$1 is public in fabric-game-rule-api-v1.mixins.json:GameRuleCommandVisitorMixin and should be specified in value
-[00:52:07] [main/WARN] (mixin) @Mixin target net/minecraft/tag/Tag$1 is public in fabric-tag-extensions-v0.mixins.json:MixinTagImpl and should be specified in value
-[00:52:07] [main/WARN] (mixin) @Mixin target net/minecraft/tag/RequiredTagList$TagWrapper is public in fabric-tag-extensions-v0.mixins.json:MixinTagImpl and should be specified in value
-[00:52:11] [main/INFO] (Invsync) [invsync] Initializing
-[00:52:11] [main/INFO] (Minecraft) [STDOUT]: Connecting database...
-[00:52:12] [main/FATAL] (Minecraft) Failed to start the minecraft server
+[01:24:48] [main/INFO] (FabricLoader) Loading for game Minecraft 1.16.5
+[01:24:49] [main/INFO] (Fabric|Loader) [FabricLoader] Loading 43 mods: fabric-renderer-api-v1@0.3.3+a4467d2a3a, fabric-screen-handler-api-v1@1.1.0+872498413a, fabric-networking-blockentity-v0@0.2.5+b50ffc7b3a, minecraft@1.16.5, fabric-keybindings-v0@0.2.0+3fa9f7c53a, fabric-command-api-v1@1.0.9+a4467d2a3a, fabricloader@0.11.3, fabric-tool-attribute-api-v1@1.2.4+2b4623793a, fabric-structure-api-v1@1.1.0+f8ac1db23a, fabric-renderer-indigo@0.4.3+a4467d2a3a, fabric-containers-v0@0.1.8+045df74f3a, fabric-object-builder-api-v1@1.9.2+a89534ab3a, java@8, fabric-events-interaction-v0@0.4.1+f8ac1db23a, fabric-crash-report-info-v1@0.1.2+b7f9825d3a, invsync@1.0, fabric-item-api-v1@1.2.0+f8ac1db23a, fabric-game-rule-api-v1@1.0.3+a4467d2a3a, fabric-api-base@0.2.0+9f0fb4b83a, fabric-rendering-v0@1.1.1+f8ac1db23a, fabric-rendering-v1@1.3.1+f8ac1db23a, fabric-key-binding-api-v1@1.0.1+730711c63a, fabric-rendering-data-attachment-v1@0.1.4+f8ac1db23a, fabric-resource-loader-v0@0.3.1+facf3bbf3a, fabric-textures-v0@1.0.5+a4467d2a3a, fabric-content-registries-v0@0.1.9+059ea8663a, fabric-tag-extensions-v0@1.0.3+ac8e8c593a, fabric-rendering-fluids-v1@0.1.12+f8ac1db23a, fabric-biome-api-v1@3.0.0+8367596d3a, fabric-commands-v0@0.2.0+52d308363a, fabric-registry-sync-v0@0.6.1+a4467d2a3a, fabric-blockrenderlayer-v1@1.1.4+c6a8ea893a, fabric-lifecycle-events-v1@1.2.0+74cc3b203a, fabric-mining-levels-v0@0.1.2+b764ce993a, fabric-renderer-registries-v1@2.2.0+f8ac1db23a, fabric-events-lifecycle-v0@0.2.0+16acbe5b3a, fabric-loot-tables-v1@1.0.1+432ea1883a, fabric@0.25.1+build.416-1.16, fabric-models-v0@0.1.1+f8ac1db23a, fabric-particles-v1@0.2.2+fb0d9b0e3a, fabric-item-groups-v0@0.2.1+a4467d2a3a, fabric-networking-v0@0.1.10+e00ecb5f3a, fabric-object-builders-v0@0.7.1+a4467d2a3a
+[01:24:49] [main/INFO] (mixin) SpongePowered MIXIN Subsystem Version=0.8.2 Source=file:/C:/Users/MrNav/.gradle/caches/modules-2/files-2.1/net.fabricmc/sponge-mixin/0.9.2+mixin.0.8.2/12c437eebf031967eaa7daad861e115932772cc7/sponge-mixin-0.9.2+mixin.0.8.2.jar Service=Knot/Fabric Env=SERVER
+[01:24:49] [main/INFO] (Fabric|MixinBootstrap) Loaded Fabric development mappings for mixin remapper!
+[01:24:49] [main/INFO] (mixin) Remapping refMap fabric-networking-v0-refmap.json using remapper chain
+[01:24:49] [main/INFO] (mixin) Remapping refMap fabric-networking-blockentity-v0-refmap.json using remapper chain
+[01:24:49] [main/INFO] (mixin) Remapping refMap fabric-screen-handler-api-v1-refmap.json using remapper chain
+[01:24:49] [main/INFO] (mixin) Remapping refMap fabric-lifecycle-events-v1-refmap.json using remapper chain
+[01:24:49] [main/INFO] (mixin) Remapping refMap fabric-containers-v0-refmap.json using remapper chain
+[01:24:49] [main/INFO] (mixin) Remapping refMap fabric-rendering-data-attachment-v1-refmap.json using remapper chain
+[01:24:49] [main/INFO] (mixin) Remapping refMap fabric-structure-api-v1-refmap.json using remapper chain
+[01:24:49] [main/INFO] (mixin) Remapping refMap fabric-events-interaction-v0-refmap.json using remapper chain
+[01:24:49] [main/INFO] (mixin) Remapping refMap fabric-item-api-v1-refmap.json using remapper chain
+[01:24:49] [main/INFO] (mixin) Remapping refMap fabric-loot-tables-v1-refmap.json using remapper chain
+[01:24:49] [main/INFO] (mixin) Remapping refMap fabric-object-builder-api-v1-refmap.json using remapper chain
+[01:24:49] [main/INFO] (mixin) Remapping refMap fabric-registry-sync-v0-refmap.json using remapper chain
+[01:24:49] [main/INFO] (mixin) Remapping refMap fabric-containers-v0-refmap.json using remapper chain
+[01:24:49] [main/INFO] (mixin) Remapping refMap fabric-biome-api-v1-refmap.json using remapper chain
+[01:24:49] [main/INFO] (mixin) Remapping refMap fabric-resource-loader-v0-refmap.json using remapper chain
+[01:24:49] [main/INFO] (mixin) Remapping refMap fabric-game-rule-api-v1-refmap.json using remapper chain
+[01:24:49] [main/INFO] (mixin) Remapping refMap fabric-particles-v1-refmap.json using remapper chain
+[01:24:49] [main/INFO] (mixin) Remapping refMap fabric-object-builders-refmap.json using remapper chain
+[01:24:49] [main/INFO] (mixin) Remapping refMap fabric-tag-extensions-v0-refmap.json using remapper chain
+[01:24:49] [main/INFO] (mixin) Remapping refMap fabric-tool-attribute-api-v1-refmap.json using remapper chain
+[01:24:49] [main/INFO] (mixin) Remapping refMap fabric-item-groups-v0-refmap.json using remapper chain
+[01:24:49] [main/INFO] (mixin) Remapping refMap fabric-content-registries-v0-refmap.json using remapper chain
+[01:24:49] [main/INFO] (mixin) Remapping refMap fabric-command-api-v1-refmap.json using remapper chain
+[01:24:49] [main/INFO] (mixin) Remapping refMap fabric-crash-report-info-v1-refmap.json using remapper chain
+[01:24:49] [main/WARN] (mixin) @Mixin target net/minecraft/server/world/ThreadedAnvilChunkStorage$EntityTracker is public in fabric-networking-v0.mixins.json:MixinEntityTracker and should be specified in value
+[01:24:49] [main/WARN] (mixin) @Mixin target net/minecraft/village/TradeOffers$TypeAwareBuyForOneEmeraldFactory is public in fabric-object-builder-v1.mixins.json:TypeAwareTradeMixin and should be specified in value
+[01:24:49] [main/WARN] (mixin) @Mixin target net/minecraft/server/command/GameRuleCommand$1 is public in fabric-game-rule-api-v1.mixins.json:GameRuleCommandVisitorMixin and should be specified in value
+[01:24:49] [main/WARN] (mixin) @Mixin target net/minecraft/tag/Tag$1 is public in fabric-tag-extensions-v0.mixins.json:MixinTagImpl and should be specified in value
+[01:24:49] [main/WARN] (mixin) @Mixin target net/minecraft/tag/RequiredTagList$TagWrapper is public in fabric-tag-extensions-v0.mixins.json:MixinTagImpl and should be specified in value
+[01:24:54] [main/INFO] (Invsync) [invsync] Initializing
+[01:24:54] [main/FATAL] (Minecraft) Failed to start the minecraft server
 java.lang.RuntimeException: Could not execute entrypoint stage 'main' due to errors, provided by 'invsync'!
 	at net.fabricmc.loader.entrypoint.minecraft.hooks.EntrypointUtils.invoke0(EntrypointUtils.java:53) ~[fabric-loader-0.11.3.jar:?]
 	at net.fabricmc.loader.entrypoint.minecraft.hooks.EntrypointUtils.invoke(EntrypointUtils.java:36) ~[fabric-loader-0.11.3.jar:?]
@@ -47,15 +46,9 @@ java.lang.RuntimeException: Could not execute entrypoint stage 'main' due to err
 	at net.fabricmc.loader.launch.knot.Knot.launch(Knot.java:146) [fabric-loader-0.11.3.jar:?]
 	at net.fabricmc.loader.launch.knot.KnotServer.main(KnotServer.java:28) [fabric-loader-0.11.3.jar:?]
 	at net.fabricmc.devlaunchinjector.Main.main(Main.java:86) [dev-launch-injector-0.2.1+build.8.jar:?]
-Caused by: java.lang.IllegalStateException: Cannot connect the database!
-	at arnaria.invsync.util.SQLHandler.connectToSQL(SQLHandler.java:19) ~[main/:?]
-	at arnaria.invsync.Invsync.onInitialize(Invsync.java:24) ~[main/:?]
-	at net.fabricmc.loader.entrypoint.minecraft.hooks.EntrypointUtils.invoke0(EntrypointUtils.java:50) ~[fabric-loader-0.11.3.jar:?]
-	... 11 more
-Caused by: java.sql.SQLException: No suitable driver found for jdbc:mysql://192.168.1.87:3306/invsync
-	at java.sql.DriverManager.getConnection(DriverManager.java:689) ~[?:1.8.0_271]
-	at java.sql.DriverManager.getConnection(DriverManager.java:247) ~[?:1.8.0_271]
-	at arnaria.invsync.util.SQLHandler.connectToSQL(SQLHandler.java:16) ~[main/:?]
-	at arnaria.invsync.Invsync.onInitialize(Invsync.java:24) ~[main/:?]
+Caused by: java.lang.ClassCastException: com.google.gson.JsonArray cannot be cast to com.github.cliftonlabs.json_simple.JsonObject
+	at com.mrnavastar.invsync.util.ConfigManager.jsonReader(ConfigManager.java:82) ~[main/:?]
+	at com.mrnavastar.invsync.util.ConfigManager.loadConfig(ConfigManager.java:95) ~[main/:?]
+	at com.mrnavastar.invsync.Invsync.onInitialize(Invsync.java:24) ~[main/:?]
 	at net.fabricmc.loader.entrypoint.minecraft.hooks.EntrypointUtils.invoke0(EntrypointUtils.java:50) ~[fabric-loader-0.11.3.jar:?]
 	... 11 more
