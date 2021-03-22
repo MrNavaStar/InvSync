@@ -1,11 +1,12 @@
-package arnaria.invsync;
+package com.mrnavastar.invsync;
 
-import arnaria.invsync.api.event.PlayerJoinCallBack;
-import arnaria.invsync.api.event.PlayerLeaveCallBack;
-import arnaria.invsync.util.ConfigManager;
-import arnaria.invsync.util.NBTtoSQL;
-import arnaria.invsync.util.SQLHandler;
+import com.mrnavastar.invsync.api.event.PlayerJoinCallBack;
+import com.mrnavastar.invsync.util.SQLHandler;
+import com.mrnavastar.invsync.api.event.PlayerLeaveCallBack;
+import com.mrnavastar.invsync.util.ConfigManager;
+import com.mrnavastar.invsync.util.NBTtoSQL;
 import net.fabricmc.api.ModInitializer;
+import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.util.ActionResult;
 import org.apache.logging.log4j.Level;
@@ -21,23 +22,30 @@ public class Invsync implements ModInitializer {
         log(Level.INFO, "Initializing");
 
         ConfigManager.loadConfig();
-        SQLHandler.start();
+        //SQLHandler.start();
 
-        //Copy data from sql to player data when player joins server
-        PlayerJoinCallBack.EVENT.register((player, server) -> {
-            log(Level.INFO, "Getting Player Data From SQL Server");
-            return ActionResult.PASS;
-        });
 
-        //Copy Data from player data to sql when player leaves server
-        PlayerLeaveCallBack.EVENT.register((player, server) -> {
-            log(Level.INFO, "Saving Player Data to SQL Server");
-            NBTtoSQL.convert(player);
-            return ActionResult.PASS;
-        });
+        if (SQLHandler.connection != null) {
 
-        if (FabricLoader.getInstance().isModLoaded(MODID))
-            log(Level.INFO, "Done");
+            //Copy data from sql to player data when player joins server
+            PlayerJoinCallBack.EVENT.register((player, server) -> {
+                log(Level.INFO, "Getting Player Data From SQL Server");
+                return ActionResult.PASS;
+            });
+
+            //Copy Data from player data to sql when player leaves server
+            PlayerLeaveCallBack.EVENT.register((player, server) -> {
+                log(Level.INFO, "Saving Player Data to SQL Server");
+                NBTtoSQL.convert(player);
+                return ActionResult.PASS;
+            });
+
+            //Close connection to SQL database when server stops
+            ServerLifecycleEvents.SERVER_STOPPING.register((server) -> SQLHandler.disconnectFromSQL());
+
+            if (FabricLoader.getInstance().isModLoaded(MODID))
+                log(Level.INFO, "Done");
+        }
     }
 
     //Stuff for console logging
