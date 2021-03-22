@@ -1,0 +1,15 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "com.mrnavastar.invsync.api.mixin",
+  "compatibilityLevel": "JAVA_8",
+  "mixins": [
+    "playerJoinMixin",
+    "playerLeaveMixin"
+  ],
+  "client": [
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}
