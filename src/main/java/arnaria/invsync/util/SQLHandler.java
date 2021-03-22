@@ -1,44 +1,64 @@
-package arnaria.invsync.util;
+package com.mrnavastar.invsync.util;
+
+import org.apache.logging.log4j.Level;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.Properties;
+
+import static com.mrnavastar.invsync.Invsync.log;
 
 public class SQLHandler {
 
-    private static String url, username, password, table;
+    private static String address, port, username, password, databaseName, table;
+    public static Connection connection;
+
+    public static void getConfigData() {
+        databaseName = ConfigManager.SQL_Database_Name;
+        table = ConfigManager.SQL_Database_Table_Name;
+        username = ConfigManager.SQL_User;
+        password = ConfigManager.SQL_Password;
+        address = ConfigManager.SQL_Server_Address;
+        port = ConfigManager.SQL_Server_Port;
+    }
 
     public static void connectToSQL() {
-        System.out.println("Connecting database...");
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
 
-        try (Connection connection = DriverManager.getConnection(url, username, password)) {
-            System.out.println("Database connected!");
+            Properties SQLproperties = new Properties();
+            SQLproperties.setProperty("user", username);
+            SQLproperties.setProperty("password", password);
+            SQLproperties.setProperty("autoReconnect", "true");
+            SQLproperties.setProperty("verifyServerCertificate", "false");
+            SQLproperties.setProperty("useSSL", "true");
+            SQLproperties.setProperty("requireSSL", "true");
+
+            connection = DriverManager.getConnection("jdbc:mysql://" + address + ":" + port + "/" + databaseName, SQLproperties);
+            log(Level.INFO, "Successfully connected to database!");
+
+        } catch (ClassNotFoundException e) {
+            log(Level.ERROR, "Failed to load SQL drivers!");
         } catch (SQLException e) {
-            System.out.println("Cannot connect the database!");
+            log(Level.ERROR, "Failed to connect to SQL database!");
         }
     }
 
-    public static void getConfigData() {
-        String databaseName = ConfigManager.SQL_Database_Name;
-        table = ConfigManager.SQL_Database_Table_Name;
-        String address = ConfigManager.SQL_Server_Address;
-        String port = ConfigManager.SQL_Server_Port;
-        username = ConfigManager.SQL_User;
-        password = ConfigManager.SQL_Password;
-
-        url = "jdbc:mysql://" + address + ":" + port + "/" + databaseName;
+    public static void disconnectFromSQL() {
+        try {
+            log(Level.INFO, "Disconnecting from SQL database");
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
-    public static void start() {
-        getConfigData();
-        connectToSQL();
+    public static void createTable(String table) {
+
     }
 
-    public static void createTable() {
-        
-    }
-
-    public static void createRow() {
+    public static void createRow(String rowID) {
 
     }
 
@@ -48,5 +68,10 @@ public class SQLHandler {
 
     public static void writeTableRow(String row) {
 
+    }
+
+    public static void start() {
+        getConfigData();
+        connectToSQL();
     }
 }
