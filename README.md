@@ -2,6 +2,6 @@
 
 A fabric mod for syncing player inventories and stats between as many servers as you want!
 
-## Usage
+## Cool Stuff
 
-This mod requires a mySQL database to read and write player data from.
+This mod uses a sqlite database to manage player data, and even creates it for you!
