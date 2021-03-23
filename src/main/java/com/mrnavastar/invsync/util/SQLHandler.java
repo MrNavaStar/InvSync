@@ -9,7 +9,14 @@ import static com.mrnavastar.invsync.Invsync.log;
 
 public class SQLHandler {
 
+    public static String databaseName, tableName, databaseDirectory;
     public static Connection connection;
+
+    public static void getConfigData() {
+        databaseName = ConfigManager.SQL_Database_Name;
+        tableName = ConfigManager.SQL_Database_Table_Name;
+        databaseDirectory = ConfigManager.SQL_Database_Directory;
+    }
 
     public static void connect() {
         try {
@@ -17,12 +24,13 @@ public class SQLHandler {
             String url = "jdbc:sqlite:C:/sqlite/JTP.db";
 
             connection = DriverManager.getConnection(url);
-            log(Level.INFO,"Successfully connected to SQLite database!");
+            log(Level.INFO,"Successfully connected to database!");
 
         } catch (SQLException | ClassNotFoundException e) {
-            log(Level.ERROR, "Failed to connect to SQLite database!");
+            log(Level.ERROR, "Failed to connect to database!");
         }
     }
+
     public static void disconnect() {
         try {
             connection.close();
@@ -32,6 +40,7 @@ public class SQLHandler {
     }
 
     public static void start() {
+        getConfigData();
         connect();
     }
 }

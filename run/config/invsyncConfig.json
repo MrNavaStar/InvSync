@@ -1,29 +1,18 @@
 [
    {
-      "_comment_": "Settings for your mySQL server. This will be the same for all your servers.",
-      "SQL_User": "admin",
-      "SQL_Password": "1234",
-      "SQL_Server_Address": "0.0.0.0",
-      "SQL_Server_Port": "3306",
-      "SQL_Database_Name": "database",
-      "SQL_Database_Table_Name": "playerData",
-      "SQL_Auto_Reconnect": true
+      "_comment_": "Settings for your mySQL server. THESE MUST BE THE SAME BETWEEN SERVERS.",
+      "Database_Name": "database.db",
+      "Database_Table_Name": "playerData",
+      "Database_Directory": "/var/lib/databases"
    },
    {
-      "_comment_": "You probably shouldn't touch these unless you know what your doing.",
-      "SQL_Verify_Server_Certificate": false,
-      "SQL_Use_SSL": true,
-      "SQL_Require_SSL": true
-   },
-   {
-      "_comment_": "Settings for what to sync between servers. THIS MUST BE THE SAME BETWEEN SERVERS.",
+      "_comment_": "Settings for what to sync between servers. THESE MUST BE THE SAME BETWEEN SERVERS.",
       "Sync_Inv": true,
       "Sync_Armour": true,
       "Sync_eChest": true,
       "Sync_Xp": true,
       "Sync_Score": true,
       "Sync_Health": true,
-      "Sync_Food_Level": true,
-      "Sync_Saturation": true
+      "Sync_Food_Level": true
    }
 ]

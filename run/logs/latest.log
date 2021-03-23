@@ -1,70 +1,54 @@
-[00:02:30] [main/INFO] (Fabric|Loader) [FabricLoader] Loading 43 mods: fabric-renderer-api-v1@0.3.3+a4467d2a3a, fabric-screen-handler-api-v1@1.1.0+872498413a, fabric-networking-blockentity-v0@0.2.5+b50ffc7b3a, minecraft@1.16.5, fabric-keybindings-v0@0.2.0+3fa9f7c53a, fabric-command-api-v1@1.0.9+a4467d2a3a, fabricloader@0.11.3, fabric-tool-attribute-api-v1@1.2.4+2b4623793a, fabric-structure-api-v1@1.1.0+f8ac1db23a, fabric-renderer-indigo@0.4.3+a4467d2a3a, fabric-containers-v0@0.1.8+045df74f3a, fabric-object-builder-api-v1@1.9.2+a89534ab3a, java@8, fabric-events-interaction-v0@0.4.1+f8ac1db23a, fabric-crash-report-info-v1@0.1.2+b7f9825d3a, invsync@1.0, fabric-item-api-v1@1.2.0+f8ac1db23a, fabric-game-rule-api-v1@1.0.3+a4467d2a3a, fabric-api-base@0.2.0+9f0fb4b83a, fabric-rendering-v0@1.1.1+f8ac1db23a, fabric-rendering-v1@1.3.1+f8ac1db23a, fabric-key-binding-api-v1@1.0.1+730711c63a, fabric-rendering-data-attachment-v1@0.1.4+f8ac1db23a, fabric-resource-loader-v0@0.3.1+facf3bbf3a, fabric-textures-v0@1.0.5+a4467d2a3a, fabric-content-registries-v0@0.1.9+059ea8663a, fabric-tag-extensions-v0@1.0.3+ac8e8c593a, fabric-rendering-fluids-v1@0.1.12+f8ac1db23a, fabric-biome-api-v1@3.0.0+8367596d3a, fabric-commands-v0@0.2.0+52d308363a, fabric-registry-sync-v0@0.6.1+a4467d2a3a, fabric-blockrenderlayer-v1@1.1.4+c6a8ea893a, fabric-lifecycle-events-v1@1.2.0+74cc3b203a, fabric-mining-levels-v0@0.1.2+b764ce993a, fabric-renderer-registries-v1@2.2.0+f8ac1db23a, fabric-events-lifecycle-v0@0.2.0+16acbe5b3a, fabric-loot-tables-v1@1.0.1+432ea1883a, fabric@0.25.1+build.416-1.16, fabric-models-v0@0.1.1+f8ac1db23a, fabric-particles-v1@0.2.2+fb0d9b0e3a, fabric-item-groups-v0@0.2.1+a4467d2a3a, fabric-networking-v0@0.1.10+e00ecb5f3a, fabric-object-builders-v0@0.7.1+a4467d2a3a
-[00:02:30] [main/INFO] (mixin) SpongePowered MIXIN Subsystem Version=0.8.2 Source=file:/C:/Users/MrNav/.gradle/caches/modules-2/files-2.1/net.fabricmc/sponge-mixin/0.9.2+mixin.0.8.2/12c437eebf031967eaa7daad861e115932772cc7/sponge-mixin-0.9.2+mixin.0.8.2.jar Service=Knot/Fabric Env=SERVER
-[00:02:30] [main/INFO] (Fabric|MixinBootstrap) Loaded Fabric development mappings for mixin remapper!
-[00:02:31] [main/INFO] (mixin) Remapping refMap fabric-networking-v0-refmap.json using remapper chain
-[00:02:31] [main/INFO] (mixin) Remapping refMap fabric-networking-blockentity-v0-refmap.json using remapper chain
-[00:02:31] [main/INFO] (mixin) Remapping refMap fabric-screen-handler-api-v1-refmap.json using remapper chain
-[00:02:31] [main/INFO] (mixin) Remapping refMap fabric-lifecycle-events-v1-refmap.json using remapper chain
-[00:02:31] [main/INFO] (mixin) Remapping refMap fabric-containers-v0-refmap.json using remapper chain
-[00:02:31] [main/INFO] (mixin) Remapping refMap fabric-rendering-data-attachment-v1-refmap.json using remapper chain
-[00:02:31] [main/INFO] (mixin) Remapping refMap fabric-structure-api-v1-refmap.json using remapper chain
-[00:02:31] [main/INFO] (mixin) Remapping refMap fabric-events-interaction-v0-refmap.json using remapper chain
-[00:02:31] [main/INFO] (mixin) Remapping refMap fabric-item-api-v1-refmap.json using remapper chain
-[00:02:31] [main/INFO] (mixin) Remapping refMap fabric-loot-tables-v1-refmap.json using remapper chain
-[00:02:31] [main/INFO] (mixin) Remapping refMap fabric-object-builder-api-v1-refmap.json using remapper chain
-[00:02:31] [main/INFO] (mixin) Remapping refMap fabric-registry-sync-v0-refmap.json using remapper chain
-[00:02:31] [main/INFO] (mixin) Remapping refMap fabric-containers-v0-refmap.json using remapper chain
-[00:02:31] [main/INFO] (mixin) Remapping refMap fabric-biome-api-v1-refmap.json using remapper chain
-[00:02:31] [main/INFO] (mixin) Remapping refMap fabric-resource-loader-v0-refmap.json using remapper chain
-[00:02:31] [main/INFO] (mixin) Remapping refMap fabric-game-rule-api-v1-refmap.json using remapper chain
-[00:02:31] [main/INFO] (mixin) Remapping refMap fabric-particles-v1-refmap.json using remapper chain
-[00:02:31] [main/INFO] (mixin) Remapping refMap fabric-object-builders-refmap.json using remapper chain
-[00:02:31] [main/INFO] (mixin) Remapping refMap fabric-tag-extensions-v0-refmap.json using remapper chain
-[00:02:31] [main/INFO] (mixin) Remapping refMap fabric-tool-attribute-api-v1-refmap.json using remapper chain
-[00:02:31] [main/INFO] (mixin) Remapping refMap fabric-item-groups-v0-refmap.json using remapper chain
-[00:02:31] [main/INFO] (mixin) Remapping refMap fabric-content-registries-v0-refmap.json using remapper chain
-[00:02:31] [main/INFO] (mixin) Remapping refMap fabric-command-api-v1-refmap.json using remapper chain
-[00:02:31] [main/INFO] (mixin) Remapping refMap fabric-crash-report-info-v1-refmap.json using remapper chain
-[00:02:31] [main/WARN] (mixin) @Mixin target net/minecraft/server/world/ThreadedAnvilChunkStorage$EntityTracker is public in fabric-networking-v0.mixins.json:MixinEntityTracker and should be specified in value
-[00:02:31] [main/WARN] (mixin) @Mixin target net/minecraft/village/TradeOffers$TypeAwareBuyForOneEmeraldFactory is public in fabric-object-builder-v1.mixins.json:TypeAwareTradeMixin and should be specified in value
-[00:02:31] [main/WARN] (mixin) @Mixin target net/minecraft/server/command/GameRuleCommand$1 is public in fabric-game-rule-api-v1.mixins.json:GameRuleCommandVisitorMixin and should be specified in value
-[00:02:31] [main/WARN] (mixin) @Mixin target net/minecraft/tag/Tag$1 is public in fabric-tag-extensions-v0.mixins.json:MixinTagImpl and should be specified in value
-[00:02:31] [main/WARN] (mixin) @Mixin target net/minecraft/tag/RequiredTagList$TagWrapper is public in fabric-tag-extensions-v0.mixins.json:MixinTagImpl and should be specified in value
-[00:02:35] [main/INFO] (Invsync) [invsync] Initializing
-[00:02:35] [main/INFO] (Invsync) [invsync] Successfully connected to SQLite database!
-[00:02:35] [main/INFO] (Invsync) [invsync] Done
-[00:02:36] [main/INFO] (Minecraft) Environment: authHost='https://authserver.mojang.com', accountsHost='https://api.mojang.com', sessionHost='https://sessionserver.mojang.com', servicesHost='https://api.minecraftservices.com', name='PROD'
-[00:02:37] [main/WARN] (Minecraft) Ambiguity between arguments [teleport, destination] and [teleport, targets] with inputs: [Player, 0123, @e, dd12be42-52a9-4a91-a8a1-11c01849e498]
-[00:02:37] [main/WARN] (Minecraft) Ambiguity between arguments [teleport, location] and [teleport, destination] with inputs: [0.1 -0.5 .9, 0 0 0]
-[00:02:37] [main/WARN] (Minecraft) Ambiguity between arguments [teleport, location] and [teleport, targets] with inputs: [0.1 -0.5 .9, 0 0 0]
-[00:02:37] [main/WARN] (Minecraft) Ambiguity between arguments [teleport, targets] and [teleport, destination] with inputs: [Player, 0123, dd12be42-52a9-4a91-a8a1-11c01849e498]
-[00:02:37] [main/WARN] (Minecraft) Ambiguity between arguments [teleport, targets, location] and [teleport, targets, destination] with inputs: [0.1 -0.5 .9, 0 0 0]
-[00:02:37] [main/INFO] (Minecraft) Reloading ResourceManager: Default, Fabric Tool Attribute API (v1)
-[00:02:39] [Worker-Main-4/INFO] (Minecraft) Loaded 7 recipes
-[00:02:39] [Worker-Main-4/INFO] (Minecraft) Loaded 927 advancements
-[00:02:40] [main/INFO] (BiomeModificationImpl) Applied 0 biome modifications to 0 of 79 new biomes in 2.286 ms
-[00:02:40] [Server thread/INFO] (Minecraft) Starting minecraft server version 1.16.5
-[00:02:40] [Server thread/INFO] (Minecraft) Loading properties
-[00:02:40] [Server thread/INFO] (Minecraft) Default game type: SURVIVAL
-[00:02:40] [Server thread/INFO] (Minecraft) Generating keypair
-[00:02:40] [Server thread/INFO] (Minecraft) Starting Minecraft server on *:25565
-[00:02:40] [Server thread/INFO] (Minecraft) Using default channel type
-[00:02:41] [Server thread/INFO] (Minecraft) Preparing level "world"
-[00:02:41] [Server thread/INFO] (Minecraft) Preparing start region for dimension minecraft:overworld
-[00:02:42] [Server thread/INFO] (Minecraft) Preparing spawn area: 0%
-[00:02:42] [Server thread/INFO] (Minecraft) Preparing spawn area: 0%
-[00:02:43] [Server thread/INFO] (Minecraft) Preparing spawn area: 0%
-[00:02:43] [Server thread/INFO] (Minecraft) Preparing spawn area: 48%
-[00:02:46] [Worker-Main-6/INFO] (Minecraft) Preparing spawn area: 83%
-[00:02:46] [Worker-Main-5/INFO] (Minecraft) Preparing spawn area: 83%
-[00:02:46] [Worker-Main-6/INFO] (Minecraft) Preparing spawn area: 83%
-[00:02:46] [Worker-Main-5/INFO] (Minecraft) Preparing spawn area: 83%
-[00:02:46] [Worker-Main-6/INFO] (Minecraft) Preparing spawn area: 83%
-[00:02:46] [Worker-Main-7/INFO] (Minecraft) Preparing spawn area: 83%
-[00:02:46] [Worker-Main-6/INFO] (Minecraft) Preparing spawn area: 87%
-[00:02:47] [Worker-Main-7/INFO] (Minecraft) Preparing spawn area: 87%
-[00:02:47] [Worker-Main-5/INFO] (Minecraft) Preparing spawn area: 87%
-[00:02:48] [Worker-Main-7/INFO] (Minecraft) Preparing spawn area: 88%
-[00:02:48] [Server thread/INFO] (Minecraft) Preparing spawn area: 94%
-[00:02:49] [Server thread/INFO] (Minecraft) Time elapsed: 7346 ms
-[00:02:49] [Server thread/INFO] (Minecraft) Done (7.490s)! For help, type "help"
+[00:18:22] [main/INFO] (FabricLoader) Loading for game Minecraft 1.16.5
+[00:18:23] [main/INFO] (Fabric|Loader) [FabricLoader] Loading 43 mods: fabric-renderer-api-v1@0.3.3+a4467d2a3a, fabric-screen-handler-api-v1@1.1.0+872498413a, fabric-networking-blockentity-v0@0.2.5+b50ffc7b3a, minecraft@1.16.5, fabric-keybindings-v0@0.2.0+3fa9f7c53a, fabric-command-api-v1@1.0.9+a4467d2a3a, fabricloader@0.11.3, fabric-tool-attribute-api-v1@1.2.4+2b4623793a, fabric-structure-api-v1@1.1.0+f8ac1db23a, fabric-renderer-indigo@0.4.3+a4467d2a3a, fabric-containers-v0@0.1.8+045df74f3a, fabric-object-builder-api-v1@1.9.2+a89534ab3a, java@8, fabric-events-interaction-v0@0.4.1+f8ac1db23a, fabric-crash-report-info-v1@0.1.2+b7f9825d3a, invsync@1.0, fabric-item-api-v1@1.2.0+f8ac1db23a, fabric-game-rule-api-v1@1.0.3+a4467d2a3a, fabric-api-base@0.2.0+9f0fb4b83a, fabric-rendering-v0@1.1.1+f8ac1db23a, fabric-rendering-v1@1.3.1+f8ac1db23a, fabric-key-binding-api-v1@1.0.1+730711c63a, fabric-rendering-data-attachment-v1@0.1.4+f8ac1db23a, fabric-resource-loader-v0@0.3.1+facf3bbf3a, fabric-textures-v0@1.0.5+a4467d2a3a, fabric-content-registries-v0@0.1.9+059ea8663a, fabric-tag-extensions-v0@1.0.3+ac8e8c593a, fabric-rendering-fluids-v1@0.1.12+f8ac1db23a, fabric-biome-api-v1@3.0.0+8367596d3a, fabric-commands-v0@0.2.0+52d308363a, fabric-registry-sync-v0@0.6.1+a4467d2a3a, fabric-blockrenderlayer-v1@1.1.4+c6a8ea893a, fabric-lifecycle-events-v1@1.2.0+74cc3b203a, fabric-mining-levels-v0@0.1.2+b764ce993a, fabric-renderer-registries-v1@2.2.0+f8ac1db23a, fabric-events-lifecycle-v0@0.2.0+16acbe5b3a, fabric-loot-tables-v1@1.0.1+432ea1883a, fabric@0.25.1+build.416-1.16, fabric-models-v0@0.1.1+f8ac1db23a, fabric-particles-v1@0.2.2+fb0d9b0e3a, fabric-item-groups-v0@0.2.1+a4467d2a3a, fabric-networking-v0@0.1.10+e00ecb5f3a, fabric-object-builders-v0@0.7.1+a4467d2a3a
+[00:18:23] [main/INFO] (mixin) SpongePowered MIXIN Subsystem Version=0.8.2 Source=file:/C:/Users/MrNav/.gradle/caches/modules-2/files-2.1/net.fabricmc/sponge-mixin/0.9.2+mixin.0.8.2/12c437eebf031967eaa7daad861e115932772cc7/sponge-mixin-0.9.2+mixin.0.8.2.jar Service=Knot/Fabric Env=SERVER
+[00:18:23] [main/INFO] (Fabric|MixinBootstrap) Loaded Fabric development mappings for mixin remapper!
+[00:18:23] [main/INFO] (mixin) Remapping refMap fabric-networking-v0-refmap.json using remapper chain
+[00:18:23] [main/INFO] (mixin) Remapping refMap fabric-networking-blockentity-v0-refmap.json using remapper chain
+[00:18:23] [main/INFO] (mixin) Remapping refMap fabric-screen-handler-api-v1-refmap.json using remapper chain
+[00:18:23] [main/INFO] (mixin) Remapping refMap fabric-lifecycle-events-v1-refmap.json using remapper chain
+[00:18:23] [main/INFO] (mixin) Remapping refMap fabric-containers-v0-refmap.json using remapper chain
+[00:18:23] [main/INFO] (mixin) Remapping refMap fabric-rendering-data-attachment-v1-refmap.json using remapper chain
+[00:18:23] [main/INFO] (mixin) Remapping refMap fabric-structure-api-v1-refmap.json using remapper chain
+[00:18:23] [main/INFO] (mixin) Remapping refMap fabric-events-interaction-v0-refmap.json using remapper chain
+[00:18:23] [main/INFO] (mixin) Remapping refMap fabric-item-api-v1-refmap.json using remapper chain
+[00:18:23] [main/INFO] (mixin) Remapping refMap fabric-loot-tables-v1-refmap.json using remapper chain
+[00:18:23] [main/INFO] (mixin) Remapping refMap fabric-object-builder-api-v1-refmap.json using remapper chain
+[00:18:23] [main/INFO] (mixin) Remapping refMap fabric-registry-sync-v0-refmap.json using remapper chain
+[00:18:23] [main/INFO] (mixin) Remapping refMap fabric-containers-v0-refmap.json using remapper chain
+[00:18:23] [main/INFO] (mixin) Remapping refMap fabric-biome-api-v1-refmap.json using remapper chain
+[00:18:23] [main/INFO] (mixin) Remapping refMap fabric-resource-loader-v0-refmap.json using remapper chain
+[00:18:23] [main/INFO] (mixin) Remapping refMap fabric-game-rule-api-v1-refmap.json using remapper chain
+[00:18:23] [main/INFO] (mixin) Remapping refMap fabric-particles-v1-refmap.json using remapper chain
+[00:18:23] [main/INFO] (mixin) Remapping refMap fabric-object-builders-refmap.json using remapper chain
+[00:18:23] [main/INFO] (mixin) Remapping refMap fabric-tag-extensions-v0-refmap.json using remapper chain
+[00:18:23] [main/INFO] (mixin) Remapping refMap fabric-tool-attribute-api-v1-refmap.json using remapper chain
+[00:18:23] [main/INFO] (mixin) Remapping refMap fabric-item-groups-v0-refmap.json using remapper chain
+[00:18:23] [main/INFO] (mixin) Remapping refMap fabric-content-registries-v0-refmap.json using remapper chain
+[00:18:23] [main/INFO] (mixin) Remapping refMap fabric-command-api-v1-refmap.json using remapper chain
+[00:18:23] [main/INFO] (mixin) Remapping refMap fabric-crash-report-info-v1-refmap.json using remapper chain
+[00:18:23] [main/WARN] (mixin) @Mixin target net/minecraft/server/world/ThreadedAnvilChunkStorage$EntityTracker is public in fabric-networking-v0.mixins.json:MixinEntityTracker and should be specified in value
+[00:18:23] [main/WARN] (mixin) @Mixin target net/minecraft/village/TradeOffers$TypeAwareBuyForOneEmeraldFactory is public in fabric-object-builder-v1.mixins.json:TypeAwareTradeMixin and should be specified in value
+[00:18:23] [main/WARN] (mixin) @Mixin target net/minecraft/server/command/GameRuleCommand$1 is public in fabric-game-rule-api-v1.mixins.json:GameRuleCommandVisitorMixin and should be specified in value
+[00:18:23] [main/WARN] (mixin) @Mixin target net/minecraft/tag/Tag$1 is public in fabric-tag-extensions-v0.mixins.json:MixinTagImpl and should be specified in value
+[00:18:23] [main/WARN] (mixin) @Mixin target net/minecraft/tag/RequiredTagList$TagWrapper is public in fabric-tag-extensions-v0.mixins.json:MixinTagImpl and should be specified in value
+[00:18:27] [main/INFO] (Invsync) [invsync] Initializing
+[00:18:27] [main/INFO] (Invsync) [invsync] Successfully connected to database!
+[00:18:27] [main/INFO] (Invsync) [invsync] Done
+[00:18:28] [main/INFO] (Minecraft) Environment: authHost='https://authserver.mojang.com', accountsHost='https://api.mojang.com', sessionHost='https://sessionserver.mojang.com', servicesHost='https://api.minecraftservices.com', name='PROD'
+[00:18:29] [main/INFO] (Minecraft) Found new data pack fabric/fabric-tool-attribute-api-v1, loading it automatically
+[00:18:29] [main/WARN] (Minecraft) Ambiguity between arguments [teleport, destination] and [teleport, targets] with inputs: [Player, 0123, @e, dd12be42-52a9-4a91-a8a1-11c01849e498]
+[00:18:29] [main/WARN] (Minecraft) Ambiguity between arguments [teleport, location] and [teleport, destination] with inputs: [0.1 -0.5 .9, 0 0 0]
+[00:18:29] [main/WARN] (Minecraft) Ambiguity between arguments [teleport, location] and [teleport, targets] with inputs: [0.1 -0.5 .9, 0 0 0]
+[00:18:29] [main/WARN] (Minecraft) Ambiguity between arguments [teleport, targets] and [teleport, destination] with inputs: [Player, 0123, dd12be42-52a9-4a91-a8a1-11c01849e498]
+[00:18:29] [main/WARN] (Minecraft) Ambiguity between arguments [teleport, targets, location] and [teleport, targets, destination] with inputs: [0.1 -0.5 .9, 0 0 0]
+[00:18:29] [main/INFO] (Minecraft) Reloading ResourceManager: Default, Fabric Tool Attribute API (v1)
+[00:18:31] [Worker-Main-4/INFO] (Minecraft) Loaded 7 recipes
+[00:18:31] [Worker-Main-4/INFO] (Minecraft) Loaded 927 advancements
+[00:18:32] [main/INFO] (BiomeModificationImpl) Applied 0 biome modifications to 0 of 79 new biomes in 2.657 ms
+[00:18:32] [Server thread/INFO] (Minecraft) Starting minecraft server version 1.16.5
+[00:18:32] [Server thread/INFO] (Minecraft) Loading properties
+[00:18:32] [Server thread/INFO] (Minecraft) Default game type: SURVIVAL
+[00:18:32] [Server thread/INFO] (Minecraft) Generating keypair
+[00:18:32] [Server thread/INFO] (Minecraft) Starting Minecraft server on *:25565
+[00:18:32] [Server thread/INFO] (Minecraft) Using default channel type
+[00:18:33] [Server thread/INFO] (Minecraft) Preparing level "world"
