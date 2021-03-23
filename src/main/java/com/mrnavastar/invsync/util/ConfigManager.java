@@ -29,7 +29,7 @@ public class ConfigManager {
     //Generate content for config file
     public static void createConfig() {
         JsonObject SQLConfigProperties = new JsonObject();
-        SQLConfigProperties.addProperty("_comment_", "Settings for your mySQL server. THESE MUST BE THE SAME BETWEEN SERVERS. (Directory must be reachable by all servers)");
+        SQLConfigProperties.addProperty("_comment_", "Settings for your database. THESE MUST BE THE SAME BETWEEN SERVERS. (Directory must be reachable by all servers)");
         SQLConfigProperties.addProperty("Database_Name", "database.db");
         SQLConfigProperties.addProperty("Database_Table_Name", "playerData");
         SQLConfigProperties.addProperty("Database_Directory", "/var/lib/databases");
