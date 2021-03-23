@@ -7,7 +7,6 @@ import com.mrnavastar.invsync.util.ConfigManager;
 import com.mrnavastar.invsync.util.NBTtoSQL;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
-import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.util.ActionResult;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
@@ -41,9 +40,6 @@ public class Invsync implements ModInitializer {
 
             //Close connection to database when server stops
             ServerLifecycleEvents.SERVER_STOPPING.register((server) -> SQLHandler.disconnect());
-
-            if (FabricLoader.getInstance().isModLoaded(MODID))
-                log(Level.INFO, "Done");
         }
     }
 
