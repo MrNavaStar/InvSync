@@ -26,8 +26,7 @@ dependencies {
     compile 'com.github.javadev:underscore:1.64'
 
     //SQL
-    compile group: 'mysql', name: 'mysql-connector-java', version: '8.0.15'
-    runtime "mysql:mysql-connector-java:8.0.15"
+    implementation group: 'org.xerial', name: 'sqlite-jdbc', version: '3.7.2'
 }
 
 processResources {

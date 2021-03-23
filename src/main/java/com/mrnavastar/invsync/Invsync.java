@@ -22,26 +22,25 @@ public class Invsync implements ModInitializer {
         log(Level.INFO, "Initializing");
 
         ConfigManager.loadConfig();
-        //SQLHandler.start();
-
+        SQLHandler.start();
 
         if (SQLHandler.connection != null) {
 
             //Copy data from sql to player data when player joins server
             PlayerJoinCallBack.EVENT.register((player, server) -> {
-                log(Level.INFO, "Getting Player Data From SQL Server");
+                log(Level.INFO, "Getting Player Data From database");
                 return ActionResult.PASS;
             });
 
             //Copy Data from player data to sql when player leaves server
             PlayerLeaveCallBack.EVENT.register((player, server) -> {
-                log(Level.INFO, "Saving Player Data to SQL Server");
+                log(Level.INFO, "Saving Player Data to database");
                 NBTtoSQL.convert(player);
                 return ActionResult.PASS;
             });
 
-            //Close connection to SQL database when server stops
-            ServerLifecycleEvents.SERVER_STOPPING.register((server) -> SQLHandler.disconnectFromSQL());
+            //Close connection to database when server stops
+            ServerLifecycleEvents.SERVER_STOPPING.register((server) -> SQLHandler.disconnect());
 
             if (FabricLoader.getInstance().isModLoaded(MODID))
                 log(Level.INFO, "Done");
