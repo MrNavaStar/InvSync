@@ -28,6 +28,7 @@ public class SQLHandler {
 
         } catch (SQLException | ClassNotFoundException e) {
             log(Level.ERROR, "Failed to connect to database!");
+            e.printStackTrace();
         }
     }
 
