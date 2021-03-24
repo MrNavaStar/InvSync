@@ -20,11 +20,9 @@ public class NBTtoSQL {
     }
 
     public static void convertEnderChest(PlayerEntity player, String uuid) {
-        if (ConfigManager.Sync_eChest) {
-            for (int i = 0; i < 28; i++) {
-                ItemStack item = player.getEnderChestInventory().getStack(i);
-                SQLHandler.saveItem(uuid, "eChest", i, item);
-            }
+        for (int i = 0; i < 28; i++) {
+            ItemStack item = player.getEnderChestInventory().getStack(i);
+            SQLHandler.saveItem(uuid, "eChest", i, item);
         }
     }
 
@@ -32,18 +30,15 @@ public class NBTtoSQL {
         int xp, score, foodLevel;
         float health, saturation;
 
-        if (ConfigManager.Sync_Xp) {
-            xp = player.experienceLevel;
-            SQLHandler.saveInt(uuid, "xp", xp);
-        }
-        if (ConfigManager.Sync_Score) {
-            score = player.getScore();
-            SQLHandler.saveInt(uuid, "score", score);
-        }
-        if (ConfigManager.Sync_Health) {
-            health = player.getHealth();
-            SQLHandler.saveFloat(uuid, "health", health);
-        }
+        xp = player.experienceLevel;
+        SQLHandler.saveInt(uuid, "xp", xp);
+
+        score = player.getScore();
+        SQLHandler.saveInt(uuid, "score", score);
+
+        health = player.getHealth();
+        SQLHandler.saveFloat(uuid, "health", health);
+
         if (ConfigManager.Sync_Food_Level)
             foodLevel = player.getHungerManager().getFoodLevel();
             saturation = player.getHungerManager().getSaturationLevel();
