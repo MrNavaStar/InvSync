@@ -131,21 +131,6 @@ public class SQLHandler {
         return ConversionHelpers.stringToItemStack(resultSet);
     }
 
-    //Read from row at name
-    public static ItemStack readItem(String uuid, String name) {
-        String sql = "SELECT " + name + " FROM " + tableName + " WHERE uuid = '" + uuid + "'";
-        String resultSet = null;
-        try {
-            Statement stmt = connection.prepareStatement(sql);
-            stmt.execute(sql);
-            resultSet = stmt.getResultSet().toString();
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return ConversionHelpers.stringToItemStack(resultSet);
-    }
-
     public static void start() {
         getConfigData();
         connect();
