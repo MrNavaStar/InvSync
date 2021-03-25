@@ -93,14 +93,14 @@ public class SQLHandler {
 
     //Save item to row at name + index
     public static void saveItem(String uuid, String name, int index, ItemStack itemStack) {
-        String sql = "UPDATE " + tableName + " SET " + name + index + " = '" + ConversionHelpers.itemstackToString(itemStack) + "' WHERE uuid = '" + uuid + "'";
+        String sql = "UPDATE " + tableName + " SET " + name + index + " = '" + ConversionHelpers.itemStackToString(itemStack) + "' WHERE uuid = '" + uuid + "'";
         executeStatement(sql);
         System.out.println(sql);
     }
 
     //Save item to row at name
     public static void saveItem(String uuid, String name, ItemStack itemStack) {
-        String sql = "UPDATE " + tableName + " SET " + name + " = '" + ConversionHelpers.itemstackToString(itemStack) + "' WHERE uuid = '" + uuid + "'";
+        String sql = "UPDATE " + tableName + " SET " + name + " = '" + ConversionHelpers.itemStackToString(itemStack) + "' WHERE uuid = '" + uuid + "'";
         executeStatement(sql);
     }
 
