@@ -73,6 +73,7 @@ public class SQLHandler {
         }
 
         columns.append("xp").append(" INTEGER,");
+        columns.append("xpProgress").append(" REAL,");
         columns.append("score").append(" INTEGER,");
         columns.append("health").append(" REAL,");
         columns.append("foodLevel").append(" INTEGER,");
@@ -95,7 +96,6 @@ public class SQLHandler {
     public static void saveItem(String uuid, String name, int index, ItemStack itemStack) {
         String sql = "UPDATE " + tableName + " SET " + name + index + " = '" + ConversionHelpers.itemStackToString(itemStack) + "' WHERE uuid = '" + uuid + "'";
         executeStatement(sql);
-        System.out.println(sql);
     }
 
     //Save item to row at name
@@ -114,6 +114,21 @@ public class SQLHandler {
     public static void saveFloat(String uuid, String name, float amount) {
         String sql = "UPDATE " + tableName + " SET " + name + " = " + amount + " WHERE uuid = '" + uuid + "'";
         executeStatement(sql);
+    }
+
+    //Read from row at name
+    public static ItemStack readItem(String uuid, String name) {
+        String sql = "SELECT " + name + " FROM " + tableName + " WHERE uuid = '" + uuid + "'";
+        String resultSet = null;
+        try {
+            Statement stmt = connection.prepareStatement(sql);
+            stmt.execute(sql);
+            resultSet = stmt.getResultSet().toString();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return ConversionHelpers.stringToItemStack(resultSet);
     }
 
     public static void start() {
