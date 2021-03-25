@@ -1,5 +1,7 @@
-package com.mrnavastar.invsync.util;
+package com.mrnavastar.invsync.conversion;
 
+import com.mrnavastar.invsync.util.SQLHandler;
+import com.mrnavastar.invsync.util.ConfigManager;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 

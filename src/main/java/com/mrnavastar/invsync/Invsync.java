@@ -4,7 +4,7 @@ import com.mrnavastar.invsync.api.event.PlayerJoinCallBack;
 import com.mrnavastar.invsync.util.SQLHandler;
 import com.mrnavastar.invsync.api.event.PlayerLeaveCallBack;
 import com.mrnavastar.invsync.util.ConfigManager;
-import com.mrnavastar.invsync.util.NBTtoSQL;
+import com.mrnavastar.invsync.conversion.*;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
 import net.minecraft.util.ActionResult;
