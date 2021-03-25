@@ -47,7 +47,7 @@ public class SQLHandler {
     //Run sql statement
     private static void executeStatement(String sql) {
         try {
-            Statement stmt = connection.createStatement();
+            Statement stmt = connection.prepareStatement(sql);
             stmt.execute(sql);
 
         } catch (SQLException e) {
@@ -114,6 +114,21 @@ public class SQLHandler {
     public static void saveFloat(String uuid, String name, float amount) {
         String sql = "UPDATE " + tableName + " SET " + name + " = " + amount + " WHERE uuid = '" + uuid + "'";
         executeStatement(sql);
+    }
+    
+    //Read from row at name
+    public static ItemStack readItem(String uuid, String name) {
+        String sql = "SELECT " + name + " FROM " + tableName + " WHERE uuid = '" + uuid + "'";
+        String resultSet = null;
+        try {
+            Statement stmt = connection.prepareStatement(sql);
+            stmt.execute(sql);
+            resultSet = stmt.getResultSet().toString();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return ConversionHelpers.stringToItemStack(resultSet);
     }
 
     //Read from row at name
