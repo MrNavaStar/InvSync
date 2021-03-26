@@ -47,12 +47,26 @@ public class SQLHandler {
     //Run sql statement
     private static void executeStatement(String sql) {
         try {
-            Statement stmt = connection.prepareStatement(sql);
+            Statement stmt = connection.createStatement();
             stmt.execute(sql);
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    //Run sql statement and return a query as a string
+    public static String executeStatementAndReturn(String sql, String name) {
+        String result = null;
+        try {
+            Statement stmt = connection.createStatement();
+            ResultSet resultSet = stmt.executeQuery(sql);
+            result = resultSet.getString(name);
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return result;
     }
 
     //Create columns for table
@@ -92,12 +106,6 @@ public class SQLHandler {
         executeStatement(sql);
     }
 
-    //Save item to row at name + index
-    public static void saveItem(String uuid, String name, int index, ItemStack itemStack) {
-        String sql = "UPDATE " + tableName + " SET " + name + index + " = '" + ConversionHelpers.itemStackToString(itemStack) + "' WHERE uuid = '" + uuid + "'";
-        executeStatement(sql);
-    }
-
     //Save item to row at name
     public static void saveItem(String uuid, String name, ItemStack itemStack) {
         String sql = "UPDATE " + tableName + " SET " + name + " = '" + ConversionHelpers.itemStackToString(itemStack) + "' WHERE uuid = '" + uuid + "'";
@@ -117,18 +125,19 @@ public class SQLHandler {
     }
     
     //Read from row at name
-    public static ItemStack readItem(String uuid, String name) {
+    public static ItemStack loadItem(String uuid, String name) {
         String sql = "SELECT " + name + " FROM " + tableName + " WHERE uuid = '" + uuid + "'";
-        String resultSet = null;
-        try {
-            Statement stmt = connection.prepareStatement(sql);
-            stmt.execute(sql);
-            resultSet = stmt.getResultSet().toString();
+        return ConversionHelpers.stringToItemStack(executeStatementAndReturn(sql, name));
+    }
 
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return ConversionHelpers.stringToItemStack(resultSet);
+    public static int loadInt(String uuid, String name) {
+        String sql = "SELECT " + name + " FROM " + tableName + " WHERE uuid = '" + uuid + "'";
+        return Integer.parseInt(executeStatementAndReturn(sql, name));
+    }
+
+    public static float loadFloat(String uuid, String name) {
+        String sql = "SELECT " + name + " FROM " + tableName + " WHERE uuid = '" + uuid + "'";
+        return Float.parseFloat(executeStatementAndReturn(sql, name));
     }
 
     public static void start() {

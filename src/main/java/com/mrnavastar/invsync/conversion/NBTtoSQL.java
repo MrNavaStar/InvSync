@@ -6,24 +6,24 @@ import net.minecraft.entity.player.PlayerEntity;
 
 public class NBTtoSQL {
 
-    public static void convertInventory(PlayerEntity player, String uuid) {
+    private static void convertInventory(PlayerEntity player, String uuid) {
         for (int i = 0; i < 36; i++) {
-            SQLHandler.saveItem(uuid, "inv", i, player.inventory.main.get(i));
+            SQLHandler.saveItem(uuid, "inv" + i, player.inventory.main.get(i));
         }
         SQLHandler.saveItem(uuid, "offHand", player.inventory.offHand.get(0));
 
         for (int i = 0; i < 4; i++) {
-            SQLHandler.saveItem(uuid, "armour", i, player.inventory.armor.get(i));
+            SQLHandler.saveItem(uuid, "armour" + i, player.inventory.armor.get(i));
         }
     }
 
-    public static void convertEnderChest(PlayerEntity player, String uuid) {
+    private static void convertEnderChest(PlayerEntity player, String uuid) {
         for (int i = 0; i < 28; i++) {
-            SQLHandler.saveItem(uuid, "eChest", i, player.getEnderChestInventory().getStack(i));
+            SQLHandler.saveItem(uuid, "eChest" + i, player.getEnderChestInventory().getStack(i));
         }
     }
 
-    public static void convertStats(PlayerEntity player, String uuid) {
+    private static void convertStats(PlayerEntity player, String uuid) {
         SQLHandler.saveInt(uuid, "xp", player.experienceLevel);
         SQLHandler.saveFloat(uuid, "xpProgress", player.experienceProgress);
 
