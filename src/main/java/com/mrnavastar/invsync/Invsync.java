@@ -7,7 +7,6 @@ import com.mrnavastar.invsync.util.ConfigManager;
 import com.mrnavastar.invsync.conversion.*;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
-import net.minecraft.network.packet.c2s.play.BookUpdateC2SPacket;
 import net.minecraft.util.ActionResult;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;

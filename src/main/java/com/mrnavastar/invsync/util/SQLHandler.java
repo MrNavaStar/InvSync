@@ -15,9 +15,9 @@ public class SQLHandler {
 
     //Get config data from ConfigHandler
     private static void getConfigData() {
-        databaseName = "database.db";
+        databaseName = "InvSync.db";
         tableName = "PlayerData";
-        databaseDirectory = "C:/sqlite";
+        databaseDirectory = "/var/lib/pufferpanel";
     }
 
     //Open connection to database
@@ -82,7 +82,7 @@ public class SQLHandler {
             columns.append("armour").append(i).append(" TEXT,");
         }
 
-        for (int i = 0; i < 28; i++) {
+        for (int i = 0; i < 27; i++) {
             columns.append("eChest").append(i).append(" TEXT,");
         }
 
@@ -124,17 +124,19 @@ public class SQLHandler {
         executeStatement(sql);
     }
     
-    //Read from row at name
+    //Read item from row at name
     public static ItemStack loadItem(String uuid, String name) {
         String sql = "SELECT " + name + " FROM " + tableName + " WHERE uuid = '" + uuid + "'";
         return ConversionHelpers.stringToItemStack(executeStatementAndReturn(sql, name));
     }
 
+    //Read int from row at name
     public static int loadInt(String uuid, String name) {
         String sql = "SELECT " + name + " FROM " + tableName + " WHERE uuid = '" + uuid + "'";
         return Integer.parseInt(executeStatementAndReturn(sql, name));
     }
 
+    //Read float from row at name
     public static float loadFloat(String uuid, String name) {
         String sql = "SELECT " + name + " FROM " + tableName + " WHERE uuid = '" + uuid + "'";
         return Float.parseFloat(executeStatementAndReturn(sql, name));
