@@ -42,6 +42,8 @@ public class Invsync implements ModInitializer {
 
             //Close connection to database when server stops
             ServerLifecycleEvents.SERVER_STOPPING.register((server) -> SQLHandler.disconnect());
+
+            SQLHandler.disconnect();
         }
     }
 

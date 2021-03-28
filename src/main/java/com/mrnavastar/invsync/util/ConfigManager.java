@@ -9,8 +9,6 @@ import net.fabricmc.loader.api.FabricLoader;
 
 import java.io.*;
 
-import static com.mrnavastar.invsync.Invsync.log;
-
 public class ConfigManager {
 
     public static File configFile;

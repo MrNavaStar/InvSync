@@ -24,9 +24,11 @@ dependencies {
 
     //For formatting JSON
     compile 'com.github.javadev:underscore:1.64'
+    include 'com.github.javadev:underscore:1.64'
 
     //SQL
     implementation group: 'org.xerial', name: 'sqlite-jdbc', version: '3.7.2'
+    include group: 'org.xerial', name: 'sqlite-jdbc', version: '3.7.2'
 }
 
 processResources {

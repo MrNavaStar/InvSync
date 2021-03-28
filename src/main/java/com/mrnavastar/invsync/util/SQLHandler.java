@@ -29,9 +29,8 @@ public class SQLHandler {
             connection = DriverManager.getConnection(url);
             log(Level.INFO,"Successfully connected to database!");
 
-        } catch (SQLException | ClassNotFoundException e) {
+        } catch (SQLException | ClassNotFoundException ignore) {
             log(Level.ERROR, "Failed to connect to database!");
-            e.printStackTrace();
         }
     }
 
@@ -44,15 +43,18 @@ public class SQLHandler {
         }
     }
 
+    public static void enableWALMode() {
+        String sql = "PRAGMA journal_mode=WAL;";
+        executeStatement(sql);
+    }
+
     //Run sql statement
     private static void executeStatement(String sql) {
         try {
             Statement stmt = connection.createStatement();
             stmt.execute(sql);
 
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        } catch (SQLException ignore) {}
     }
 
     //Run sql statement and return a query as a string
@@ -63,9 +65,7 @@ public class SQLHandler {
             ResultSet resultSet = stmt.executeQuery(sql);
             result = resultSet.getString(name);
 
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        } catch (SQLException ignore) {}
         return result;
     }
 
@@ -127,24 +127,37 @@ public class SQLHandler {
     //Read item from row at name
     public static ItemStack loadItem(String uuid, String name) {
         String sql = "SELECT " + name + " FROM " + tableName + " WHERE uuid = '" + uuid + "'";
-        return ConversionHelpers.stringToItemStack(executeStatementAndReturn(sql, name));
+        if (executeStatementAndReturn(sql, name) != null) {
+            return ConversionHelpers.stringToItemStack(executeStatementAndReturn(sql, name));
+        } else {
+            return ConversionHelpers.stringToItemStack("{id:\"minecraft:air\",Count:1b}");
+        }
     }
 
     //Read int from row at name
-    public static int loadInt(String uuid, String name) {
+    public static int loadInt(String uuid, String name, int defaultValue) {
         String sql = "SELECT " + name + " FROM " + tableName + " WHERE uuid = '" + uuid + "'";
-        return Integer.parseInt(executeStatementAndReturn(sql, name));
+        if (executeStatementAndReturn(sql, name) != null) {
+            return Integer.parseInt(executeStatementAndReturn(sql, name));
+        } else {
+            return defaultValue;
+        }
     }
 
     //Read float from row at name
-    public static float loadFloat(String uuid, String name) {
+    public static float loadFloat(String uuid, String name, float defaultValue) {
         String sql = "SELECT " + name + " FROM " + tableName + " WHERE uuid = '" + uuid + "'";
-        return Float.parseFloat(executeStatementAndReturn(sql, name));
+        if (executeStatementAndReturn(sql, name) != null) {
+            return Float.parseFloat(executeStatementAndReturn(sql, name));
+        } else {
+            return defaultValue;
+        }
     }
 
     public static void start() {
         getConfigData();
         connect();
+        enableWALMode();
         createColumns();
         createTable();
     }

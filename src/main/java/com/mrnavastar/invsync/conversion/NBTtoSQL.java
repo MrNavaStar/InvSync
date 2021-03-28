@@ -1,7 +1,6 @@
 package com.mrnavastar.invsync.conversion;
 
 import com.mrnavastar.invsync.util.SQLHandler;
-import com.mrnavastar.invsync.util.ConfigManager;
 import net.minecraft.entity.player.PlayerEntity;
 
 public class NBTtoSQL {
@@ -18,7 +17,7 @@ public class NBTtoSQL {
     }
 
     private static void convertEnderChest(PlayerEntity player, String uuid) {
-        for (int i = 0; i < 28; i++) {
+        for (int i = 0; i < 27; i++) {
             SQLHandler.saveItem(uuid, "eChest" + i, player.getEnderChestInventory().getStack(i));
         }
     }
@@ -36,12 +35,15 @@ public class NBTtoSQL {
     }
 
     public static void convert(PlayerEntity player) {
+        SQLHandler.connect();
+
         String uuid = player.getUuid().toString();
         SQLHandler.createRow(uuid);
 
         convertInventory(player, uuid);
         convertEnderChest(player, uuid);
         convertStats(player, uuid);
+        SQLHandler.disconnect();
     }
 }
 

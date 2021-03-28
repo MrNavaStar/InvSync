@@ -9,7 +9,7 @@ public class SQLtoNBT {
         for (int i = 0; i < 36; i++) {
             player.inventory.main.set(i, SQLHandler.loadItem(uuid, "inv" + i));
         }
-        player.inventory.main.set(0, SQLHandler.loadItem(uuid, "offHand"));
+        player.inventory.offHand.set(0, SQLHandler.loadItem(uuid, "offHand"));
 
         for (int i = 0; i < 4; i++) {
             player.inventory.armor.set(i, SQLHandler.loadItem(uuid, "armour" + i));
@@ -24,22 +24,24 @@ public class SQLtoNBT {
 
     private static void convertStats(PlayerEntity player, String uuid) {
 
-        player.experienceLevel = SQLHandler.loadInt(uuid, "xp");
-        player.experienceProgress = SQLHandler.loadFloat(uuid, "xpProgress");
+        player.experienceLevel = SQLHandler.loadInt(uuid, "xp", 0);
+        player.experienceProgress = SQLHandler.loadFloat(uuid, "xpProgress", 0);
 
-        player.setScore(SQLHandler.loadInt(uuid, "score"));
+        player.setScore(SQLHandler.loadInt(uuid, "score", 0));
 
-        player.setHealth(SQLHandler.loadFloat(uuid, "health"));
+        player.setHealth(SQLHandler.loadFloat(uuid, "health", 20));
 
-        player.getHungerManager().setFoodLevel(SQLHandler.loadInt(uuid, "foodLevel"));
-        player.getHungerManager().setSaturationLevelClient(SQLHandler.loadFloat(uuid, "saturation"));
+        player.getHungerManager().setFoodLevel(SQLHandler.loadInt(uuid, "foodLevel", 20));
     }
 
     public static void convert(PlayerEntity player) {
+        SQLHandler.connect();
         String uuid = player.getUuid().toString();
+
         convertInventory(player, uuid);
         convertEnderChest(player, uuid);
         convertStats(player, uuid);
+        SQLHandler.disconnect();
     }
 }
 
