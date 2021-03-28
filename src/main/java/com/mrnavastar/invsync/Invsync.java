@@ -6,7 +6,6 @@ import com.mrnavastar.invsync.api.event.PlayerLeaveCallBack;
 import com.mrnavastar.invsync.util.ConfigManager;
 import com.mrnavastar.invsync.conversion.*;
 import net.fabricmc.api.ModInitializer;
-import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
 import net.minecraft.util.ActionResult;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
@@ -24,6 +23,7 @@ public class Invsync implements ModInitializer {
         SQLHandler.start();
 
         if (SQLHandler.connection != null) {
+            log(Level.INFO,"Successfully connected to database!");
 
             //Copy data from sql to player data when player joins server
             PlayerJoinCallBack.EVENT.register((player, server) -> {
@@ -38,12 +38,6 @@ public class Invsync implements ModInitializer {
                 NBTtoSQL.convert(player);
                 return ActionResult.PASS;
             });
-
-
-            //Close connection to database when server stops
-            ServerLifecycleEvents.SERVER_STOPPING.register((server) -> SQLHandler.disconnect());
-
-            SQLHandler.disconnect();
         }
     }
 
@@ -58,4 +52,3 @@ public class Invsync implements ModInitializer {
         LOGGER.log(level, "[" + MODID + "] " + message, fields);
     }
 }
-
