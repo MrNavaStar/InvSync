@@ -20,7 +20,9 @@ public class Invsync implements ModInitializer {
         log(Level.INFO, "Initializing");
 
         ConfigManager.loadConfig();
-        SQLHandler.start();
+        if (!ConfigManager.Database_Directory.equals("C:/Where/To/Create/Database")) {
+            SQLHandler.start();
+        }
 
         if (SQLHandler.connection != null) {
             log(Level.INFO,"Successfully connected to database!");

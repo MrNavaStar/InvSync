@@ -14,7 +14,6 @@ public class ConfigManager {
     public static String Database_Name, Database_Table_Name, Database_Directory;
     public static boolean Enable_WAL_Mode, Sync_Inv, Sync_Armour, Sync_eChest, Sync_Xp, Sync_Score, Sync_Health, Sync_Food_Level;
 
-    //Set up config file
     public static void prepareConfigFile() {
         if (configFile != null) {
             return;
@@ -28,7 +27,7 @@ public class ConfigManager {
         SQLConfigProperties.addProperty("comment1", "Settings for your database. THESE MUST BE THE SAME BETWEEN SERVERS. (Directory must be reachable by all servers)");
         SQLConfigProperties.addProperty("Database_Name", "database.db");
         SQLConfigProperties.addProperty("Database_Table_Name", "playerData");
-        SQLConfigProperties.addProperty("Database_Directory", "C:/sqlite");
+        SQLConfigProperties.addProperty("Database_Directory", "C:/Where/To/Create/Database");
         SQLConfigProperties.addProperty("Enable_WAL_Mode", true);
 
         SQLConfigProperties.addProperty("comment2", "Settings for what to sync between servers. THESE MUST BE THE SAME BETWEEN SERVERS.");
@@ -38,7 +37,7 @@ public class ConfigManager {
         SQLConfigProperties.addProperty("Sync_Xp", true);
         SQLConfigProperties.addProperty("Sync_Score", true);
         SQLConfigProperties.addProperty("Sync_Health", true);
-        SQLConfigProperties.addProperty("Sync_Food_Level", true);;
+        SQLConfigProperties.addProperty("Sync_Food_Level", true);
 
         jsonWriter(SQLConfigProperties, configFile);
     }

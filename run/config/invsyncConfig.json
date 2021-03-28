@@ -2,7 +2,7 @@
    "comment1": "Settings for your database. THESE MUST BE THE SAME BETWEEN SERVERS. (Directory must be reachable by all servers)",
    "Database_Name": "database.db",
    "Database_Table_Name": "playerData",
-   "Database_Directory": "C:/sqlite",
+   "Database_Directory": "C:/Where/To/Create/Database",
    "Enable_WAL_Mode": true,
    "comment2": "Settings for what to sync between servers. THESE MUST BE THE SAME BETWEEN SERVERS.",
    "Sync_Inv": true,

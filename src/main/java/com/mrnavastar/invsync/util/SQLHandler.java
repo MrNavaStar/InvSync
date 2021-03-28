@@ -28,6 +28,7 @@ public class SQLHandler {
 
         } catch (SQLException | ClassNotFoundException ignore) {
             log(Level.ERROR, "Failed to connect to database!");
+            log(Level.ERROR, "This usually occurs if the given database directory doesn't exist or is invalid");
         }
     }
 
@@ -81,8 +82,8 @@ public class SQLHandler {
         columns.append("xpProgress").append(" REAL,");
         columns.append("score").append(" INTEGER,");
         columns.append("health").append(" REAL,");
-        columns.append("foodLevel").append(" INTEGER,");
-        columns.append("saturation").append(" REAL");
+        columns.append("foodLevel").append(" INTEGER");
+        //columns.append("saturation").append(" REAL");
     }
 
     private static void createTable() {
