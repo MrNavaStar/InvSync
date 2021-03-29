@@ -15,7 +15,7 @@ Setup is very simple. Drop the mod into your mods folder on all the servers you 
 - SQLite Settings:
   - Database Name: The name of the sqlite database you want generated or your existing database.
   - Database Table Name: The name of the table that will store player data in your database.
-  - Database Directory: The Directory where you want the databse to be created or where your existing one already lives.
+  - Database Directory: The directory where you want the databse to be created or where your existing one already lives.
   - Enable WAL Mode: This will increase read/write speed to the database and help with task concurrency, however has the potential to cause problems on very large databases. Most users will find it benifical to leave this on. [Learn more.](https://sqlite.org/wal.html)
 
 - Sync Settings: 
