@@ -1,6 +1,6 @@
 # InvSync
 
-This is a fabric mod for 1.16.x that Allows you to sync player inventories, health, food level, experience and score across multiple servers! This is acomplished using an sqlite database. Most mods should have no problem running along side, and modded items will also be sync'd.
+This is a fabric mod for 1.16.x that Allows you to sync player inventories, health, food level, experience and score across multiple servers! This is acomplished using an sqlite database (That is generated and set up for you!). Most mods should have no problem running along side, and modded items will also be sync'd.
 
 ## Getting Started
 
