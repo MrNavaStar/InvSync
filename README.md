@@ -4,6 +4,10 @@
 
 This is a fabric mod for 1.16.x that Allows you to sync player inventories, health, food level, experience and score across multiple servers! This is acomplished using an sqlite database (that is automatically generated and set up for you). Most mods should have no problem running along side, and modded items will also be sync'd.
 
+## Requirements
+
+- This mod requires [Fabric API](https://www.curseforge.com/minecraft/mc-mods/fabric-api) 
+
 ## Getting Started
 
 Setup is very simple. Drop the mod into your mods folder on all the servers you want to sync. Starting a server will generate a config with the following contents:
