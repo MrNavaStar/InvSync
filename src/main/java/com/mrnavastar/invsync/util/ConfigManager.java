@@ -28,7 +28,7 @@ public class ConfigManager {
         SQLConfigProperties.addProperty("Database_Name", "Database.db");
         SQLConfigProperties.addProperty("Database_Table_Name", "PlayerData");
         SQLConfigProperties.addProperty("Database_Directory", "C:/Where/To/Create/Database");
-        SQLConfigProperties.addProperty("Enable_WAL_Mode", true);
+        SQLConfigProperties.addProperty("Enable_WAL_Mode", false);
 
         SQLConfigProperties.addProperty("comment2", "Settings for what to sync between servers. THESE MUST BE THE SAME BETWEEN SERVERS.");
         SQLConfigProperties.addProperty("Sync_Inv", true);
