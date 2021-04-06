@@ -18,6 +18,7 @@ public class SQLtoNBT {
                 player.inventory.armor.set(i, SQLHandler.loadItem(uuid, "armour" + i));
             }
         }
+        player.inventory.selectedSlot = SQLHandler.loadInt(uuid, "selectedSlot", 0);
     }
 
     private static void convertEnderChest(PlayerEntity player, String uuid) {

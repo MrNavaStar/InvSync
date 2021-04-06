@@ -18,6 +18,7 @@ public class NBTtoSQL {
                 SQLHandler.saveItem(uuid, "armour" + i, player.inventory.armor.get(i));
             }
         }
+        SQLHandler.saveInt(uuid, "selectedSlot", player.inventory.selectedSlot);
     }
 
     private static void convertEnderChest(PlayerEntity player, String uuid) {
