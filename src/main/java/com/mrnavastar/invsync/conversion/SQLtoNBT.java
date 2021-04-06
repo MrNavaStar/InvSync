@@ -1,7 +1,10 @@
 package com.mrnavastar.invsync.conversion;
 
 import com.mrnavastar.invsync.util.ConfigManager;
+import com.mrnavastar.invsync.util.ConversionHelpers;
 import com.mrnavastar.invsync.util.SQLHandler;
+import net.minecraft.entity.effect.StatusEffect;
+import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.player.PlayerEntity;
 
 public class SQLtoNBT {
@@ -9,22 +12,22 @@ public class SQLtoNBT {
     private static void convertInventory(PlayerEntity player, String uuid) {
         if (ConfigManager.Sync_Inv) {
             for (int i = 0; i < 36; i++) {
-                player.inventory.main.set(i, SQLHandler.loadItem(uuid, "inv" + i));
+                player.inventory.main.set(i, ConversionHelpers.stringToItemStack(SQLHandler.loadString(uuid, "inv" + i)));
             }
-            player.inventory.offHand.set(0, SQLHandler.loadItem(uuid, "offHand"));
+            player.inventory.offHand.set(0, ConversionHelpers.stringToItemStack(SQLHandler.loadString(uuid, "offHand")));
+            player.inventory.selectedSlot = SQLHandler.loadInt(uuid, "selectedSlot", 0);
         }
         if (ConfigManager.Sync_Armour) {
             for (int i = 0; i < 4; i++) {
-                player.inventory.armor.set(i, SQLHandler.loadItem(uuid, "armour" + i));
+                player.inventory.armor.set(i, ConversionHelpers.stringToItemStack(SQLHandler.loadString(uuid, "armour" + i)));
             }
         }
-        player.inventory.selectedSlot = SQLHandler.loadInt(uuid, "selectedSlot", 0);
     }
 
     private static void convertEnderChest(PlayerEntity player, String uuid) {
         if (ConfigManager.Sync_eChest) {
             for (int i = 0; i < 27; i++) {
-                player.getEnderChestInventory().setStack(i, SQLHandler.loadItem(uuid, "eChest" + i));
+                player.getEnderChestInventory().setStack(i, ConversionHelpers.stringToItemStack(SQLHandler.loadString(uuid, "eChest" + i)));
             }
         }
     }

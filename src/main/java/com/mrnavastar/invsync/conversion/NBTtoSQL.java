@@ -1,6 +1,7 @@
 package com.mrnavastar.invsync.conversion;
 
 import com.mrnavastar.invsync.util.ConfigManager;
+import com.mrnavastar.invsync.util.ConversionHelpers;
 import com.mrnavastar.invsync.util.SQLHandler;
 import net.minecraft.entity.player.PlayerEntity;
 
@@ -9,13 +10,13 @@ public class NBTtoSQL {
     private static void convertInventory(PlayerEntity player, String uuid) {
         if (ConfigManager.Sync_Inv) {
             for (int i = 0; i < 36; i++) {
-                SQLHandler.saveItem(uuid, "inv" + i, player.inventory.main.get(i));
+                SQLHandler.saveString(uuid, "inv" + i, ConversionHelpers.itemStackToString(player.inventory.main.get(i)));
             }
-            SQLHandler.saveItem(uuid, "offHand", player.inventory.offHand.get(0));
+            SQLHandler.saveString(uuid, "offHand", ConversionHelpers.itemStackToString(player.inventory.offHand.get(0)));
         }
         if (ConfigManager.Sync_Armour) {
             for (int i = 0; i < 4; i++) {
-                SQLHandler.saveItem(uuid, "armour" + i, player.inventory.armor.get(i));
+                SQLHandler.saveString(uuid, "armour" + i, ConversionHelpers.itemStackToString(player.inventory.armor.get(i)));
             }
         }
         SQLHandler.saveInt(uuid, "selectedSlot", player.inventory.selectedSlot);
@@ -24,7 +25,7 @@ public class NBTtoSQL {
     private static void convertEnderChest(PlayerEntity player, String uuid) {
         if (ConfigManager.Sync_eChest) {
             for (int i = 0; i < 27; i++) {
-                SQLHandler.saveItem(uuid, "eChest" + i, player.getEnderChestInventory().getStack(i));
+                SQLHandler.saveString(uuid, "eChest" + i, ConversionHelpers.itemStackToString(player.getEnderChestInventory().getStack(i)));
             }
         }
     }
@@ -46,6 +47,10 @@ public class NBTtoSQL {
         }
     }
 
+    private static void convertStatusEffects(PlayerEntity player, String uuid) {
+
+    }
+
     public static void convert(PlayerEntity player) {
         SQLHandler.connect();
 
@@ -55,6 +60,7 @@ public class NBTtoSQL {
         convertInventory(player, uuid);
         convertEnderChest(player, uuid);
         convertStats(player, uuid);
+        convertStatusEffects(player, uuid);
 
         SQLHandler.disconnect();
     }

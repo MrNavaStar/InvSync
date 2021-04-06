@@ -97,8 +97,8 @@ public class SQLHandler {
         executeStatement(sql);
     }
 
-    public static void saveItem(String uuid, String name, ItemStack itemStack) {
-        String sql = "UPDATE " + tableName + " SET " + name + " = '" + ConversionHelpers.itemStackToString(itemStack) + "' WHERE uuid = '" + uuid + "'";
+    public static void saveString(String uuid, String name, String str) {
+        String sql = "UPDATE " + tableName + " SET " + name + " = '" + str + "' WHERE uuid = '" + uuid + "'";
         executeStatement(sql);
     }
 
@@ -112,12 +112,12 @@ public class SQLHandler {
         executeStatement(sql);
     }
 
-    public static ItemStack loadItem(String uuid, String name) {
+    public static String loadString(String uuid, String name) {
         String sql = "SELECT " + name + " FROM " + tableName + " WHERE uuid = '" + uuid + "'";
         if (executeStatementAndReturn(sql, name) != null) {
-            return ConversionHelpers.stringToItemStack(executeStatementAndReturn(sql, name));
+            return executeStatementAndReturn(sql, name);
         } else {
-            return ConversionHelpers.stringToItemStack("{id:\"minecraft:air\",Count:1b}");
+            return "{id:\"minecraft:air\",Count:1b}";
         }
     }
 
