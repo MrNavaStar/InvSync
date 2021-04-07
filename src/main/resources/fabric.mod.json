@@ -2,9 +2,11 @@
   "schemaVersion": 1,
   "id": "invsync",
   "version": "${version}",
-  "name": "Invsync",
+  "name": "InvSync",
   "description": "",
-  "authors": [],
+  "authors": [
+    "MrNavaStar"
+  ],
   "contact": {},
   "license": "MIT",
   "environment": "server",

@@ -7,8 +7,6 @@
     "playerJoinMixin",
     "playerLeaveMixin"
   ],
-  "client": [
-  ],
   "injectors": {
     "defaultRequire": 1
   }

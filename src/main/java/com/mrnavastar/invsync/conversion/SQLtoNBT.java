@@ -4,8 +4,10 @@ import com.mrnavastar.invsync.util.ConfigManager;
 import com.mrnavastar.invsync.util.ConversionHelpers;
 import com.mrnavastar.invsync.util.SQLHandler;
 import net.minecraft.entity.effect.StatusEffect;
+import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.nbt.CompoundTag;
 
 public class SQLtoNBT {
 
@@ -46,6 +48,10 @@ public class SQLtoNBT {
         if (ConfigManager.Sync_Food_Level) {
             player.getHungerManager().setFoodLevel(SQLHandler.loadInt(uuid, "foodLevel", 20));
         }
+    }
+
+    private static void convertStatusEffects(PlayerEntity player, String uuid) {
+
     }
 
     public static void convert(PlayerEntity player) {

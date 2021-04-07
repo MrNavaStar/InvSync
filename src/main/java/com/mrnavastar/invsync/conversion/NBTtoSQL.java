@@ -4,6 +4,7 @@ import com.mrnavastar.invsync.util.ConfigManager;
 import com.mrnavastar.invsync.util.ConversionHelpers;
 import com.mrnavastar.invsync.util.SQLHandler;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.nbt.CompoundTag;
 
 public class NBTtoSQL {
 
@@ -43,12 +44,12 @@ public class NBTtoSQL {
         }
         if (ConfigManager.Sync_Food_Level) {
             SQLHandler.saveInt(uuid, "foodLevel", player.getHungerManager().getFoodLevel());
-            //SQLHandler.saveFloat(uuid, "saturation", player.getHungerManager().getSaturationLevel());
+            SQLHandler.saveFloat(uuid, "saturation", player.getHungerManager().getSaturationLevel());
         }
     }
 
     private static void convertStatusEffects(PlayerEntity player, String uuid) {
-
+        SQLHandler.saveString(uuid, "statusEffects", player.getActiveStatusEffects().toString());
     }
 
     public static void convert(PlayerEntity player) {

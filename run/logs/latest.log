@@ -1,0 +1,105 @@
+[22:38:23] [main/INFO] (FabricLoader) Loading for game Minecraft 1.16.5
+[22:38:24] [main/INFO] (Fabric|Loader) [FabricLoader] Loading 43 mods: fabric-renderer-api-v1@0.3.3+a4467d2a3a, fabric-screen-handler-api-v1@1.1.0+872498413a, fabric-networking-blockentity-v0@0.2.5+b50ffc7b3a, minecraft@1.16.5, fabric-keybindings-v0@0.2.0+3fa9f7c53a, fabric-command-api-v1@1.0.9+a4467d2a3a, fabricloader@0.11.3, fabric-tool-attribute-api-v1@1.2.4+2b4623793a, fabric-structure-api-v1@1.1.0+f8ac1db23a, fabric-renderer-indigo@0.4.3+a4467d2a3a, fabric-containers-v0@0.1.8+045df74f3a, fabric-object-builder-api-v1@1.9.2+a89534ab3a, java@8, fabric-events-interaction-v0@0.4.1+f8ac1db23a, fabric-crash-report-info-v1@0.1.2+b7f9825d3a, invsync@1.1, fabric-item-api-v1@1.2.0+f8ac1db23a, fabric-game-rule-api-v1@1.0.3+a4467d2a3a, fabric-api-base@0.2.0+9f0fb4b83a, fabric-rendering-v0@1.1.1+f8ac1db23a, fabric-rendering-v1@1.3.1+f8ac1db23a, fabric-key-binding-api-v1@1.0.1+730711c63a, fabric-rendering-data-attachment-v1@0.1.4+f8ac1db23a, fabric-resource-loader-v0@0.3.1+facf3bbf3a, fabric-textures-v0@1.0.5+a4467d2a3a, fabric-content-registries-v0@0.1.9+059ea8663a, fabric-tag-extensions-v0@1.0.3+ac8e8c593a, fabric-rendering-fluids-v1@0.1.12+f8ac1db23a, fabric-biome-api-v1@3.0.0+8367596d3a, fabric-commands-v0@0.2.0+52d308363a, fabric-registry-sync-v0@0.6.1+a4467d2a3a, fabric-blockrenderlayer-v1@1.1.4+c6a8ea893a, fabric-lifecycle-events-v1@1.2.0+74cc3b203a, fabric-mining-levels-v0@0.1.2+b764ce993a, fabric-renderer-registries-v1@2.2.0+f8ac1db23a, fabric-events-lifecycle-v0@0.2.0+16acbe5b3a, fabric-loot-tables-v1@1.0.1+432ea1883a, fabric@0.25.1+build.416-1.16, fabric-models-v0@0.1.1+f8ac1db23a, fabric-particles-v1@0.2.2+fb0d9b0e3a, fabric-item-groups-v0@0.2.1+a4467d2a3a, fabric-networking-v0@0.1.10+e00ecb5f3a, fabric-object-builders-v0@0.7.1+a4467d2a3a
+[22:38:24] [main/INFO] (mixin) SpongePowered MIXIN Subsystem Version=0.8.2 Source=file:/C:/Users/MrNav/.gradle/caches/modules-2/files-2.1/net.fabricmc/sponge-mixin/0.9.2+mixin.0.8.2/12c437eebf031967eaa7daad861e115932772cc7/sponge-mixin-0.9.2+mixin.0.8.2.jar Service=Knot/Fabric Env=SERVER
+[22:38:24] [main/INFO] (Fabric|MixinBootstrap) Loaded Fabric development mappings for mixin remapper!
+[22:38:24] [main/INFO] (mixin) Remapping refMap fabric-networking-v0-refmap.json using remapper chain
+[22:38:24] [main/INFO] (mixin) Remapping refMap fabric-networking-blockentity-v0-refmap.json using remapper chain
+[22:38:24] [main/INFO] (mixin) Remapping refMap fabric-screen-handler-api-v1-refmap.json using remapper chain
+[22:38:24] [main/INFO] (mixin) Remapping refMap fabric-lifecycle-events-v1-refmap.json using remapper chain
+[22:38:24] [main/INFO] (mixin) Remapping refMap fabric-containers-v0-refmap.json using remapper chain
+[22:38:24] [main/INFO] (mixin) Remapping refMap fabric-rendering-data-attachment-v1-refmap.json using remapper chain
+[22:38:24] [main/INFO] (mixin) Remapping refMap fabric-structure-api-v1-refmap.json using remapper chain
+[22:38:24] [main/INFO] (mixin) Remapping refMap fabric-events-interaction-v0-refmap.json using remapper chain
+[22:38:24] [main/INFO] (mixin) Remapping refMap fabric-item-api-v1-refmap.json using remapper chain
+[22:38:24] [main/INFO] (mixin) Remapping refMap fabric-loot-tables-v1-refmap.json using remapper chain
+[22:38:24] [main/INFO] (mixin) Remapping refMap fabric-object-builder-api-v1-refmap.json using remapper chain
+[22:38:24] [main/INFO] (mixin) Remapping refMap fabric-registry-sync-v0-refmap.json using remapper chain
+[22:38:24] [main/INFO] (mixin) Remapping refMap fabric-containers-v0-refmap.json using remapper chain
+[22:38:24] [main/INFO] (mixin) Remapping refMap fabric-biome-api-v1-refmap.json using remapper chain
+[22:38:24] [main/INFO] (mixin) Remapping refMap fabric-resource-loader-v0-refmap.json using remapper chain
+[22:38:24] [main/INFO] (mixin) Remapping refMap fabric-game-rule-api-v1-refmap.json using remapper chain
+[22:38:24] [main/INFO] (mixin) Remapping refMap fabric-particles-v1-refmap.json using remapper chain
+[22:38:24] [main/INFO] (mixin) Remapping refMap fabric-object-builders-refmap.json using remapper chain
+[22:38:24] [main/INFO] (mixin) Remapping refMap fabric-tag-extensions-v0-refmap.json using remapper chain
+[22:38:24] [main/INFO] (mixin) Remapping refMap fabric-tool-attribute-api-v1-refmap.json using remapper chain
+[22:38:24] [main/INFO] (mixin) Remapping refMap fabric-item-groups-v0-refmap.json using remapper chain
+[22:38:24] [main/INFO] (mixin) Remapping refMap fabric-content-registries-v0-refmap.json using remapper chain
+[22:38:24] [main/INFO] (mixin) Remapping refMap fabric-command-api-v1-refmap.json using remapper chain
+[22:38:24] [main/INFO] (mixin) Remapping refMap fabric-crash-report-info-v1-refmap.json using remapper chain
+[22:38:24] [main/WARN] (mixin) @Mixin target net/minecraft/server/world/ThreadedAnvilChunkStorage$EntityTracker is public in fabric-networking-v0.mixins.json:MixinEntityTracker and should be specified in value
+[22:38:25] [main/WARN] (mixin) @Mixin target net/minecraft/village/TradeOffers$TypeAwareBuyForOneEmeraldFactory is public in fabric-object-builder-v1.mixins.json:TypeAwareTradeMixin and should be specified in value
+[22:38:25] [main/WARN] (mixin) @Mixin target net/minecraft/server/command/GameRuleCommand$1 is public in fabric-game-rule-api-v1.mixins.json:GameRuleCommandVisitorMixin and should be specified in value
+[22:38:25] [main/WARN] (mixin) @Mixin target net/minecraft/tag/Tag$1 is public in fabric-tag-extensions-v0.mixins.json:MixinTagImpl and should be specified in value
+[22:38:25] [main/WARN] (mixin) @Mixin target net/minecraft/tag/RequiredTagList$TagWrapper is public in fabric-tag-extensions-v0.mixins.json:MixinTagImpl and should be specified in value
+[22:38:29] [main/INFO] (Invsync) [invsync] Initializing
+[22:38:29] [main/INFO] (Invsync) [invsync] Successfully connected to database!
+[22:38:30] [main/INFO] (Minecraft) Environment: authHost='https://authserver.mojang.com', accountsHost='https://api.mojang.com', sessionHost='https://sessionserver.mojang.com', servicesHost='https://api.minecraftservices.com', name='PROD'
+[22:38:30] [main/WARN] (Minecraft) Ambiguity between arguments [teleport, destination] and [teleport, targets] with inputs: [Player, 0123, @e, dd12be42-52a9-4a91-a8a1-11c01849e498]
+[22:38:30] [main/WARN] (Minecraft) Ambiguity between arguments [teleport, location] and [teleport, destination] with inputs: [0.1 -0.5 .9, 0 0 0]
+[22:38:30] [main/WARN] (Minecraft) Ambiguity between arguments [teleport, location] and [teleport, targets] with inputs: [0.1 -0.5 .9, 0 0 0]
+[22:38:30] [main/WARN] (Minecraft) Ambiguity between arguments [teleport, targets] and [teleport, destination] with inputs: [Player, 0123, dd12be42-52a9-4a91-a8a1-11c01849e498]
+[22:38:30] [main/WARN] (Minecraft) Ambiguity between arguments [teleport, targets, location] and [teleport, targets, destination] with inputs: [0.1 -0.5 .9, 0 0 0]
+[22:38:30] [main/INFO] (Minecraft) Reloading ResourceManager: Default, Fabric Tool Attribute API (v1)
+[22:38:32] [Worker-Main-4/INFO] (Minecraft) Loaded 7 recipes
+[22:38:32] [Worker-Main-4/INFO] (Minecraft) Loaded 927 advancements
+[22:38:33] [main/INFO] (BiomeModificationImpl) Applied 0 biome modifications to 0 of 79 new biomes in 1.653 ms
+[22:38:33] [Server thread/INFO] (Minecraft) Starting minecraft server version 1.16.5
+[22:38:33] [Server thread/INFO] (Minecraft) Loading properties
+[22:38:33] [Server thread/INFO] (Minecraft) Default game type: SURVIVAL
+[22:38:33] [Server thread/INFO] (Minecraft) Generating keypair
+[22:38:33] [Server thread/INFO] (Minecraft) Starting Minecraft server on *:25565
+[22:38:33] [Server thread/INFO] (Minecraft) Using default channel type
+[22:38:35] [Server thread/INFO] (Minecraft) Preparing level "world"
+[22:38:35] [Server thread/INFO] (Minecraft) Preparing start region for dimension minecraft:overworld
+[22:38:36] [Server thread/INFO] (Minecraft) Preparing spawn area: 0%
+[22:38:36] [Server thread/INFO] (Minecraft) Preparing spawn area: 0%
+[22:38:36] [Server thread/INFO] (Minecraft) Preparing spawn area: 0%
+[22:38:38] [Worker-Main-6/INFO] (Minecraft) Preparing spawn area: 83%
+[22:38:38] [Worker-Main-5/INFO] (Minecraft) Preparing spawn area: 83%
+[22:38:38] [Worker-Main-5/INFO] (Minecraft) Preparing spawn area: 83%
+[22:38:38] [Worker-Main-5/INFO] (Minecraft) Preparing spawn area: 83%
+[22:38:38] [Worker-Main-7/INFO] (Minecraft) Preparing spawn area: 83%
+[22:38:39] [Worker-Main-5/INFO] (Minecraft) Preparing spawn area: 90%
+[22:38:40] [Worker-Main-6/INFO] (Minecraft) Preparing spawn area: 90%
+[22:38:40] [Worker-Main-5/INFO] (Minecraft) Preparing spawn area: 90%
+[22:38:40] [Worker-Main-6/INFO] (Minecraft) Preparing spawn area: 90%
+[22:38:41] [Worker-Main-5/INFO] (Minecraft) Preparing spawn area: 90%
+[22:38:41] [Worker-Main-6/INFO] (Minecraft) Preparing spawn area: 90%
+[22:38:42] [Worker-Main-6/INFO] (Minecraft) Preparing spawn area: 91%
+[22:38:42] [Worker-Main-7/INFO] (Minecraft) Preparing spawn area: 97%
+[22:38:43] [Server thread/INFO] (Minecraft) Time elapsed: 7698 ms
+[22:38:43] [Server thread/INFO] (Minecraft) Done (7.888s)! For help, type "help"
+[22:38:48] [User Authenticator #1/INFO] (Minecraft) UUID of player MrNavaStar is a47c38e4-e21e-4d38-b78e-ec2dddd27b37
+[22:38:48] [Server thread/INFO] (Minecraft) MrNavaStar[/127.0.0.1:2611] logged in with entity id 229 at (-34.50416111143872, 62.0, -213.98231910597266)
+[22:38:48] [Server thread/INFO] (Minecraft) MrNavaStar joined the game
+[22:38:48] [Server thread/INFO] (Invsync) [invsync] Getting Player Data From database
+[22:38:48] [Server thread/ERROR] (Minecraft) Encountered an unexpected exception
+java.lang.NoSuchMethodError: net.minecraft.entity.player.HungerManager.setSaturationLevelClient(F)V
+	at com.mrnavastar.invsync.conversion.SQLtoNBT.convertStats(SQLtoNBT.java:49) ~[main/:?]
+	at com.mrnavastar.invsync.conversion.SQLtoNBT.convert(SQLtoNBT.java:64) ~[main/:?]
+	at com.mrnavastar.invsync.Invsync.lambda$onInitialize$0(Invsync.java:33) ~[main/:?]
+	at net.minecraft.server.PlayerManager.handler$zco000$onPlayerJoin(PlayerManager.java:1954) ~[minecraft-1.16.5-mapped-net.fabricmc.yarn-1.16.5+build.5-v2.jar:?]
+	at net.minecraft.server.PlayerManager.onPlayerConnect(PlayerManager.java:257) ~[minecraft-1.16.5-mapped-net.fabricmc.yarn-1.16.5+build.5-v2.jar:?]
+	at net.minecraft.server.network.ServerLoginNetworkHandler.acceptPlayer(ServerLoginNetworkHandler.java:114) ~[minecraft-1.16.5-mapped-net.fabricmc.yarn-1.16.5+build.5-v2.jar:?]
+	at net.minecraft.server.network.ServerLoginNetworkHandler.tick(ServerLoginNetworkHandler.java:61) ~[minecraft-1.16.5-mapped-net.fabricmc.yarn-1.16.5+build.5-v2.jar:?]
+	at net.minecraft.network.ClientConnection.tick(ClientConnection.java:217) ~[minecraft-1.16.5-mapped-net.fabricmc.yarn-1.16.5+build.5-v2.jar:?]
+	at net.minecraft.server.ServerNetworkIo.tick(ServerNetworkIo.java:150) ~[minecraft-1.16.5-mapped-net.fabricmc.yarn-1.16.5+build.5-v2.jar:?]
+	at net.minecraft.server.MinecraftServer.tickWorlds(MinecraftServer.java:878) ~[minecraft-1.16.5-mapped-net.fabricmc.yarn-1.16.5+build.5-v2.jar:?]
+	at net.minecraft.server.dedicated.MinecraftDedicatedServer.tickWorlds(MinecraftDedicatedServer.java:285) ~[minecraft-1.16.5-mapped-net.fabricmc.yarn-1.16.5+build.5-v2.jar:?]
+	at net.minecraft.server.MinecraftServer.tick(MinecraftServer.java:804) ~[minecraft-1.16.5-mapped-net.fabricmc.yarn-1.16.5+build.5-v2.jar:?]
+	at net.minecraft.server.MinecraftServer.runServer(MinecraftServer.java:662) ~[minecraft-1.16.5-mapped-net.fabricmc.yarn-1.16.5+build.5-v2.jar:?]
+	at net.minecraft.server.MinecraftServer.method_29739(MinecraftServer.java:227) ~[minecraft-1.16.5-mapped-net.fabricmc.yarn-1.16.5+build.5-v2.jar:?]
+	at java.lang.Thread.run(Thread.java:748) [?:1.8.0_271]
+[22:38:48] [Server thread/ERROR] (Minecraft) This crash report has been saved to: D:\Media\Documents\Minecraft Modding\IntelliJ\invsync\run\.\crash-reports\crash-2021-04-05_22.38.48-server.txt
+[22:38:48] [Server thread/INFO] (Minecraft) Stopping server
+[22:38:48] [Server thread/INFO] (Minecraft) Saving players
+[22:38:48] [Server thread/INFO] (Minecraft) Saving worlds
+[22:38:48] [Server thread/INFO] (Minecraft) Saving chunks for level 'ServerLevel[world]'/minecraft:overworld
+[22:38:50] [Server thread/INFO] (Minecraft) ThreadedAnvilChunkStorage (world): All chunks are saved
+[22:38:50] [Server thread/INFO] (Minecraft) Saving chunks for level 'ServerLevel[world]'/minecraft:the_nether
+[22:38:50] [Server thread/INFO] (Minecraft) ThreadedAnvilChunkStorage (DIM-1): All chunks are saved
+[22:38:50] [Server thread/INFO] (Minecraft) Saving chunks for level 'ServerLevel[world]'/minecraft:the_end
+[22:38:50] [Server thread/INFO] (Minecraft) ThreadedAnvilChunkStorage (DIM1): All chunks are saved
+[22:38:50] [Server thread/INFO] (Minecraft) ThreadedAnvilChunkStorage (world): All chunks are saved
+[22:38:50] [Server thread/INFO] (Minecraft) ThreadedAnvilChunkStorage (DIM-1): All chunks are saved
+[22:38:50] [Server thread/INFO] (Minecraft) ThreadedAnvilChunkStorage (DIM1): All chunks are saved
