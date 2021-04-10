@@ -1,7 +1,6 @@
 package com.mrnavastar.invsync.util;
 
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
-import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.player.HungerManager;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;

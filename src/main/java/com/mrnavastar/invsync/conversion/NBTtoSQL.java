@@ -4,7 +4,6 @@ import com.mrnavastar.invsync.util.ConfigManager;
 import com.mrnavastar.invsync.util.ConversionHelpers;
 import com.mrnavastar.invsync.util.SQLHandler;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.nbt.CompoundTag;
 
 public class NBTtoSQL {
 
