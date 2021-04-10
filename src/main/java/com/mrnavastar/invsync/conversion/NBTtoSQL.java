@@ -43,8 +43,7 @@ public class NBTtoSQL {
             SQLHandler.saveFloat(uuid, "health", player.getHealth());
         }
         if (ConfigManager.Sync_Food_Level) {
-            SQLHandler.saveInt(uuid, "foodLevel", player.getHungerManager().getFoodLevel());
-            SQLHandler.saveFloat(uuid, "saturation", player.getHungerManager().getSaturationLevel());
+            SQLHandler.saveString(uuid,"foodLevel", ConversionHelpers.foodLevelToString(player.getHungerManager()));
         }
     }
 

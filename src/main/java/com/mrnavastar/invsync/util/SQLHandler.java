@@ -83,7 +83,6 @@ public class SQLHandler {
         columns.append("score").append(" INTEGER,");
         columns.append("health").append(" REAL,");
         columns.append("foodLevel").append(" INTEGER,");
-        columns.append("saturation").append(" REAL,");
         columns.append("selectedSlot").append(" INTEGER,");
         columns.append("statusEffects").append(" TEXT");
     }

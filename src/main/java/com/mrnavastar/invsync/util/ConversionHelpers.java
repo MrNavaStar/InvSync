@@ -15,6 +15,12 @@ public class ConversionHelpers {
         return itemData.replace("'", "$");
     }
 
+    public static String foodLevelToString(HungerManager hungerManager) {
+        CompoundTag tag = new CompoundTag();
+        hungerManager.toTag(tag);
+        return tag.toString();
+    }
+
     public static ItemStack stringToItemStack(String nbt) {
         nbt = nbt.replace("$", "'");
         CompoundTag tag = null;
@@ -26,19 +32,13 @@ public class ConversionHelpers {
         return ItemStack.fromTag(tag);
     }
 
-    public static String foodLevelToString(HungerManager hungerManager) {
-        String foodData = hungerManager.toTag(new CompoundTag().toString();
-        return foodData.replace("'", "$");
-    }
-
-    public static HungerManager stringToFoodLevel(String nbt) {
-        nbt = nbt.replace("$", "'");
+    public static CompoundTag stringToTag(String nbt) {
         CompoundTag tag = null;
         try {
             tag = StringNbtReader.parse(nbt);
         } catch (CommandSyntaxException e) {
             e.printStackTrace();
         }
-
+        return tag;
     }
 }

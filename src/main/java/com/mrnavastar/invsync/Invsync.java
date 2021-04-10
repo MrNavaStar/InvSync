@@ -1,8 +1,8 @@
 package com.mrnavastar.invsync;
 
-import com.mrnavastar.invsync.api.event.PlayerJoinCallBack;
+import com.mrnavastar.invsync.api.event.PlayerJoinCallback;
 import com.mrnavastar.invsync.util.SQLHandler;
-import com.mrnavastar.invsync.api.event.PlayerLeaveCallBack;
+import com.mrnavastar.invsync.api.event.PlayerLeaveCallback;
 import com.mrnavastar.invsync.util.ConfigManager;
 import com.mrnavastar.invsync.conversion.*;
 import net.fabricmc.api.ModInitializer;
@@ -28,14 +28,14 @@ public class Invsync implements ModInitializer {
             log(Level.INFO,"Successfully connected to database!");
 
             //Copy data from sql to player data when player joins server
-            PlayerJoinCallBack.EVENT.register((player, server) -> {
+            PlayerJoinCallback.EVENT.register((player, server) -> {
                 log(Level.INFO, "Getting Player Data From database");
                 SQLtoNBT.convert(player);
                 return ActionResult.PASS;
             });
 
             //Copy Data from player data to sql when player leaves server
-            PlayerLeaveCallBack.EVENT.register((player, server) -> {
+            PlayerLeaveCallback.EVENT.register((player, server) -> {
                 log(Level.INFO, "Saving Player Data to database");
                 NBTtoSQL.convert(player);
                 return ActionResult.PASS;

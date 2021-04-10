@@ -5,7 +5,6 @@ import com.mrnavastar.invsync.util.ConversionHelpers;
 import com.mrnavastar.invsync.util.SQLHandler;
 import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffectInstance;
-import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.CompoundTag;
 
@@ -46,12 +45,13 @@ public class SQLtoNBT {
             player.setHealth(SQLHandler.loadFloat(uuid, "health", 20));
         }
         if (ConfigManager.Sync_Food_Level) {
-            player.getHungerManager().setFoodLevel(SQLHandler.loadInt(uuid, "foodLevel", 20));
+            player.getHungerManager().fromTag(ConversionHelpers.stringToTag(SQLHandler.loadString(uuid, "foodLevel")));
         }
     }
 
     private static void convertStatusEffects(PlayerEntity player, String uuid) {
-
+        //StatusEffectInstance instance = new S
+        //player.addStatusEffect(new StatusEffectInstance(player.))
     }
 
     public static void convert(PlayerEntity player) {

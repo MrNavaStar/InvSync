@@ -25,7 +25,7 @@ public class ConfigManager {
     public static void createConfig() {
         JsonObject SQLConfigProperties = new JsonObject();
         SQLConfigProperties.addProperty("comment1", "Settings for your database. THESE MUST BE THE SAME BETWEEN SERVERS. (More info at https://github.com/MrNavaStar/invSync)");
-        SQLConfigProperties.addProperty("Database_Name", "Database.db");
+        SQLConfigProperties.addProperty("Database_Name", "InvSync.db");
         SQLConfigProperties.addProperty("Database_Table_Name", "PlayerData");
         SQLConfigProperties.addProperty("Database_Directory", "C:/Where/To/Create/Database");
         SQLConfigProperties.addProperty("Enable_WAL_Mode", false);
