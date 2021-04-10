@@ -1,6 +1,7 @@
 package com.mrnavastar.invsync.util;
 
 import java.sql.*;
+import java.util.ArrayList;
 
 import org.apache.logging.log4j.Level;
 
@@ -42,12 +43,14 @@ public class SQLHandler {
         executeStatement(sql);
     }
 
-    private static void executeStatement(String sql) {
+    private static boolean executeStatement(String sql) {
         try {
             Statement stmt = connection.createStatement();
             stmt.execute(sql);
+            return true;
 
         } catch (SQLException ignore) {}
+        return false;
     }
 
     public static String executeStatementAndReturn(String sql, String name) {
@@ -61,34 +64,55 @@ public class SQLHandler {
         return result;
     }
 
+    public static boolean columnExists (String column) {
+        String sql = "SELECT " + column + " FROM " + tableName;
+        return executeStatement(sql);
+    }
+
     private static void createColumns() {
-        columns = new StringBuilder();
+        ArrayList<Column> columns = new ArrayList<>();
 
-        for (int i = 0; i < 36; i++) {
-            columns.append("inv").append(i).append(" TEXT,");
-        }
-        columns.append("offHand").append(" TEXT,");
-
-        for (int i = 0; i < 4; i++) {
-            columns.append("armour").append(i).append(" TEXT,");
-        }
-
-        for (int i = 0; i < 27; i++) {
-            columns.append("eChest").append(i).append(" TEXT,");
+        if (ConfigManager.Sync_Inv && !columnExists("inv0")) {
+            for (int i = 0; i < 36; i++) {
+                columns.add(new Column("inv" + i, "TEXT"));
+            }
+            columns.add(new Column("offHand", "TEXT"));
+            columns.add(new Column("selectedSlot", "INTEGER"));
         }
 
-        columns.append("xp").append(" INTEGER,");
-        columns.append("xpProgress").append(" REAL,");
-        columns.append("score").append(" INTEGER,");
-        columns.append("health").append(" REAL,");
-        columns.append("foodLevel").append(" INTEGER,");
-        columns.append("selectedSlot").append(" INTEGER,");
-        columns.append("statusEffects").append(" TEXT");
+        if (ConfigManager.Sync_Armour && !columnExists("armour0")) {
+            for (int i = 0; i < 4; i++) {
+                columns.add(new Column("armour" + i, "TEXT"));
+            }
+        }
+
+        if (ConfigManager.Sync_eChest && !columnExists("eChest0")) {
+            for (int i = 0; i < 27; i++) {
+               columns.add(new Column("eChest" + i, "TEXT"));
+            }
+        }
+
+        if (ConfigManager.Sync_Xp && !columnExists("xp")) {
+            columns.add(new Column("xp", "INTEGER"));
+            columns.add(new Column("xpProgress", "REAL"));
+        }
+
+        if (ConfigManager.Sync_Score && !columnExists("score")) columns.add(new Column("score", "INTEGER"));
+        if (ConfigManager.Sync_Health && !columnExists("health")) columns.add(new Column("health", "REAL"));
+        if (ConfigManager.Sync_Food_Level && !columnExists("foodLevel")) columns.add(new Column("foodLevel", "INTEGER"));
+        if (ConfigManager.Sync_Status_Effects && !columnExists("statusEffects")) columns.add(new Column("statusEffects", "TEXT"));
+
+        for (Column c : columns) {
+            String sql = "ALTER TABLE " + tableName + " ADD " + c.getName() + " " + c.getType();
+            System.out.println(sql);
+            executeStatement(sql);
+        }
     }
 
     private static void createTable() {
-        String sql = "CREATE TABLE IF NOT EXISTS " + tableName + " (uuid TEXT PRIMARY KEY, " + columns + ");";
+        String sql = "CREATE TABLE IF NOT EXISTS " + tableName + " (uuid TEXT PRIMARY KEY)";
         executeStatement(sql);
+        createColumns();
     }
 
     public static void createRow(String uuid) {
@@ -142,8 +166,7 @@ public class SQLHandler {
         getConfigData();
         connect();
         if (ConfigManager.Enable_WAL_Mode) enableWALMode();
-        createColumns();
         createTable();
-        SQLHandler.disconnect();
+        disconnect();
     }
 }

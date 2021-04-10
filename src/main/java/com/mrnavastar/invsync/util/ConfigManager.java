@@ -12,7 +12,7 @@ public class ConfigManager {
     public static File configFile;
 
     public static String Database_Name, Database_Table_Name, Database_Directory;
-    public static boolean Enable_WAL_Mode, Sync_Inv, Sync_Armour, Sync_eChest, Sync_Xp, Sync_Score, Sync_Health, Sync_Food_Level;
+    public static boolean Enable_WAL_Mode, Sync_Inv, Sync_Armour, Sync_eChest, Sync_Xp, Sync_Score, Sync_Health, Sync_Food_Level, Sync_Status_Effects;
 
     public static void prepareConfigFile() {
         if (configFile != null) {
@@ -38,6 +38,7 @@ public class ConfigManager {
         SQLConfigProperties.addProperty("Sync_Score", true);
         SQLConfigProperties.addProperty("Sync_Health", true);
         SQLConfigProperties.addProperty("Sync_Food_Level", true);
+        SQLConfigProperties.addProperty("Sync_Status_Effects", true);
 
         jsonWriter(SQLConfigProperties, configFile);
     }
@@ -70,6 +71,7 @@ public class ConfigManager {
             Sync_Score = jsonObject.get("Sync_Score").getAsBoolean();
             Sync_Health = jsonObject.get("Sync_Health").getAsBoolean();
             Sync_Food_Level = jsonObject.get("Sync_Food_Level").getAsBoolean();
+            Sync_Status_Effects = jsonObject.get("Sync_Status_Effects").getAsBoolean();
 
         } catch (FileNotFoundException e) {
             e.printStackTrace();
