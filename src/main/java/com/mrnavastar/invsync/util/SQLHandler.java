@@ -10,7 +10,6 @@ import static com.mrnavastar.invsync.Invsync.log;
 public class SQLHandler {
 
     private static String databaseName, tableName, databaseDirectory;
-    private static StringBuilder columns;
     public static Connection connection;
 
     private static void getConfigData() {
@@ -104,7 +103,6 @@ public class SQLHandler {
 
         for (Column c : columns) {
             String sql = "ALTER TABLE " + tableName + " ADD " + c.getName() + " " + c.getType();
-            System.out.println(sql);
             executeStatement(sql);
         }
     }
