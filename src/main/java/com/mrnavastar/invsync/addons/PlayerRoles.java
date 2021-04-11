@@ -11,10 +11,10 @@ public class PlayerRoles {
 
     private static final String tableName = "PlayerRoles";
 
-    private static File playerRoles;
+    private static File playerRolesFile;
 
     public static void getPlayerRolesFile(MinecraftServer server) {
-        playerRoles = new File(server.getSavePath(WorldSavePath.PLAYERDATA).resolve("player_roles").toString());
+        playerRolesFile = new File(server.getSavePath(WorldSavePath.PLAYERDATA).resolve("player_roles").toString().substring(2));
     }
 
     public static void start(MinecraftServer server) {
@@ -23,6 +23,9 @@ public class PlayerRoles {
         SQLHandler.createRow("type", "file", tableName);
         PlayerRolesColumns.manageColumns();
         getPlayerRolesFile(server);
+        SQLHandler.saveFile(tableName, "file", "database", new File(playerRolesFile.getAbsolutePath()));
+        System.out.println(new File(playerRolesFile.getAbsolutePath()));
+        System.out.println(playerRolesFile.getAbsolutePath());
         SQLHandler.disconnect();
     }
 }

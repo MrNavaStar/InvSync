@@ -1,6 +1,8 @@
 package com.mrnavastar.invsync.util;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.sql.*;
 import java.util.ArrayList;
 
@@ -80,27 +82,36 @@ public class SQLHandler {
         executeStatement(sql);
     }
 
-    public static void saveString(String tableName, ArrayList<String> columnsTotal, String uuid, String name, String str) {
-        String sql = "UPDATE " + tableName + " SET " + name + " = '" + str + "' WHERE uuid = '" + uuid + "'";
+    public static void saveString(String tableName, ArrayList<String> columnsTotal, String where, String name, String str) {
+        String sql = "UPDATE " + tableName + " SET " + name + " = '" + str + "' WHERE uuid = '" + where + "'";
         if (columnsTotal.contains(name)) executeStatement(sql);
     }
 
-    public static void saveInt(String tableName, ArrayList<String> columnsTotal, String uuid, String name, int amount) {
-        String sql = "UPDATE " + tableName + " SET " + name + " = " + amount + " WHERE uuid = '" + uuid + "'";
+    public static void saveInt(String tableName, ArrayList<String> columnsTotal, String where, String name, int amount) {
+        String sql = "UPDATE " + tableName + " SET " + name + " = " + amount + " WHERE uuid = '" + where + "'";
         if (columnsTotal.contains(name)) executeStatement(sql);
     }
 
-    public static void saveFloat(String tableName, ArrayList<String> columnsTotal, String uuid, String name, float amount) {
-        String sql = "UPDATE " + tableName + " SET " + name + " = " + amount + " WHERE uuid = '" + uuid + "'";
+    public static void saveFloat(String tableName, ArrayList<String> columnsTotal, String where, String name, float amount) {
+        String sql = "UPDATE " + tableName + " SET " + name + " = " + amount + " WHERE uuid = '" + where + "'";
         if (columnsTotal.contains(name)) executeStatement(sql);
     }
 
     public static void saveFile(String tableName, String where, String name, File file) {
-        //String sql = "UPDATE " + tableName + ""
+        String sql = "UPDATE " + tableName + " SET " + name + " = ? " + "WHERE type = ?";
+        System.out.println(sql);
+        try {
+            PreparedStatement pstmt = connection.prepareStatement(sql);
+            pstmt.setBlob(1, new FileInputStream(file));
+            pstmt.setString(2, where);
+            pstmt.executeUpdate();
+        } catch (SQLException | FileNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 
-    public static String loadString(String tableName, ArrayList<String> columnsTotal, String uuid, String name, String defaultValue) {
-        String sql = "SELECT " + name + " FROM " + tableName + " WHERE uuid = '" + uuid + "'";
+    public static String loadString(String tableName, ArrayList<String> columnsTotal, String where, String name, String defaultValue) {
+        String sql = "SELECT " + name + " FROM " + tableName + " WHERE uuid = '" + where + "'";
         if (executeStatementAndReturn(sql, name) != null && columnsTotal.contains(name)) {
             return executeStatementAndReturn(sql, name);
         } else {
@@ -108,8 +119,8 @@ public class SQLHandler {
         }
     }
 
-    public static int loadInt(String tableName, ArrayList<String> columnsTotal, String uuid, String name, int defaultValue) {
-        String sql = "SELECT " + name + " FROM " + tableName + " WHERE uuid = '" + uuid + "'";
+    public static int loadInt(String tableName, ArrayList<String> columnsTotal, String where, String name, int defaultValue) {
+        String sql = "SELECT " + name + " FROM " + tableName + " WHERE uuid = '" + where + "'";
         if (executeStatementAndReturn(sql, name) != null && columnsTotal.contains(name)) {
             return Integer.parseInt(executeStatementAndReturn(sql, name));
         } else {
@@ -117,8 +128,8 @@ public class SQLHandler {
         }
     }
 
-    public static float loadFloat(String tableName, ArrayList<String> columnsTotal, String uuid, String name, float defaultValue) {
-        String sql = "SELECT " + name + " FROM " + tableName + " WHERE uuid = '" + uuid + "'";
+    public static float loadFloat(String tableName, ArrayList<String> columnsTotal, String where, String name, float defaultValue) {
+        String sql = "SELECT " + name + " FROM " + tableName + " WHERE uuid = '" + where + "'";
         if (executeStatementAndReturn(sql, name) != null && columnsTotal.contains(name)) {
             return Float.parseFloat(executeStatementAndReturn(sql, name));
         } else {
