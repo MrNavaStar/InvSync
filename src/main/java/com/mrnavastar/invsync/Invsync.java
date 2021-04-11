@@ -1,11 +1,15 @@
 package com.mrnavastar.invsync;
 
+import com.mrnavastar.invsync.addons.PlayerRoles;
 import com.mrnavastar.invsync.api.event.PlayerJoinCallback;
 import com.mrnavastar.invsync.util.SQLHandler;
 import com.mrnavastar.invsync.api.event.PlayerLeaveCallback;
 import com.mrnavastar.invsync.util.ConfigManager;
 import com.mrnavastar.invsync.conversion.*;
 import net.fabricmc.api.ModInitializer;
+import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
+import net.fabricmc.loader.api.ModContainer;
+import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.util.ActionResult;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
@@ -40,6 +44,14 @@ public class Invsync implements ModInitializer {
                 NBTtoSQL.convert(player);
                 return ActionResult.PASS;
             });
+
+            //Enable syncing for supported mods when present
+            for (ModContainer modContainer : FabricLoader.getInstance().getAllMods()) {
+                if (modContainer.getMetadata().getId().equals("player_roles")) {
+                    log(Level.INFO, "Player Roles found! Enabling support");
+                    ServerLifecycleEvents.SERVER_STARTING.register(PlayerRoles::start);
+                }
+            }
         }
     }
 

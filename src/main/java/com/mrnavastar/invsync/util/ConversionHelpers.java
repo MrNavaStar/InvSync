@@ -6,6 +6,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.StringNbtReader;
 
+import java.util.ArrayList;
+
 //This is a kinda yucky implementation, but hey if it works it works
 public class ConversionHelpers {
 

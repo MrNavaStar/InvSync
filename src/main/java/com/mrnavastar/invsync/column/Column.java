@@ -1,4 +1,4 @@
-package com.mrnavastar.invsync.util;
+package com.mrnavastar.invsync.column;
 
 public class Column {
 
