@@ -159,7 +159,7 @@ public class SQLHandler {
 
     public static String loadString(String uuid, String name, String defaultValue) {
         String sql = "SELECT " + name + " FROM " + tableName + " WHERE uuid = '" + uuid + "'";
-        if (executeStatementAndReturn(sql, name) != null || columnsTotal.contains(name)) {
+        if (executeStatementAndReturn(sql, name) != null && columnsTotal.contains(name)) {
             return executeStatementAndReturn(sql, name);
         } else {
             return defaultValue;
@@ -168,7 +168,7 @@ public class SQLHandler {
 
     public static int loadInt(String uuid, String name, int defaultValue) {
         String sql = "SELECT " + name + " FROM " + tableName + " WHERE uuid = '" + uuid + "'";
-        if (executeStatementAndReturn(sql, name) != null || columnsTotal.contains(name)) {
+        if (executeStatementAndReturn(sql, name) != null && columnsTotal.contains(name)) {
             return Integer.parseInt(executeStatementAndReturn(sql, name));
         } else {
             return defaultValue;
@@ -177,7 +177,7 @@ public class SQLHandler {
 
     public static float loadFloat(String uuid, String name, float defaultValue) {
         String sql = "SELECT " + name + " FROM " + tableName + " WHERE uuid = '" + uuid + "'";
-        if (executeStatementAndReturn(sql, name) != null || columnsTotal.contains(name)) {
+        if (executeStatementAndReturn(sql, name) != null && columnsTotal.contains(name)) {
             return Float.parseFloat(executeStatementAndReturn(sql, name));
         } else {
             return defaultValue;
