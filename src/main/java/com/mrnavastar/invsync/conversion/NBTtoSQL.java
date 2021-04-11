@@ -52,7 +52,6 @@ public class NBTtoSQL {
 
     public static void convert(PlayerEntity player) {
         SQLHandler.connect();
-
         String uuid = player.getUuid().toString();
         SQLHandler.createRow(uuid);
 

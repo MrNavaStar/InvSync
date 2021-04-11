@@ -10,6 +10,7 @@ import static com.mrnavastar.invsync.Invsync.log;
 public class SQLHandler {
 
     private static String databaseName, tableName, databaseDirectory;
+    private static final ArrayList<String> columnsTotal = new ArrayList<>();
     public static Connection connection;
 
     private static void getConfigData() {
@@ -43,13 +44,14 @@ public class SQLHandler {
     }
 
     private static boolean executeStatement(String sql) {
+        boolean executed = false;
         try {
             Statement stmt = connection.createStatement();
             stmt.execute(sql);
-            return true;
+            executed = true;
 
         } catch (SQLException ignore) {}
-        return false;
+        return executed;
     }
 
     public static String executeStatementAndReturn(String sql, String name) {
@@ -68,40 +70,62 @@ public class SQLHandler {
         return executeStatement(sql);
     }
 
-    private static void createColumns() {
-        ArrayList<Column> columns = new ArrayList<>();
+    private static void manageColumns() {
+        ArrayList<Column> columnsAdd = new ArrayList<>();
 
-        if (ConfigManager.Sync_Inv && !columnExists("inv0")) {
+        if (ConfigManager.Sync_Inv) {
             for (int i = 0; i < 36; i++) {
-                columns.add(new Column("inv" + i, "TEXT"));
+                if (!columnExists("inv0")) columnsAdd.add(new Column("inv" + i, "TEXT"));
+                columnsTotal.add("inv" + i);
             }
-            columns.add(new Column("offHand", "TEXT"));
-            columns.add(new Column("selectedSlot", "INTEGER"));
+            if (!columnExists("offHand")) columnsAdd.add(new Column("offHand", "TEXT"));
+            if (!columnExists("selectedSlot")) columnsAdd.add(new Column("selectedSlot", "INTEGER"));
         }
 
-        if (ConfigManager.Sync_Armour && !columnExists("armour0")) {
+        if (ConfigManager.Sync_Armour) {
             for (int i = 0; i < 4; i++) {
-                columns.add(new Column("armour" + i, "TEXT"));
+                if (!columnExists("armour0")) columnsAdd.add(new Column("armour" + i, "TEXT"));
+                columnsTotal.add("armour" + i);
             }
         }
 
-        if (ConfigManager.Sync_eChest && !columnExists("eChest0")) {
+        if (ConfigManager.Sync_eChest) {
             for (int i = 0; i < 27; i++) {
-               columns.add(new Column("eChest" + i, "TEXT"));
+                if (!columnExists("eChest0")) columnsAdd.add(new Column("eChest" + i, "TEXT"));
+                columnsTotal.add("eChest" + i);
             }
         }
 
-        if (ConfigManager.Sync_Xp && !columnExists("xp")) {
-            columns.add(new Column("xp", "INTEGER"));
-            columns.add(new Column("xpProgress", "REAL"));
+        if (ConfigManager.Sync_Xp) {
+            if (!columnExists("xp")) {
+                columnsAdd.add(new Column("xp", "INTEGER"));
+                columnsAdd.add(new Column("xpProgress", "REAL"));
+            }
+            columnsTotal.add("xp");
+            columnsTotal.add("xpProgress");
         }
 
-        if (ConfigManager.Sync_Score && !columnExists("score")) columns.add(new Column("score", "INTEGER"));
-        if (ConfigManager.Sync_Health && !columnExists("health")) columns.add(new Column("health", "REAL"));
-        if (ConfigManager.Sync_Food_Level && !columnExists("foodLevel")) columns.add(new Column("foodLevel", "INTEGER"));
-        if (ConfigManager.Sync_Status_Effects && !columnExists("statusEffects")) columns.add(new Column("statusEffects", "TEXT"));
+        if (ConfigManager.Sync_Score) {
+            if (!columnExists("score")) columnsAdd.add(new Column("score", "INTEGER"));
+            columnsTotal.add("score");
+        }
 
-        for (Column c : columns) {
+        if (ConfigManager.Sync_Health) {
+            if (!columnExists("health")) columnsAdd.add(new Column("health", "REAL"));
+            columnsTotal.add("health");
+        }
+
+        if (ConfigManager.Sync_Food_Level) {
+            if (!columnExists("foodLevel")) columnsAdd.add(new Column("foodLevel", "TEXT"));
+            columnsTotal.add("foodLevel");
+        }
+
+        if (ConfigManager.Sync_Status_Effects) {
+            if (!columnExists("statusEffects")) columnsAdd.add(new Column("statusEffects", "TEXT"));
+            columnsTotal.add("statusEffects");
+        }
+
+        for (Column c : columnsAdd) {
             String sql = "ALTER TABLE " + tableName + " ADD " + c.getName() + " " + c.getType();
             executeStatement(sql);
         }
@@ -110,7 +134,7 @@ public class SQLHandler {
     private static void createTable() {
         String sql = "CREATE TABLE IF NOT EXISTS " + tableName + " (uuid TEXT PRIMARY KEY)";
         executeStatement(sql);
-        createColumns();
+        manageColumns();
     }
 
     public static void createRow(String uuid) {
@@ -120,31 +144,31 @@ public class SQLHandler {
 
     public static void saveString(String uuid, String name, String str) {
         String sql = "UPDATE " + tableName + " SET " + name + " = '" + str + "' WHERE uuid = '" + uuid + "'";
-        executeStatement(sql);
+        if (columnsTotal.contains(name)) executeStatement(sql);
     }
 
     public static void saveInt(String uuid, String name, int amount) {
         String sql = "UPDATE " + tableName + " SET " + name + " = " + amount + " WHERE uuid = '" + uuid + "'";
-        executeStatement(sql);
+        if (columnsTotal.contains(name)) executeStatement(sql);
     }
 
     public static void saveFloat(String uuid, String name, float amount) {
         String sql = "UPDATE " + tableName + " SET " + name + " = " + amount + " WHERE uuid = '" + uuid + "'";
-        executeStatement(sql);
+        if (columnsTotal.contains(name)) executeStatement(sql);
     }
 
-    public static String loadString(String uuid, String name) {
+    public static String loadString(String uuid, String name, String defaultValue) {
         String sql = "SELECT " + name + " FROM " + tableName + " WHERE uuid = '" + uuid + "'";
-        if (executeStatementAndReturn(sql, name) != null) {
+        if (executeStatementAndReturn(sql, name) != null || columnsTotal.contains(name)) {
             return executeStatementAndReturn(sql, name);
         } else {
-            return "{id:\"minecraft:air\",Count:1b}";
+            return defaultValue;
         }
     }
 
     public static int loadInt(String uuid, String name, int defaultValue) {
         String sql = "SELECT " + name + " FROM " + tableName + " WHERE uuid = '" + uuid + "'";
-        if (executeStatementAndReturn(sql, name) != null) {
+        if (executeStatementAndReturn(sql, name) != null || columnsTotal.contains(name)) {
             return Integer.parseInt(executeStatementAndReturn(sql, name));
         } else {
             return defaultValue;
@@ -153,7 +177,7 @@ public class SQLHandler {
 
     public static float loadFloat(String uuid, String name, float defaultValue) {
         String sql = "SELECT " + name + " FROM " + tableName + " WHERE uuid = '" + uuid + "'";
-        if (executeStatementAndReturn(sql, name) != null) {
+        if (executeStatementAndReturn(sql, name) != null || columnsTotal.contains(name)) {
             return Float.parseFloat(executeStatementAndReturn(sql, name));
         } else {
             return defaultValue;
