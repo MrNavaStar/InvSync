@@ -1,135 +1,156 @@
-package mrnavastar.friendlist.commands;
+package com.mrnavastar.invsync.util;
 
-import mrnavastar.friendlist.api.interfaces.PlayerEntityExt;
-import com.mojang.brigadier.CommandDispatcher;
-import com.mojang.brigadier.context.CommandContext;
-import com.mojang.brigadier.exceptions.CommandSyntaxException;
-import mrnavastar.friendlist.util.PlayerCache;
-import net.minecraft.command.CommandSource;
-import com.mojang.brigadier.arguments.StringArgumentType;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.server.PlayerManager;
-import net.minecraft.server.command.CommandManager;
-import net.minecraft.server.command.ServerCommandSource;
-import net.minecraft.text.LiteralText;
-
+import java.io.*;
+import java.sql.*;
 import java.util.ArrayList;
-import java.util.Objects;
-import java.util.UUID;
+import java.util.Arrays;
 
-import static com.mojang.brigadier.arguments.StringArgumentType.getString;
+import com.mrnavastar.invsync.column.PlayerDataColumns;
+import org.apache.commons.io.FileUtils;
+import org.apache.logging.log4j.Level;
 
-public class FriendsCommand {
+import static com.mrnavastar.invsync.Invsync.log;
 
-    public static void registerCommand(CommandDispatcher<ServerCommandSource> dispatcher) {
-        dispatcher.register(CommandManager.literal("friends")
+public class SQLHandler {
 
-                //Add friend
-                .then(CommandManager.literal("add")
-                .then(CommandManager.argument("player", StringArgumentType.word()).suggests((commandContext, suggestionsBuilder) -> {
-                    String executor = commandContext.getSource().getPlayer().getName().asString();
-                    PlayerManager playerManager = commandContext.getSource().getMinecraftServer().getPlayerManager();
-                    return CommandSource.suggestMatching(playerManager.getPlayerList().stream()
-                            .filter((serverPlayerEntity -> !executor.equals(serverPlayerEntity.getEntityName())))
-                            .map((serverPlayerEntity) -> serverPlayerEntity.getGameProfile().getName()), suggestionsBuilder);
-                })
-                    .executes(command -> addFriend(command, getString(command, "player")))))
+    private static String databaseName, databaseDirectory;
+    public static Connection connection;
 
-                //Remove Friend
-                .then(CommandManager.literal("remove")
-                .then(CommandManager.argument("player", StringArgumentType.word()).suggests((commandContext, suggestionsBuilder) -> {
-                    PlayerEntity executor = commandContext.getSource().getPlayer();
-                    ArrayList<UUID> friendsList = ((PlayerEntityExt) executor).getFriendUUIDList();
-                    return CommandSource.suggestMatching(friendsList.stream().map(PlayerCache::getNameFromUuid), suggestionsBuilder);
-                })
-                    .executes(command -> removeFriend(command, getString(command, "player")))))
-
-                //View friend list
-                .then(CommandManager.literal("list")
-                    .executes(FriendsCommand::getFriendList))
-
-                //Admin view cache & dump cache
-                .requires(source -> source.hasPermissionLevel(4))
-                .then(CommandManager.literal("cache")
-                .then(CommandManager.literal("view")
-                    .executes(FriendsCommand::getCache))
-                .then(CommandManager.literal("dump")
-                    .executes(FriendsCommand::dumpCache))));
-
-        //DEBUG
-        dispatcher.register(CommandManager.literal("friends")
-                .then(CommandManager.literal("wipe")
-                .executes(FriendsCommand::wipeAll)));
+    private static void getConfigData() {
+        databaseName = ConfigManager.Database_Name;
+        databaseDirectory = ConfigManager.Database_Directory;
     }
 
-    public static int addFriend(CommandContext<ServerCommandSource> command, String name) throws CommandSyntaxException {
-        final PlayerEntity executor = command.getSource().getPlayer();
-        final PlayerEntity target = command.getSource().getMinecraftServer().getPlayerManager().getPlayer(name);
-        final UUID targetUuid = PlayerCache.getUuidFromName(name);
+    public static void connect() {
+        try {
+            Class.forName("org.sqlite.JDBC");
+            String url = "jdbc:sqlite:" + databaseDirectory + "/" + databaseName;
 
-        if (!executor.getEntityName().equals(name)) {
-            if (targetUuid != null && !((PlayerEntityExt) executor).getFriendUUIDList().contains(targetUuid)) {
-                ((PlayerEntityExt) executor).addFriend(targetUuid);
-                if (target != null)
-                    target.sendMessage(new LiteralText(executor.getEntityName() + " wants to add you as a friend! CLICK: ACCEPT | DECLINE"), false);
-            } else {
-                executor.sendMessage(new LiteralText("no player found"), false);
-            }
+            connection = DriverManager.getConnection(url);
+
+        } catch (SQLException | ClassNotFoundException ignore) {
+            log(Level.ERROR, "Failed to connect to database!");
+            log(Level.ERROR, "This usually occurs if the given database directory doesn't exist or is invalid");
         }
-        return 1;
     }
 
-    public static int removeFriend(CommandContext<ServerCommandSource> command, String name) throws CommandSyntaxException {
-        final PlayerEntity executor = command.getSource().getPlayer();
-        final UUID targetUuid = PlayerCache.getUuidFromName(name);
+    public static void disconnect() {
+        try {
+            connection.close();
+        } catch (SQLException ignore) {}
+    }
 
-        if (!executor.getEntityName().equals(name)) {
-            if (((PlayerEntityExt) executor).getFriendUUIDList().contains(targetUuid)) {
-                ((PlayerEntityExt) executor).removeFriend(targetUuid);
-                executor.sendMessage(new LiteralText(name + " is no longer your friend"), false);
-            }
+    public static void enableWALMode() {
+        String sql = "PRAGMA journal_mode=WAL;";
+        executeStatement(sql);
+    }
+
+    public static boolean executeStatement(String sql) {
+        boolean executed = false;
+        try {
+            Statement stmt = connection.createStatement();
+            stmt.execute(sql);
+            executed = true;
+
+        } catch (SQLException ignore) {}
+        return executed;
+    }
+
+    public static String executeStatementAndReturn(String sql, String name) {
+        String result = null;
+        try {
+            Statement stmt = connection.createStatement();
+            ResultSet resultSet = stmt.executeQuery(sql);
+            result = resultSet.getString(name);
+
+        } catch (SQLException ignore) {}
+        return result;
+    }
+
+    public static boolean columnExists (String tableName, String column) {
+        String sql = "SELECT " + column + " FROM " + tableName;
+        return executeStatement(sql);
+    }
+
+    public static void createTable(String tableName, String primaryKey, String type) {
+        String sql = "CREATE TABLE IF NOT EXISTS " + tableName + " (" + primaryKey + " " + type + " PRIMARY KEY)";
+        executeStatement(sql);
+    }
+
+    public static void createRow(String name, String value, String tableName) {
+        String sql = "INSERT OR REPLACE INTO " + tableName + "(" + name + ") VALUES('" + value + "');";
+        executeStatement(sql);
+    }
+
+    public static void saveString(String tableName, ArrayList<String> columnsTotal, String where, String name, String str) {
+        String sql = "UPDATE " + tableName + " SET " + name + " = '" + str + "' WHERE uuid = '" + where + "'";
+        if (columnsTotal.contains(name)) executeStatement(sql);
+    }
+
+    public static void saveInt(String tableName, ArrayList<String> columnsTotal, String where, String name, int amount) {
+        String sql = "UPDATE " + tableName + " SET " + name + " = " + amount + " WHERE uuid = '" + where + "'";
+        if (columnsTotal.contains(name)) executeStatement(sql);
+    }
+
+    public static void saveFloat(String tableName, ArrayList<String> columnsTotal, String where, String name, float amount) {
+        String sql = "UPDATE " + tableName + " SET " + name + " = " + amount + " WHERE uuid = '" + where + "'";
+        if (columnsTotal.contains(name)) executeStatement(sql);
+    }
+
+    public static void saveFile(String tableName, String where, String name, File file) {
+        try {
+            String sql = "UPDATE " + tableName + " SET " + name + " = '" + Arrays.toString(FileUtils.readFileToByteArray(file)) + "' WHERE type = '" + where + "'";
+            System.out.println(sql);
+            executeStatement(sql);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-        return 1;
     }
 
-    public static int getFriendList(CommandContext<ServerCommandSource> command) throws CommandSyntaxException {
-        final PlayerEntity executor = command.getSource().getPlayer();
-        StringBuilder friends = new StringBuilder(), requests = new StringBuilder();
-
-        for (UUID uuid : ((PlayerEntityExt) executor).getFriendUUIDList()) {
-            friends.append(Objects.requireNonNull(PlayerCache.getNameFromUuid(uuid))).append(", ");
+    public static String loadString(String tableName, ArrayList<String> columnsTotal, String where, String name, String defaultValue) {
+        String sql = "SELECT " + name + " FROM " + tableName + " WHERE uuid = '" + where + "'";
+        if (executeStatementAndReturn(sql, name) != null && columnsTotal.contains(name)) {
+            return executeStatementAndReturn(sql, name);
+        } else {
+            return defaultValue;
         }
-
-        /*for (UUID uuid : ((PlayerEntityExt) executor).getRequestUUIDtList()) {
-            requests.append(Objects.requireNonNull(APIHandler.getPlayerName(uuid))).append(", ");
-        }*/
-
-        String friendsCombined = "None", requestsCombined = "None";
-        if (friends.length() > 1) friendsCombined = friends.substring(0, friends.length() - 2);
-        //if (requests.length() > 1) requestsCombined = requests.substring(0, requests.length() - 2);
-
-        executor.sendMessage(new LiteralText("Friends: " + friendsCombined), false);
-        //executor.sendMessage(new LiteralText("Pending: " + requestsCombined), false);
-        return 1;
     }
 
-    //DEBUG
-    public static int wipeAll(CommandContext<ServerCommandSource> command) throws CommandSyntaxException  {
-        final PlayerEntity executor = command.getSource().getPlayer();
-        ((PlayerEntityExt) executor).wipeAll();
-        return 1;
+    public static int loadInt(String tableName, ArrayList<String> columnsTotal, String where, String name, int defaultValue) {
+        String sql = "SELECT " + name + " FROM " + tableName + " WHERE uuid = '" + where + "'";
+        if (executeStatementAndReturn(sql, name) != null && columnsTotal.contains(name)) {
+            return Integer.parseInt(executeStatementAndReturn(sql, name));
+        } else {
+            return defaultValue;
+        }
     }
 
-    public static int dumpCache(CommandContext<ServerCommandSource> command) throws CommandSyntaxException {
-        final PlayerEntity executor = command.getSource().getPlayer();
-        PlayerCache.dumpCache();
-        executor.sendMessage(new LiteralText("Player cache has been cleared"), false);
-        return 1;
+    public static float loadFloat(String tableName, ArrayList<String> columnsTotal, String where, String name, float defaultValue) {
+        String sql = "SELECT " + name + " FROM " + tableName + " WHERE uuid = '" + where + "'";
+        if (executeStatementAndReturn(sql, name) != null && columnsTotal.contains(name)) {
+            return Float.parseFloat(executeStatementAndReturn(sql, name));
+        } else {
+            return defaultValue;
+        }
     }
 
-    public static int getCache(CommandContext<ServerCommandSource> command) throws CommandSyntaxException {
-        final PlayerEntity executor = command.getSource().getPlayer();
-        executor.sendMessage(new LiteralText(PlayerCache.getCache().toString()), false);
-        return 1;
+    public static byte[] loadFile(String tableName, String where, String name) {
+        String sql = "SELECT " + name + " FROM " + tableName + " WHERE type = '" + where + "'";
+        String[] bytesAsStr = executeStatementAndReturn(sql, name).replace("[", "").replace("]", "").split(", ");
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        for (String s : bytesAsStr) {
+            byteArrayOutputStream.write(new byte[]{Byte.parseByte(s)}, 0, 1);
+        }
+        System.out.println(Arrays.toString(byteArrayOutputStream.toByteArray()));
+        return byteArrayOutputStream.toByteArray();
+    }
+
+    public static void start() {
+        getConfigData();
+        connect();
+        if (ConfigManager.Enable_WAL_Mode) enableWALMode();
+        createTable(ConfigManager.Database_Table_Name, "uuid", "TEXT");
+        PlayerDataColumns.manageColumns();
+        disconnect();
     }
 }
