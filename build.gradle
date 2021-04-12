@@ -29,6 +29,9 @@ dependencies {
     //SQL
     implementation 'org.xerial:sqlite-jdbc:3.34.0'
     include 'org.xerial:sqlite-jdbc:3.34.0'
+
+    //Addon Mods
+    modImplementation()
 }
 
 processResources {
