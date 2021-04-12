@@ -24,7 +24,7 @@ public class Invsync implements ModInitializer {
         log(Level.INFO, "Initializing");
 
         ConfigManager.loadConfig();
-        if (!ConfigManager.Database_Directory.equals("C:/Where/To/Create/Database")) {
+        if (!ConfigManager.Database_Directory.equals("/Where/To/Create/Database")) {
             SQLHandler.start();
         }
 

@@ -12,7 +12,7 @@ public class PlayerRolesColumns {
     public static void manageColumns() {
         ArrayList<Column> columnsAdd = new ArrayList<>();
 
-        if (!columnExists(tableName, "database")) columnsAdd.add(new Column("database", "BLOB"));
+        if (!columnExists(tableName, "database")) columnsAdd.add(new Column("database", "TEXT"));
         if (!columnExists(tableName, "config")) columnsAdd.add(new Column( "config", "BLOB"));
 
         for (Column c : columnsAdd) {

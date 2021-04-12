@@ -27,8 +27,8 @@ dependencies {
     include 'com.github.javadev:underscore:1.64'
 
     //SQL
-    implementation group: 'org.xerial', name: 'sqlite-jdbc', version: '3.7.2'
-    include group: 'org.xerial', name: 'sqlite-jdbc', version: '3.7.2'
+    implementation 'org.xerial:sqlite-jdbc:3.34.0'
+    include 'org.xerial:sqlite-jdbc:3.34.0'
 }
 
 processResources {

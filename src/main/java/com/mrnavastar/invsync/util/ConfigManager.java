@@ -27,7 +27,7 @@ public class ConfigManager {
         SQLConfigProperties.addProperty("comment1", "Settings for your database. THESE MUST BE THE SAME BETWEEN SERVERS. (More info at https://github.com/MrNavaStar/invSync)");
         SQLConfigProperties.addProperty("Database_Name", "InvSync.db");
         SQLConfigProperties.addProperty("Database_Table_Name", "PlayerData");
-        SQLConfigProperties.addProperty("Database_Directory", "C:/Where/To/Create/Database");
+        SQLConfigProperties.addProperty("Database_Directory", "/Where/To/Create/Database");
         SQLConfigProperties.addProperty("Enable_WAL_Mode", false);
 
         SQLConfigProperties.addProperty("comment2", "Settings for what to sync between servers. THESE MUST BE THE SAME BETWEEN SERVERS.");

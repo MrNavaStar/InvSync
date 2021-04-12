@@ -1,12 +1,12 @@
 package com.mrnavastar.invsync.util;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
+import java.io.*;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import com.mrnavastar.invsync.column.PlayerDataColumns;
+import org.apache.commons.io.FileUtils;
 import org.apache.logging.log4j.Level;
 
 import static com.mrnavastar.invsync.Invsync.log;
@@ -98,14 +98,11 @@ public class SQLHandler {
     }
 
     public static void saveFile(String tableName, String where, String name, File file) {
-        String sql = "UPDATE " + tableName + " SET " + name + " = ? " + "WHERE type = ?";
-        System.out.println(sql);
         try {
-            PreparedStatement pstmt = connection.prepareStatement(sql);
-            pstmt.setBlob(1, new FileInputStream(file));
-            pstmt.setString(2, where);
-            pstmt.executeUpdate();
-        } catch (SQLException | FileNotFoundException e) {
+            String sql = "UPDATE " + tableName + " SET " + name + " = '" + Arrays.toString(FileUtils.readFileToByteArray(file)) + "' WHERE type = '" + where + "'";
+            System.out.println(sql);
+            executeStatement(sql);
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
@@ -135,6 +132,17 @@ public class SQLHandler {
         } else {
             return defaultValue;
         }
+    }
+
+    public static byte[] loadFile(String tableName, String where, String name) {
+        String sql = "SELECT " + name + " FROM " + tableName + " WHERE type = '" + where + "'";
+        String[] bytesAsStr = executeStatementAndReturn(sql, name).replace("[", "").replace("]", "").split(", ");
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        for (String s : bytesAsStr) {
+            byteArrayOutputStream.write(new byte[]{Byte.parseByte(s)}, 0, 1);
+        }
+        System.out.println(Arrays.toString(byteArrayOutputStream.toByteArray()));
+        return byteArrayOutputStream.toByteArray();
     }
 
     public static void start() {
