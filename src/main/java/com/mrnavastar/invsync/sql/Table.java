@@ -38,6 +38,7 @@ public class Table {
     public void saveFloat(String key, String column, float data) {
         SQLHandler.saveFloat(tableName, key, column, data);
     }
+
     public void saveFile(String key, String column, File file) {
         SQLHandler.saveFile(tableName, key, column, file);
     }
@@ -53,6 +54,7 @@ public class Table {
     public float loadFloat(String key, String column, float defaultValue) {
         return SQLHandler.loadFloat(tableName, key, column, defaultValue);
     }
+
     public byte[] loadFile(String key, String column) {
         return SQLHandler.loadFile(tableName, key, column);
     }
