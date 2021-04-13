@@ -35,7 +35,8 @@ public class PlayerRoles {
     }
 
     public static void fileSetup() {
-        ServerLifecycleEvents.SERVER_STARTING.register(server -> playerRolesFile = server.getSavePath(WorldSavePath.PLAYERDATA).resolve("player_roles").toFile());
+        ServerLifecycleEvents.SERVER_STARTING.register(server -> PlayerRoles.playerRolesFile
+                = server.getSavePath(WorldSavePath.PLAYERDATA).resolve("player_roles").toFile());
     }
 
     public static void setupProcesses() {

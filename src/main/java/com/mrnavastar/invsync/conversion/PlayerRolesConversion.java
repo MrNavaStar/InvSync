@@ -11,25 +11,28 @@ import java.io.IOException;
 public class PlayerRolesConversion {
 
     public static void fileToSql(File file) {
-        SQLHandler.connect();
-        PlayerRoles.playerRolesTable.createRow("id", "file");
         if (ConfigManager.Sync_Player_Roles) {
+            SQLHandler.connect();
+            PlayerRoles.playerRolesTable.createRow("id", "file");
             PlayerRoles.playerRolesTable.saveFile("file", "database", file);
+            SQLHandler.disconnect();
         }
-        SQLHandler.disconnect();
     }
 
     public static void sqlToFile(File file) {
-        SQLHandler.connect();
         if (ConfigManager.Sync_Player_Roles) {
-            file.delete();
+            SQLHandler.connect();
+            String path = file.getPath();
             byte[] bytes = PlayerRoles.playerRolesTable.loadFile("file", "database");
-            try {
-                FileUtils.writeByteArrayToFile(file, bytes);
-            } catch (IOException e) {
-                e.printStackTrace();
+            if (bytes != null) {
+                try {
+                    file.delete();
+                    FileUtils.writeByteArrayToFile(new File(path), bytes);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
+            SQLHandler.disconnect();
         }
-        SQLHandler.disconnect();
     }
 }

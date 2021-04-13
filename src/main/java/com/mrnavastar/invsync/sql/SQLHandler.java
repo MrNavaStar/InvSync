@@ -143,18 +143,18 @@ public class SQLHandler {
         String sql = "SELECT " + name + " FROM " + tableName + " WHERE id = '" + where + "'";
         ResultSet resultSet = executeStatementAndReturn(sql);
         ByteArrayOutputStream byteArrayOutputStream = null;
+        try {
+            if (resultSet != null && !resultSet.getString(name).equals("[]")) {
 
-        if (resultSet != null) {
-            String[] bytesAsStr = new String[0];
-            byteArrayOutputStream = new ByteArrayOutputStream();
-            try {
-                bytesAsStr = resultSet.getString(name).replace("[", "").replace("]", "").split(", ");
-            } catch (SQLException ignore) {}
+                byteArrayOutputStream = new ByteArrayOutputStream();
+                String[] bytesAsStr = resultSet.getString(name).replace("[", "").replace("]", "").split(", ");
 
-            for (String s : bytesAsStr) {
-                byteArrayOutputStream.write(new byte[]{Byte.parseByte(s)}, 0, 1);
+
+                for (String s : bytesAsStr) {
+                    byteArrayOutputStream.write(new byte[]{Byte.parseByte(s)}, 0, 1);
+                }
             }
-        }
+        } catch (SQLException ignore) {}
 
         if (byteArrayOutputStream != null) {
             return byteArrayOutputStream.toByteArray();
