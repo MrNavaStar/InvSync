@@ -1,4 +1,4 @@
-package com.mrnavastar.invsync.column;
+package com.mrnavastar.invsync.sql.column;
 
 public class Column {
 

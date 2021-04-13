@@ -6,20 +6,12 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.StringNbtReader;
 
-import java.util.ArrayList;
-
 //This is a kinda yucky implementation, but hey if it works it works
 public class ConversionHelpers {
 
     public static String itemStackToString(ItemStack item) {
         String itemData = item.toTag(new CompoundTag()).toString();
         return itemData.replace("'", "$");
-    }
-
-    public static String foodLevelToString(HungerManager hungerManager) {
-        CompoundTag tag = new CompoundTag();
-        hungerManager.toTag(tag);
-        return tag.toString();
     }
 
     public static ItemStack stringToItemStack(String nbt) {
@@ -31,6 +23,12 @@ public class ConversionHelpers {
             e.printStackTrace();
         }
         return ItemStack.fromTag(tag);
+    }
+
+    public static String foodLevelToString(HungerManager hungerManager) {
+        CompoundTag tag = new CompoundTag();
+        hungerManager.toTag(tag);
+        return tag.toString();
     }
 
     public static CompoundTag stringToTag(String nbt) {

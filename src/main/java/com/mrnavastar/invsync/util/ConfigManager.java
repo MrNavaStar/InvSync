@@ -4,6 +4,7 @@ import com.github.underscore.lodash.U;
 import com.google.gson.*;
 import com.mrnavastar.invsync.Invsync;
 import net.fabricmc.loader.api.FabricLoader;
+import org.lwjgl.system.CallbackI;
 
 import java.io.*;
 
@@ -11,8 +12,8 @@ public class ConfigManager {
 
     public static File configFile;
 
-    public static String Database_Name, Database_Table_Name, Database_Directory;
-    public static boolean Enable_WAL_Mode, Sync_Inv, Sync_Armour, Sync_eChest, Sync_Xp, Sync_Score, Sync_Health, Sync_Food_Level, Sync_Status_Effects;
+    public static String Database_Name, Database_Directory, Player_Data_Table_Name, Player_Roles_Table_Name;
+    public static boolean Enable_WAL_Mode, Sync_Inv, Sync_Armour, Sync_eChest, Sync_Xp, Sync_Score, Sync_Health, Sync_Food_Level, Sync_Status_Effects, Sync_Player_Roles;
 
     public static void prepareConfigFile() {
         if (configFile != null) {
@@ -26,7 +27,7 @@ public class ConfigManager {
         JsonObject SQLConfigProperties = new JsonObject();
         SQLConfigProperties.addProperty("comment1", "Settings for your database. THESE MUST BE THE SAME BETWEEN SERVERS. (More info at https://github.com/MrNavaStar/invSync)");
         SQLConfigProperties.addProperty("Database_Name", "InvSync.db");
-        SQLConfigProperties.addProperty("Database_Table_Name", "PlayerData");
+        SQLConfigProperties.addProperty("Player_Data_Table_Name", "PlayerData");
         SQLConfigProperties.addProperty("Database_Directory", "/Where/To/Create/Database");
         SQLConfigProperties.addProperty("Enable_WAL_Mode", false);
 
@@ -39,6 +40,10 @@ public class ConfigManager {
         SQLConfigProperties.addProperty("Sync_Health", true);
         SQLConfigProperties.addProperty("Sync_Food_Level", true);
         SQLConfigProperties.addProperty("Sync_Status_Effects", true);
+
+        SQLConfigProperties.addProperty("comment3", "If you have the following mods installed, you can sync them too! THESE MUST BE THE SAME BETWEEN SERVERS.");
+        SQLConfigProperties.addProperty("Player_Roles_Table_Name", "PlayerRoles");
+        SQLConfigProperties.addProperty("Sync_Player_Roles", true);
 
         jsonWriter(SQLConfigProperties, configFile);
     }
@@ -60,7 +65,7 @@ public class ConfigManager {
             JsonObject jsonObject = jsonElement.getAsJsonObject();
 
             Database_Name = jsonObject.get("Database_Name").getAsString();
-            Database_Table_Name = jsonObject.get("Database_Table_Name").getAsString();
+            Player_Data_Table_Name = jsonObject.get("Player_Data_Table_Name").getAsString();
             Database_Directory = jsonObject.get("Database_Directory").getAsString();
             Enable_WAL_Mode = jsonObject.get("Enable_WAL_Mode").getAsBoolean();
 
@@ -72,6 +77,9 @@ public class ConfigManager {
             Sync_Health = jsonObject.get("Sync_Health").getAsBoolean();
             Sync_Food_Level = jsonObject.get("Sync_Food_Level").getAsBoolean();
             Sync_Status_Effects = jsonObject.get("Sync_Status_Effects").getAsBoolean();
+
+            Player_Roles_Table_Name = jsonObject.get("Player_Roles_Table_Name").getAsString();
+            Sync_Player_Roles = jsonObject.get("Sync_Player_Roles").getAsBoolean();
 
         } catch (FileNotFoundException e) {
             e.printStackTrace();
