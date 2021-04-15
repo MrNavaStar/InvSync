@@ -13,14 +13,14 @@ public class Table {
         this.tableName = tableName;
         SQLHandler.connect();
         SQLHandler.createTable(tableName);
-        SQLHandler.createTable(tableName + "_temp");
+        SQLHandler.createTable(tableName + "_new");
 
         for (Column c : columns) {
             if (!SQLHandler.columnExists(tableName, c.getName())) {
                 String sql = "ALTER TABLE " + tableName + " ADD " + c.getName() + " " + c.getType();
                 SQLHandler.executeStatement(sql);
             }
-            String sql = "ALTER TABLE " + tableName + "_temp ADD " + c.getName() + " " + c.getType();
+            String sql = "ALTER TABLE " + tableName + "_new ADD " + c.getName() + " " + c.getType();
             SQLHandler.executeStatement(sql);
         }
 
@@ -29,7 +29,7 @@ public class Table {
         SQLHandler.executeStatement("PRAGMA foreign_keys=off;");
         SQLHandler.executeStatement("BEGIN TRANSACTION;");
         SQLHandler.executeStatement("PRAGMA cache_size=1000;");
-        SQLHandler.executeStatement("INSERT INTO " + tableName + "_temp(" + columnList + ") SELECT " + columnList + " FROM " + tableName + ";");
+        SQLHandler.executeStatement("SELECT " + columnList + " INTO " + tableName + "_new FROM " + tableName + ";");
         SQLHandler.executeStatement("DROP TABLE " + tableName + ";");
         SQLHandler.executeStatement("ALTER TABLE " + tableName + "_temp RENAME TO " + tableName + ";");
         SQLHandler.executeStatement("COMMIT;");
