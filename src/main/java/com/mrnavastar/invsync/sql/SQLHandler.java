@@ -40,8 +40,7 @@ public class SQLHandler {
     }
 
     public static void enableWALMode() {
-        String sql = "PRAGMA journal_mode=WAL;";
-        executeStatement(sql);
+        executeStatement("PRAGMA journal_mode=WAL;");
     }
 
     public static boolean executeStatement(String sql) {
