@@ -60,7 +60,9 @@ public class SQLHandler {
         try {
             Statement stmt = connection.createStatement();
             resultSet = stmt.executeQuery(sql);
-        } catch (SQLException ignore) {}
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         return resultSet;
     }
 
