@@ -25,9 +25,10 @@ public class Table {
         }
 
         String columnList = columns.toString().replace("[", "").replace("]", "");
-
+        SQLHandler.executeStatement("PRAGMA cache_size=10000;");
         SQLHandler.executeStatement("PRAGMA foreign_keys=off;");
         SQLHandler.executeStatement("BEGIN TRANSACTION;");
+        SQLHandler.executeStatement("PRAGMA cache_size=1000;");
         SQLHandler.executeStatement("INSERT INTO " + tableName + "_temp(" + columnList + ") SELECT " + columnList + " FROM " + tableName + ";");
         SQLHandler.executeStatement("DROP TABLE " + tableName + ";");
         SQLHandler.executeStatement("ALTER TABLE " + tableName + "_temp RENAME TO " + tableName + ";");
@@ -39,10 +40,13 @@ public class Table {
 
     public void startTransaction() {
         SQLHandler.connect();
+        SQLHandler.executeStatement("PRAGMA cache_size=10000;");
+        SQLHandler.executeStatement("BEGIN TRANSACTION;");
     }
 
     public void endTransaction() {
         SQLHandler.disconnect();
+        SQLHandler.executeStatement("COMMIT;");
     }
 
     public void createRow(String id, String value) {
