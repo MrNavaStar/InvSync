@@ -31,7 +31,7 @@ public class Table {
         SQLHandler.executeStatement("PRAGMA cache_size=1000;");
         SQLHandler.executeStatement("SELECT " + columnList + " INTO " + tableName + "_new FROM " + tableName + ";");
         SQLHandler.executeStatement("DROP TABLE " + tableName + ";");
-        SQLHandler.executeStatement("ALTER TABLE " + tableName + "_temp RENAME TO " + tableName + ";");
+        SQLHandler.executeStatement("ALTER TABLE " + tableName + "_new RENAME TO " + tableName + ";");
         SQLHandler.executeStatement("COMMIT;");
         SQLHandler.executeStatement("PRAGMA foreign_keys=on;");
 
