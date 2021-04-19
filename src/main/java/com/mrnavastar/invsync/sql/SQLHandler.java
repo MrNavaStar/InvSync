@@ -75,6 +75,11 @@ public class SQLHandler {
         executeStatement(sql);
     }
 
+    public static void dropTable(String tableName) {
+        String sql = "DROP TABLE " + tableName;
+        executeStatement(sql);
+    }
+
     public static void createRow(String tableName, String id, String value) {
         String sql = "INSERT OR REPLACE INTO " + tableName + "(" + id + ") VALUES('" + value + "');";
         executeStatement(sql);

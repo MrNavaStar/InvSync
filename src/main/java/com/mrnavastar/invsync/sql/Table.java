@@ -11,31 +11,34 @@ public class Table {
 
     public Table(String tableName, ArrayList<Column> columns) {
         this.tableName = tableName;
-        SQLHandler.connect();
+
+        startTransaction();
         SQLHandler.createTable(tableName);
         SQLHandler.createTable(tableName + "_new");
 
-        for (Column c : columns) {
-            if (!SQLHandler.columnExists(tableName, c.getName())) {
-                String sql = "ALTER TABLE " + tableName + " ADD " + c.getName() + " " + c.getType();
-                SQLHandler.executeStatement(sql);
-            }
-            String sql = "ALTER TABLE " + tableName + "_new ADD " + c.getName() + " " + c.getType();
-            SQLHandler.executeStatement(sql);
-        }
+        StringBuilder builder = new StringBuilder();
 
-        String columnList = columns.toString().replace("[", "").replace("]", "");
-        SQLHandler.executeStatement("PRAGMA cache_size=10000;");
-        SQLHandler.executeStatement("PRAGMA foreign_keys=off;");
-        SQLHandler.executeStatement("BEGIN TRANSACTION;");
-        SQLHandler.executeStatement("PRAGMA cache_size=1000;");
-        SQLHandler.executeStatement("SELECT " + columnList + " INTO " + tableName + "_new FROM " + tableName + ";");
+        for (Column c : columns) {
+            String columnName = c.getName();
+            String columnType = c.getType();
+
+            if (!SQLHandler.columnExists(tableName, c.getName())) {
+                SQLHandler.executeStatement("ALTER TABLE " + tableName + " ADD " + columnName + " " + columnType);
+            }
+            SQLHandler.executeStatement("ALTER TABLE " + tableName + "_new ADD " + columnName + " " + columnType);
+
+            builder.append(columnName).append(", ");
+        }
+        String columnList = builder.substring(0, builder.length() - 2);
+
+        SQLHandler.executeStatement("INSERT INTO " + tableName + "_new (id, " + columnList + ") SELECT id, " + columnList + " FROM " + tableName + ";");
+        SQLHandler.executeStatement("COMMIT;");
+        endTransaction();
+
+        startTransaction();
         SQLHandler.executeStatement("DROP TABLE " + tableName + ";");
         SQLHandler.executeStatement("ALTER TABLE " + tableName + "_new RENAME TO " + tableName + ";");
-        SQLHandler.executeStatement("COMMIT;");
-        SQLHandler.executeStatement("PRAGMA foreign_keys=on;");
-
-        SQLHandler.disconnect();
+        endTransaction();
     }
 
     public void startTransaction() {
@@ -45,8 +48,8 @@ public class Table {
     }
 
     public void endTransaction() {
-        SQLHandler.disconnect();
         SQLHandler.executeStatement("COMMIT;");
+        SQLHandler.disconnect();
     }
 
     public void createRow(String id, String value) {

@@ -53,11 +53,12 @@ public class PlayerDataConversion {
 
         playerDataTable.saveString(uuid, "statusEffects", player.getActiveStatusEffects().toString());
 
-        SQLHandler.disconnect();
+        playerDataTable.endTransaction();
     }
 
     public static void sqlToNbt(PlayerEntity player) {
         SQLHandler.connect();
+        playerDataTable.startTransaction();
         String uuid = player.getUuid().toString();
 
         if (ConfigManager.Sync_Inv) {
