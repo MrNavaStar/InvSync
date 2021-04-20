@@ -27,11 +27,11 @@ Setup is very simple. Drop the mod into your mods folder on all the servers you 
   - Sync Score: Sync player score between servers.
   - Sync Health: Sync player health between servers.
   - Sync Food Level: Sync player food level between servers.
+  - Sync Status Effects: Sync active status effects between servers.
 
 ## IMPORTANT NOTES 
 
 - Configs MUST be identical between all participating servers in order for the mod to function correctly.
-- Due to the way the mod loads and saves player data, the mod will clear player inventories upon first join. This is not a problem when the mod is set up on a server from the get go, however will erase player inventories on servers with existing worlds and progress. (This will be fixed soon)
 
 ## Issues And Requests
 
