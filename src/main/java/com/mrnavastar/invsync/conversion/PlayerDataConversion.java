@@ -1,15 +1,11 @@
 package com.mrnavastar.invsync.conversion;
 
-import com.mrnavastar.invsync.sql.SQLHandler;
 import com.mrnavastar.invsync.util.ConfigManager;
 import com.mrnavastar.invsync.util.ConversionHelpers;
-import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.nbt.CompoundTag;
 
 import java.util.ArrayList;
-import java.util.Collection;
 
 import static com.mrnavastar.invsync.setup.PlayerData.playerDataTable;
 
@@ -69,7 +65,6 @@ public class PlayerDataConversion {
     }
 
     public static void sqlToNbt(PlayerEntity player) {
-        SQLHandler.connect();
         playerDataTable.startTransaction();
         String uuid = player.getUuid().toString();
 
