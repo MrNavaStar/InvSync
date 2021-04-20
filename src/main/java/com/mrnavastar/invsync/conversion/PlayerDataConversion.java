@@ -3,7 +3,13 @@ package com.mrnavastar.invsync.conversion;
 import com.mrnavastar.invsync.sql.SQLHandler;
 import com.mrnavastar.invsync.util.ConfigManager;
 import com.mrnavastar.invsync.util.ConversionHelpers;
+import net.minecraft.entity.effect.StatusEffect;
+import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.nbt.CompoundTag;
+
+import java.util.ArrayList;
+import java.util.Collection;
 
 import static com.mrnavastar.invsync.setup.PlayerData.playerDataTable;
 
@@ -51,7 +57,13 @@ public class PlayerDataConversion {
             playerDataTable.saveString(uuid,"foodLevel", ConversionHelpers.foodLevelToString(player.getHungerManager()));
         }
 
-        playerDataTable.saveString(uuid, "statusEffects", player.getActiveStatusEffects().toString());
+        if (ConfigManager.Sync_Status_Effects) {
+            ArrayList<String> effects = new ArrayList<>();
+            for (StatusEffectInstance s : player.getStatusEffects()) {
+                effects.add(ConversionHelpers.effectsToString(s));
+            }
+            playerDataTable.saveString(uuid, "statusEffects", effects.toString());
+        }
 
         playerDataTable.endTransaction();
     }
@@ -102,6 +114,16 @@ public class PlayerDataConversion {
         if (ConfigManager.Sync_Food_Level) {
             player.getHungerManager().fromTag(ConversionHelpers.stringToTag(playerDataTable
                     .loadString(uuid, "foodLevel", ConversionHelpers.foodLevelToString(player.getHungerManager()))));
+        }
+
+        if (ConfigManager.Sync_Status_Effects) {
+            String str = playerDataTable.loadString(uuid, "statusEffects", "[]");
+            if (!str.equals("[]")) {
+                String[] strArr =  str.replace("[", "").replace("]", "").split(", ");
+                for (String s : strArr) {
+                    player.addStatusEffect(StatusEffectInstance.fromTag(ConversionHelpers.stringToTag(s)));
+                }
+            }
         }
 
         playerDataTable.endTransaction();
