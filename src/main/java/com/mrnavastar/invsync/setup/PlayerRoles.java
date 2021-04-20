@@ -3,6 +3,7 @@ package com.mrnavastar.invsync.setup;
 import com.mrnavastar.invsync.api.event.PlayerJoinCallback;
 
 import com.mrnavastar.invsync.api.event.PlayerLeaveCallback;
+import com.mrnavastar.invsync.conversion.PlayerRoleConversion;
 import com.mrnavastar.invsync.sql.Table;
 import com.mrnavastar.invsync.sql.column.PlayerRolesColumns;
 import com.mrnavastar.invsync.util.ConfigManager;
@@ -24,7 +25,7 @@ public class PlayerRoles {
         });
 
         PlayerLeaveCallback.EVENT.register((player, server) -> {
-
+            PlayerRoleConversion.rolesToSql(player);
             return ActionResult.PASS;
         });
     }

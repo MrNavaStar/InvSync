@@ -7,8 +7,7 @@ public class PlayerRolesColumns {
     public static ArrayList<Column> getColumns() {
         ArrayList<Column> columns = new ArrayList<>();
 
-        columns.add(new Column("database", "TEXT"));
-        columns.add(new Column( "config", "BLOB"));
+        columns.add(new Column("roles", "TEXT"));
 
         return columns;
     }

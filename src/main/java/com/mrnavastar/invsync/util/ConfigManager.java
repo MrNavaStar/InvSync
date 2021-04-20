@@ -42,11 +42,11 @@ public class ConfigManager {
         SQLConfigProperties.addProperty("Sync_Score", true);
         SQLConfigProperties.addProperty("Sync_Health", true);
         SQLConfigProperties.addProperty("Sync_Food_Level", true);
-        //SQLConfigProperties.addProperty("Sync_Status_Effects", true);
+        SQLConfigProperties.addProperty("Sync_Status_Effects", true);
 
-        //SQLConfigProperties.addProperty("comment3", "If you have the following mods installed, you can sync them too! THESE MUST BE THE SAME BETWEEN SERVERS.");
-        //SQLConfigProperties.addProperty("Player_Roles_Table_Name", "PlayerRoles");
-        //SQLConfigProperties.addProperty("Sync_Player_Roles", true);
+        SQLConfigProperties.addProperty("comment3", "If you have the following mods installed, you can sync them too! THESE MUST BE THE SAME BETWEEN SERVERS.");
+        SQLConfigProperties.addProperty("Player_Roles_Table_Name", "PlayerRoles");
+        SQLConfigProperties.addProperty("Sync_Player_Roles", true);
 
         jsonWriter(SQLConfigProperties, configFile);
     }
@@ -86,7 +86,8 @@ public class ConfigManager {
 
             started = true;
 
-        } catch (FileNotFoundException | NullPointerException ignore) {
+        } catch (FileNotFoundException ignore) {
+        } catch (NullPointerException ignore) {
             log(Level.ERROR, "Whoops!, it looks like there is something wrong with your config");
             log(Level.INFO, "If you just updated the mod, the config format likely changed");
             log(Level.INFO, "Just delete the old config and let it regenerate");

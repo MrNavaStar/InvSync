@@ -29,7 +29,6 @@ public class Invsync implements ModInitializer {
 
             PlayerData.setupProcesses();
 
-            /*
             //Enable syncing for supported mods when present
             for (ModContainer modContainer : FabricLoader.getInstance().getAllMods()) {
                 if (modContainer.getMetadata().getId().equals("player_roles")) {
@@ -37,7 +36,6 @@ public class Invsync implements ModInitializer {
                     PlayerRoles.setupProcesses();
                 }
             }
-             */
 
             SQLHandler.disconnect();
         }
