@@ -100,15 +100,6 @@ public class SQLHandler {
         executeStatement(sql);
     }
 
-    public static void saveFile(String tableName, String where, String name, File file) {
-        try {
-            String sql = "UPDATE " + tableName + " SET " + name + " = '" + Arrays.toString(FileUtils.readFileToByteArray(file)) + "' WHERE id = '" + where + "'";
-            executeStatement(sql);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
     public static String loadString(String tableName, String where, String name, String defaultValue) {
         String sql = "SELECT " + name + " FROM " + tableName + " WHERE id = '" + where + "'";
         ResultSet resultSet = executeStatementAndReturn(sql);
@@ -145,34 +136,9 @@ public class SQLHandler {
         return data;
     }
 
-    public static byte[] loadFile(String tableName, String where, String name) {
-        String sql = "SELECT " + name + " FROM " + tableName + " WHERE id = '" + where + "'";
-        ResultSet resultSet = executeStatementAndReturn(sql);
-        ByteArrayOutputStream byteArrayOutputStream = null;
-        try {
-            if (resultSet != null && !resultSet.getString(name).equals("[]")) {
-
-                byteArrayOutputStream = new ByteArrayOutputStream();
-                String[] bytesAsStr = resultSet.getString(name).replace("[", "").replace("]", "").split(", ");
-
-
-                for (String s : bytesAsStr) {
-                    byteArrayOutputStream.write(new byte[]{Byte.parseByte(s)}, 0, 1);
-                }
-            }
-        } catch (SQLException ignore) {}
-
-        if (byteArrayOutputStream != null) {
-            return byteArrayOutputStream.toByteArray();
-        } else {
-            return null;
-        }
-    }
-
     public static void start() {
         getConfigData();
         connect();
         if (ConfigManager.Enable_WAL_Mode) enableWALMode();
-        disconnect();
     }
 }

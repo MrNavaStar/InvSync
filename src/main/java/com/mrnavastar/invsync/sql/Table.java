@@ -2,7 +2,6 @@ package com.mrnavastar.invsync.sql;
 
 import com.mrnavastar.invsync.sql.column.Column;
 
-import java.io.File;
 import java.util.ArrayList;
 
 public class Table {
@@ -67,10 +66,6 @@ public class Table {
         SQLHandler.saveFloat(tableName, key, column, data);
     }
 
-    public void saveFile(String key, String column, File file) {
-        SQLHandler.saveFile(tableName, key, column, file);
-    }
-
     public String loadString(String key, String column, String defaultValue) {
         return SQLHandler.loadString(tableName, key, column, defaultValue);
     }
@@ -81,9 +76,5 @@ public class Table {
 
     public float loadFloat(String key, String column, float defaultValue) {
         return SQLHandler.loadFloat(tableName, key, column, defaultValue);
-    }
-
-    public byte[] loadFile(String key, String column) {
-        return SQLHandler.loadFile(tableName, key, column);
     }
 }

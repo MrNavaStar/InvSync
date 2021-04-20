@@ -4,7 +4,9 @@ import com.github.underscore.lodash.U;
 import com.google.gson.*;
 import com.mrnavastar.invsync.Invsync;
 import net.fabricmc.loader.api.FabricLoader;
-import org.lwjgl.system.CallbackI;
+import org.apache.logging.log4j.Level;
+
+import static com.mrnavastar.invsync.Invsync.log;
 
 import java.io.*;
 
@@ -14,6 +16,7 @@ public class ConfigManager {
 
     public static String Database_Name, Database_Directory, Player_Data_Table_Name, Player_Roles_Table_Name;
     public static boolean Enable_WAL_Mode, Sync_Inv, Sync_Armour, Sync_eChest, Sync_Xp, Sync_Score, Sync_Health, Sync_Food_Level, Sync_Status_Effects, Sync_Player_Roles;
+    public static boolean started = false;
 
     public static void prepareConfigFile() {
         if (configFile != null) {
@@ -39,11 +42,11 @@ public class ConfigManager {
         SQLConfigProperties.addProperty("Sync_Score", true);
         SQLConfigProperties.addProperty("Sync_Health", true);
         SQLConfigProperties.addProperty("Sync_Food_Level", true);
-        SQLConfigProperties.addProperty("Sync_Status_Effects", true);
+        //SQLConfigProperties.addProperty("Sync_Status_Effects", true);
 
-        SQLConfigProperties.addProperty("comment3", "If you have the following mods installed, you can sync them too! THESE MUST BE THE SAME BETWEEN SERVERS.");
-        SQLConfigProperties.addProperty("Player_Roles_Table_Name", "PlayerRoles");
-        SQLConfigProperties.addProperty("Sync_Player_Roles", true);
+        //SQLConfigProperties.addProperty("comment3", "If you have the following mods installed, you can sync them too! THESE MUST BE THE SAME BETWEEN SERVERS.");
+        //SQLConfigProperties.addProperty("Player_Roles_Table_Name", "PlayerRoles");
+        //SQLConfigProperties.addProperty("Sync_Player_Roles", true);
 
         jsonWriter(SQLConfigProperties, configFile);
     }
@@ -81,8 +84,14 @@ public class ConfigManager {
             Player_Roles_Table_Name = jsonObject.get("Player_Roles_Table_Name").getAsString();
             Sync_Player_Roles = jsonObject.get("Sync_Player_Roles").getAsBoolean();
 
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
+            started = true;
+
+        } catch (FileNotFoundException | NullPointerException ignore) {
+            log(Level.ERROR, "Whoops!, it looks like there is something wrong with your config");
+            log(Level.INFO, "If you just updated the mod, the config format likely changed");
+            log(Level.INFO, "Just delete the old config and let it regenerate");
+            log(Level.INFO, "If this is not the case, you may have messed up the config format");
+            log(Level.INFO, "Generate a new config or fix the format error");
         }
     }
 
