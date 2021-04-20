@@ -32,7 +32,6 @@ public class Table {
         String columnList = builder.substring(0, builder.length() - 2);
 
         SQLHandler.executeStatement("INSERT INTO " + tableName + "_new (id, " + columnList + ") SELECT id, " + columnList + " FROM " + tableName + ";");
-        SQLHandler.executeStatement("COMMIT;");
         endTransaction();
 
         startTransaction();
