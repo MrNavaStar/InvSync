@@ -20,7 +20,7 @@ public class PlayerRoles {
 
     public static void subToEvents() {
         PlayerJoinCallback.EVENT.register((player, server) -> {
-
+            PlayerRoleConversion.sqlToRoles(player);
             return ActionResult.PASS;
         });
 

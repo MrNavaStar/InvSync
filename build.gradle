@@ -11,6 +11,7 @@ version = project.mod_version
 group = project.maven_group
 
 repositories {
+    maven { url 'https://maven.nucleoid.xyz' }
     maven { url 'https://jitpack.io' }
 }
 
@@ -30,7 +31,7 @@ dependencies {
     include 'org.xerial:sqlite-jdbc:3.34.0'
 
     //Addon Mods
-    modImplementation 'com.github.Gegy:player-roles:1.3.0'
+    modImplementation 'com.github.Gegy:player-roles:b0b68135723f0c3bfb26489d06b9c956f4595de3'
 }
 
 processResources {

@@ -112,6 +112,7 @@ public class PlayerDataConversion {
         }
 
         if (ConfigManager.Sync_Status_Effects) {
+            player.clearStatusEffects();
             String str = playerDataTable.loadString(uuid, "statusEffects", "[]");
             if (!str.equals("[]")) {
                 String[] strArr =  str.replace("[", "").replace("]", "").split(", ");
