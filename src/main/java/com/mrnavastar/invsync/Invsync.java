@@ -14,7 +14,7 @@ import org.apache.logging.log4j.Logger;
 public class Invsync implements ModInitializer {
 
     public static final String MODID = "invsync";
-    //public static final String databaseName = ConfigManager.Database_Name;
+    public static final String databaseName = ConfigManager.Database_Name;
 
     @Override
     public void onInitialize() {
