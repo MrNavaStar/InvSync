@@ -4,6 +4,7 @@ import com.mrnavastar.invsync.util.ConfigManager;
 import com.mrnavastar.invsync.util.ConversionHelpers;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.ItemStack;
 
 import java.util.ArrayList;
 
@@ -70,26 +71,26 @@ public class PlayerDataConversion {
 
         if (ConfigManager.Sync_Inv) {
             for (int i = 0; i < 36; i++) {
-                player.inventory.main.set(i, ConversionHelpers.stringToItemStack(playerDataTable
-                        .loadString(uuid, "inv" + i, ConversionHelpers.itemStackToString(player.inventory.main.get(i)))));
+                player.inventory.main.set(i, ItemStack.fromTag(ConversionHelpers.stringToTag(playerDataTable
+                        .loadString(uuid, "inv" + i, ConversionHelpers.itemStackToString(player.inventory.main.get(i))))));
             }
-            player.inventory.offHand.set(0, ConversionHelpers.stringToItemStack(playerDataTable
-                    .loadString(uuid, "offHand", ConversionHelpers.itemStackToString(player.inventory.offHand.get(0)))));
+            player.inventory.offHand.set(0, ItemStack.fromTag(ConversionHelpers.stringToTag(playerDataTable
+                    .loadString(uuid, "offHand", ConversionHelpers.itemStackToString(player.inventory.offHand.get(0))))));
 
             player.inventory.selectedSlot = playerDataTable.loadInt(uuid, "selectedSlot", player.inventory.selectedSlot);
         }
 
         if (ConfigManager.Sync_Armour) {
             for (int i = 0; i < 4; i++) {
-                player.inventory.armor.set(i, ConversionHelpers.stringToItemStack(playerDataTable
-                        .loadString(uuid, "armour" + i, ConversionHelpers.itemStackToString(player.inventory.armor.get(i)))));
+                player.inventory.armor.set(i, ItemStack.fromTag(ConversionHelpers.stringToTag(playerDataTable
+                        .loadString(uuid, "armour" + i, ConversionHelpers.itemStackToString(player.inventory.armor.get(i))))));
             }
         }
 
         if (ConfigManager.Sync_eChest) {
             for (int i = 0; i < 27; i++) {
-                player.getEnderChestInventory().setStack(i, ConversionHelpers.stringToItemStack(playerDataTable
-                        .loadString(uuid, "eChest" + i, ConversionHelpers.itemStackToString(player.getEnderChestInventory().getStack(i)))));
+                player.getEnderChestInventory().setStack(i, ItemStack.fromTag(ConversionHelpers.stringToTag(playerDataTable
+                        .loadString(uuid, "eChest" + i, ConversionHelpers.itemStackToString(player.getEnderChestInventory().getStack(i))))));
             }
         }
 

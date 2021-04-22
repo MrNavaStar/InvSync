@@ -1,7 +1,6 @@
 package com.mrnavastar.invsync.conversion;
 
-import dev.gegy.roles.PlayerRolesConfig;
-import dev.gegy.roles.Role;
+import dev.gegy.roles.*;
 import dev.gegy.roles.api.RoleOwner;
 import dev.gegy.roles.store.PlayerRoleSet;
 import net.minecraft.entity.player.PlayerEntity;
@@ -9,6 +8,7 @@ import net.minecraft.nbt.ListTag;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Objects;
 
 import static com.mrnavastar.invsync.setup.PlayerRoles.playerRolesTable;
 
@@ -19,8 +19,11 @@ public class PlayerRoleConversion {
         String uuid = player.getUuid().toString();
         playerRolesTable.createRow("id", uuid);
 
-        ListTag tag = ((RoleOwner) player).getRoles().serialize();
-        playerRolesTable.saveString(uuid, "roles", tag.asString());
+        ListTag currentRoles = ((RoleOwner) player).getRoles().serialize();
+        ArrayList<String> roles = new ArrayList<>();
+
+        currentRoles.iterator().forEachRemaining(role -> roles.add(Objects.requireNonNull(PlayerRolesConfig.get().get(role.asString().replace("\"", ""))).getName()));
+        playerRolesTable.saveString(uuid, "roles", roles.toString());
 
         playerRolesTable.endTransaction();
     }
@@ -32,24 +35,28 @@ public class PlayerRoleConversion {
         PlayerRoleSet roleSet = ((RoleOwner) player).getRoles();
         ListTag currentRoles = roleSet.serialize();
 
-        ArrayList<String> currentRolesArray = new ArrayList<>(Arrays.asList(currentRoles.asString()
-                .replaceAll("[^a-zA-Z1-9,]", "").split(",")));
+        ArrayList<Role> currentRolesArray = new ArrayList<>();
+        ArrayList<Role> storedRoles = new ArrayList<>();
 
-        ArrayList<String> storedRoles = new ArrayList<>(Arrays.asList(playerRolesTable.loadString(uuid, "roles", "[]")
-                .replaceAll("[^a-zA-Z1-9,]", "").split(",")));
+        String[] storedRoleNames = playerRolesTable.loadString(uuid, "roles", "[]")
+                .replace("[", "").replace("]", "").split(", ");
 
-        if (!storedRoles.toString().equals("[]")) {
-            for (String role : currentRolesArray) {
-                Role roleInstance = PlayerRolesConfig.get().get(role);
-                if (roleInstance != null && !storedRoles.contains(role)) {
-                    roleSet.remove(roleInstance);
-                }
+        currentRoles.iterator().forEachRemaining(role -> currentRolesArray.add(PlayerRolesConfig.get().get(role.asString().replace("\"", ""))));
+
+        for (String role : storedRoleNames) {
+            storedRoles.add(PlayerRolesConfig.get().get(role));
+        }
+
+        for (Role role : currentRolesArray) {
+            if (!storedRoles.contains(role)) {
+                roleSet.remove(role);
             }
+        }
 
-            for (String role : storedRoles) {
-                Role roleInstance = PlayerRolesConfig.get().get(role);
-                if (roleInstance != null && !currentRolesArray.contains(role)) {
-                    roleSet.add(roleInstance);
+        if (!Arrays.toString(storedRoleNames).equals("[]")) {
+            for (Role role : storedRoles) {
+                if (!currentRolesArray.contains(role)) {
+                    roleSet.add(role);
                 }
             }
         }
