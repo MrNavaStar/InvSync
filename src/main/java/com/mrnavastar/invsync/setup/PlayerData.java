@@ -3,6 +3,7 @@ package com.mrnavastar.invsync.setup;
 import com.mrnavastar.invsync.api.event.PlayerJoinCallback;
 import com.mrnavastar.invsync.api.event.PlayerLeaveCallback;
 import com.mrnavastar.invsync.conversion.PlayerDataConversion;
+import com.mrnavastar.invsync.conversion.PlayerDataConversionTest;
 import com.mrnavastar.invsync.sql.Table;
 import com.mrnavastar.invsync.sql.column.PlayerDataColumns;
 import com.mrnavastar.invsync.util.ConfigManager;
@@ -22,13 +23,15 @@ public class PlayerData {
 
     public static void subToEvents() {
         PlayerJoinCallback.EVENT.register((player, server) -> {
-            PlayerDataConversion.sqlToNbt(player);
+            //PlayerDataConversion.sqlToNbt(player);
+            PlayerDataConversionTest.sqlToNbt(player);
             log(Level.INFO, "Getting Player Data From database");
             return ActionResult.PASS;
         });
 
         PlayerLeaveCallback.EVENT.register((player, server) -> {
-            PlayerDataConversion.nbtToSql(player);
+            //PlayerDataConversion.nbtToSql(player);
+            PlayerDataConversionTest.nbtToSql(player);
             log(Level.INFO, "Saving Player Data to database");
             return ActionResult.PASS;
         });

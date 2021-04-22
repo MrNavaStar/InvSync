@@ -34,6 +34,7 @@ public class ConversionHelpers {
         } catch (CommandSyntaxException e) {
             e.printStackTrace();
         }
+        System.out.println(nbt);
         return tag;
     }
 }
