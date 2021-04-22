@@ -14,6 +14,7 @@ import org.apache.logging.log4j.Logger;
 public class Invsync implements ModInitializer {
 
     public static final String MODID = "invsync";
+    //public static final String databaseName = ConfigManager.Database_Name;
 
     @Override
     public void onInitialize() {
@@ -21,11 +22,12 @@ public class Invsync implements ModInitializer {
 
         ConfigManager.loadConfig();
         if (ConfigManager.started && !ConfigManager.Database_Directory.equals("/Where/To/Create/Database")) {
-            SQLHandler.start();
+            SQLHandler.connect();
         }
 
         if (SQLHandler.connection != null) {
             log(Level.INFO,"Successfully connected to database!");
+            SQLHandler.disconnect();
 
             PlayerDataSetup.start();
 
@@ -38,8 +40,6 @@ public class Invsync implements ModInitializer {
                     SQLHandler.dropTable(ConfigManager.Player_Roles_Table_Name);
                 }
             }
-
-            SQLHandler.disconnect();
         }
     }
 

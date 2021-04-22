@@ -23,7 +23,7 @@ public class PlayerRoleConversion {
         ArrayList<String> roles = new ArrayList<>();
 
         currentRoles.iterator().forEachRemaining(role -> roles.add(Objects.requireNonNull(PlayerRolesConfig.get().get(role.asString().replace("\"", ""))).getName()));
-        playerRolesTable.saveString(uuid, "roles", roles.toString());
+        playerRolesTable.set(uuid, "roles", roles.toString());
 
         playerRolesTable.endTransaction();
     }
@@ -38,7 +38,7 @@ public class PlayerRoleConversion {
         ArrayList<Role> currentRolesArray = new ArrayList<>();
         ArrayList<Role> storedRoles = new ArrayList<>();
 
-        String[] storedRoleNames = playerRolesTable.loadString(uuid, "roles", "[]")
+        String[] storedRoleNames = playerRolesTable.get(uuid, "roles", "[]")
                 .replace("[", "").replace("]", "").split(", ");
 
         currentRoles.iterator().forEachRemaining(role -> currentRolesArray.add(PlayerRolesConfig.get().get(role.asString().replace("\"", ""))));

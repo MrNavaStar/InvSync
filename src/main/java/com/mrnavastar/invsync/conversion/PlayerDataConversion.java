@@ -18,39 +18,39 @@ public class PlayerDataConversion {
 
         if (ConfigManager.Sync_Inv) {
             for (int i = 0; i < 36; i++) {
-                playerDataTable.saveString(uuid, "inv" + i, ConversionHelpers.itemStackToString(player.inventory.main.get(i)));
+                playerDataTable.set(uuid, "inv" + i, ConversionHelpers.itemStackToString(player.inventory.main.get(i)));
             }
-            playerDataTable.saveString(uuid, "offHand", ConversionHelpers.itemStackToString(player.inventory.offHand.get(0)));
-            playerDataTable.saveInt(uuid, "selectedSlot", player.inventory.selectedSlot);
+            playerDataTable.set(uuid, "offHand", ConversionHelpers.itemStackToString(player.inventory.offHand.get(0)));
+            playerDataTable.set(uuid, "selectedSlot", player.inventory.selectedSlot);
         }
 
         if (ConfigManager.Sync_Armour) {
             for (int i = 0; i < 4; i++) {
-                playerDataTable.saveString(uuid, "armour" + i, ConversionHelpers.itemStackToString(player.inventory.armor.get(i)));
+                playerDataTable.set(uuid, "armour" + i, ConversionHelpers.itemStackToString(player.inventory.armor.get(i)));
             }
         }
 
         if (ConfigManager.Sync_eChest) {
             for (int i = 0; i < 27; i++) {
-                playerDataTable.saveString(uuid, "eChest" + i, ConversionHelpers.itemStackToString(player.getEnderChestInventory().getStack(i)));
+                playerDataTable.set(uuid, "eChest" + i, ConversionHelpers.itemStackToString(player.getEnderChestInventory().getStack(i)));
             }
         }
 
         if (ConfigManager.Sync_Xp) {
-            playerDataTable.saveInt(uuid, "xp", player.experienceLevel);
-            playerDataTable.saveFloat(uuid, "xpProgress", player.experienceProgress);
+            playerDataTable.set(uuid, "xp", player.experienceLevel);
+            playerDataTable.set(uuid, "xpProgress", player.experienceProgress);
         }
 
         if (ConfigManager.Sync_Score) {
-            playerDataTable.saveInt(uuid, "score", player.getScore());
+            playerDataTable.set(uuid, "score", player.getScore());
         }
 
         if (ConfigManager.Sync_Health) {
-            playerDataTable.saveFloat(uuid, "health", player.getHealth());
+            playerDataTable.set(uuid, "health", player.getHealth());
         }
 
         if (ConfigManager.Sync_Food_Level) {
-            playerDataTable.saveString(uuid,"foodLevel", ConversionHelpers.foodLevelToString(player.getHungerManager()));
+            playerDataTable.set(uuid,"foodLevel", ConversionHelpers.foodLevelToString(player.getHungerManager()));
         }
 
         if (ConfigManager.Sync_Status_Effects) {
@@ -58,7 +58,7 @@ public class PlayerDataConversion {
             for (StatusEffectInstance s : player.getStatusEffects()) {
                 effects.add(ConversionHelpers.effectsToString(s));
             }
-            playerDataTable.saveString(uuid, "statusEffects", effects.toString());
+            playerDataTable.set(uuid, "statusEffects", effects.toString());
         }
 
         playerDataTable.endTransaction();
@@ -71,49 +71,49 @@ public class PlayerDataConversion {
         if (ConfigManager.Sync_Inv) {
             for (int i = 0; i < 36; i++) {
                 player.inventory.main.set(i, ItemStack.fromTag(ConversionHelpers.stringToTag(playerDataTable
-                        .loadString(uuid, "inv" + i, ConversionHelpers.itemStackToString(player.inventory.main.get(i))))));
+                        .get(uuid, "inv" + i, ConversionHelpers.itemStackToString(player.inventory.main.get(i))))));
             }
             player.inventory.offHand.set(0, ItemStack.fromTag(ConversionHelpers.stringToTag(playerDataTable
-                    .loadString(uuid, "offHand", ConversionHelpers.itemStackToString(player.inventory.offHand.get(0))))));
+                    .get(uuid, "offHand", ConversionHelpers.itemStackToString(player.inventory.offHand.get(0))))));
 
-            player.inventory.selectedSlot = playerDataTable.loadInt(uuid, "selectedSlot", player.inventory.selectedSlot);
+            player.inventory.selectedSlot = playerDataTable.get(uuid, "selectedSlot", player.inventory.selectedSlot);
         }
 
         if (ConfigManager.Sync_Armour) {
             for (int i = 0; i < 4; i++) {
                 player.inventory.armor.set(i, ItemStack.fromTag(ConversionHelpers.stringToTag(playerDataTable
-                        .loadString(uuid, "armour" + i, ConversionHelpers.itemStackToString(player.inventory.armor.get(i))))));
+                        .get(uuid, "armour" + i, ConversionHelpers.itemStackToString(player.inventory.armor.get(i))))));
             }
         }
 
         if (ConfigManager.Sync_eChest) {
             for (int i = 0; i < 27; i++) {
                 player.getEnderChestInventory().setStack(i, ItemStack.fromTag(ConversionHelpers.stringToTag(playerDataTable
-                        .loadString(uuid, "eChest" + i, ConversionHelpers.itemStackToString(player.getEnderChestInventory().getStack(i))))));
+                        .get(uuid, "eChest" + i, ConversionHelpers.itemStackToString(player.getEnderChestInventory().getStack(i))))));
             }
         }
 
         if (ConfigManager.Sync_Xp) {
-            player.experienceLevel = playerDataTable.loadInt(uuid, "xp", player.experienceLevel);
-            player.experienceProgress = playerDataTable.loadFloat(uuid, "xpProgress", player.experienceProgress);
+            player.experienceLevel = playerDataTable.get(uuid, "xp", player.experienceLevel);
+            player.experienceProgress = playerDataTable.get(uuid, "xpProgress", player.experienceProgress);
         }
 
         if (ConfigManager.Sync_Score) {
-            player.setScore(playerDataTable.loadInt(uuid, "score", player.getScore()));
+            player.setScore(playerDataTable.get(uuid, "score", player.getScore()));
         }
 
         if (ConfigManager.Sync_Health) {
-            player.setHealth(playerDataTable.loadFloat(uuid, "health", player.getHealth()));
+            player.setHealth(playerDataTable.get(uuid, "health", player.getHealth()));
         }
 
         if (ConfigManager.Sync_Food_Level) {
             player.getHungerManager().fromTag(ConversionHelpers.stringToTag(playerDataTable
-                    .loadString(uuid, "foodLevel", ConversionHelpers.foodLevelToString(player.getHungerManager()))));
+                    .get(uuid, "foodLevel", ConversionHelpers.foodLevelToString(player.getHungerManager()))));
         }
 
         if (ConfigManager.Sync_Status_Effects) {
             player.clearStatusEffects();
-            String str = playerDataTable.loadString(uuid, "statusEffects", "[]");
+            String str = playerDataTable.get(uuid, "statusEffects", "[]");
             if (!str.equals("[]")) {
                 String[] strArr =  str.replace("[", "").replace("]", "").split(", ");
                 for (String s : strArr) {

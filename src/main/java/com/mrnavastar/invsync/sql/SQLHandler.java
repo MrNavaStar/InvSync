@@ -9,13 +9,9 @@ import static com.mrnavastar.invsync.Invsync.log;
 
 public class SQLHandler {
 
-    private static String databaseName, databaseDirectory;
+    private static final String databaseName = ConfigManager.Database_Name;
+    private static final String databaseDirectory = ConfigManager.Database_Directory;
     public static Connection connection;
-
-    private static void getConfigData() {
-        databaseName = ConfigManager.Database_Name;
-        databaseDirectory = ConfigManager.Database_Directory;
-    }
 
     public static void connect() {
         try {
@@ -34,10 +30,6 @@ public class SQLHandler {
         try {
             connection.close();
         } catch (SQLException ignore) {}
-    }
-
-    public static void enableWALMode() {
-        executeStatement("PRAGMA journal_mode=WAL;");
     }
 
     public static boolean executeStatement(String sql) {
@@ -63,43 +55,35 @@ public class SQLHandler {
     }
 
     public static boolean columnExists (String tableName, String column) {
-        String sql = "SELECT " + column + " FROM " + tableName;
-        return executeStatement(sql);
+        return executeStatement("SELECT " + column + " FROM " + tableName);
     }
 
     public static void createTable(String tableName) {
-        String sql = "CREATE TABLE IF NOT EXISTS " + tableName + " (id TEXT PRIMARY KEY)";
-        executeStatement(sql);
+        executeStatement("CREATE TABLE IF NOT EXISTS " + tableName + " (id TEXT PRIMARY KEY)");
     }
 
     public static void dropTable(String tableName) {
-        String sql = "DROP TABLE " + tableName;
-        executeStatement(sql);
+        executeStatement("DROP TABLE IF EXISTS" + tableName);
     }
 
     public static void createRow(String tableName, String id, String value) {
-        String sql = "INSERT OR REPLACE INTO " + tableName + "(" + id + ") VALUES('" + value + "');";
-        executeStatement(sql);
+        executeStatement("INSERT OR REPLACE INTO " + tableName + "(" + id + ") VALUES('" + value + "');");
     }
 
     public static void saveString(String tableName, String where, String name, String str) {
-        String sql = "UPDATE " + tableName + " SET " + name + " = '" + str + "' WHERE id = '" + where + "'";
-        executeStatement(sql);
+        executeStatement("UPDATE " + tableName + " SET " + name + " = '" + str + "' WHERE id = '" + where + "'");
     }
 
     public static void saveInt(String tableName, String where, String name, int amount) {
-        String sql = "UPDATE " + tableName + " SET " + name + " = " + amount + " WHERE id = '" + where + "'";
-        executeStatement(sql);
+        executeStatement("UPDATE " + tableName + " SET " + name + " = " + amount + " WHERE id = '" + where + "'");
     }
 
     public static void saveFloat(String tableName, String where, String name, float amount) {
-        String sql = "UPDATE " + tableName + " SET " + name + " = " + amount + " WHERE id = '" + where + "'";
-        executeStatement(sql);
+        executeStatement("UPDATE " + tableName + " SET " + name + " = " + amount + " WHERE id = '" + where + "'");
     }
 
     public static String loadString(String tableName, String where, String name, String defaultValue) {
-        String sql = "SELECT " + name + " FROM " + tableName + " WHERE id = '" + where + "'";
-        ResultSet resultSet = executeStatementAndReturn(sql);
+        ResultSet resultSet = executeStatementAndReturn("SELECT " + name + " FROM " + tableName + " WHERE id = '" + where + "'");
         String data = defaultValue;
         if (resultSet != null) {
             try {
@@ -110,8 +94,7 @@ public class SQLHandler {
     }
 
     public static int loadInt(String tableName, String where, String name, int defaultValue) {
-        String sql = "SELECT " + name + " FROM " + tableName + " WHERE id = '" + where + "'";
-        ResultSet resultSet = executeStatementAndReturn(sql);
+        ResultSet resultSet = executeStatementAndReturn("SELECT " + name + " FROM " + tableName + " WHERE id = '" + where + "'");
         int data = defaultValue;
         if (resultSet != null) {
             try {
@@ -122,20 +105,13 @@ public class SQLHandler {
     }
 
     public static float loadFloat(String tableName, String where, String name, float defaultValue) {
-        String sql = "SELECT " + name + " FROM " + tableName + " WHERE id = '" + where + "'";
-        ResultSet resultSet = executeStatementAndReturn(sql);
+        ResultSet resultSet = executeStatementAndReturn("SELECT " + name + " FROM " + tableName + " WHERE id = '" + where + "'");
         float data = defaultValue;
         if (resultSet != null) {
             try {
-                data = Float.parseFloat(executeStatementAndReturn(sql).getString(name));
+                data = Float.parseFloat(resultSet.getString(name));
             } catch (SQLException ignore) {}
         }
         return data;
-    }
-
-    public static void start() {
-        getConfigData();
-        connect();
-        if (ConfigManager.Enable_WAL_Mode) enableWALMode();
     }
 }

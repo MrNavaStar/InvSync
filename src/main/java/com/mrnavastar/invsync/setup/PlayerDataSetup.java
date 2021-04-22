@@ -12,14 +12,10 @@ import static com.mrnavastar.invsync.Invsync.log;
 
 public class PlayerDataSetup {
 
-    public static Table playerDataTable;
-    public static String tableName;
+    public static String tableName = ConfigManager.Player_Data_Table_Name;
+    public static Table playerDataTable = new Table(tableName, PlayerDataColumns.getColumns());
 
-    public static void getConfigData() {
-        tableName = ConfigManager.Player_Data_Table_Name;
-    }
-
-    public static void subToEvents() {
+    public static void start() {
         PlayerJoinCallback.EVENT.register((player, server) -> {
             PlayerDataConversion.sqlToNbt(player);
             log(Level.INFO, "Getting Player Data From database");
@@ -31,11 +27,5 @@ public class PlayerDataSetup {
             log(Level.INFO, "Saving Player Data to database");
             return ActionResult.PASS;
         });
-    }
-
-    public static void start() {
-        getConfigData();
-        playerDataTable = new Table(tableName, PlayerDataColumns.getColumns());
-        subToEvents();
     }
 }

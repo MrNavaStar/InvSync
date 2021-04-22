@@ -54,27 +54,27 @@ public class Table {
         SQLHandler.createRow(tableName, id, value);
     }
 
-    public void saveString(String key, String column, String data) {
+    public void set(String key, String column, String data) {
         SQLHandler.saveString(tableName, key, column, data);
     }
 
-    public void saveInt(String key, String column, int data) {
+    public void set(String key, String column, int data) {
         SQLHandler.saveInt(tableName, key, column, data);
     }
 
-    public void saveFloat(String key, String column, float data) {
+    public void set(String key, String column, float data) {
         SQLHandler.saveFloat(tableName, key, column, data);
     }
 
-    public String loadString(String key, String column, String defaultValue) {
+    public String get(String key, String column, String defaultValue) {
         return SQLHandler.loadString(tableName, key, column, defaultValue);
     }
 
-    public int loadInt(String key, String column, int defaultValue) {
+    public int get(String key, String column, int defaultValue) {
         return SQLHandler.loadInt(tableName, key, column, defaultValue);
     }
 
-    public float loadFloat(String key, String column, float defaultValue) {
+    public float get(String key, String column, float defaultValue) {
         return SQLHandler.loadFloat(tableName, key, column, defaultValue);
     }
 }
