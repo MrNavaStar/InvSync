@@ -6,10 +6,9 @@ import com.mrnavastar.invsync.api.event.PlayerLeaveCallback;
 import com.mrnavastar.invsync.conversion.PlayerRoleConversion;
 import com.mrnavastar.invsync.sql.Table;
 import com.mrnavastar.invsync.sql.column.PlayerRolesColumns;
-import com.mrnavastar.invsync.util.ConfigManager;
 import net.minecraft.util.ActionResult;
 
-public class PlayerRoles {
+public class PlayerRolesSetup {
 
     public static Table playerRolesTable;
     public static String tableName;
@@ -30,9 +29,11 @@ public class PlayerRoles {
         });
     }
 
-    public static void setupProcesses() {
-        getConfigData();
-        playerRolesTable = new Table(tableName, PlayerRolesColumns.getColumns());
-        subToEvents();
+    public static void start() {
+        if (ConfigManager.Sync_Player_Roles) {
+            getConfigData();
+            playerRolesTable = new Table(tableName, PlayerRolesColumns.getColumns());
+            subToEvents();
+        }
     }
 }

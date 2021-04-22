@@ -1,6 +1,6 @@
 package com.mrnavastar.invsync.sql.column;
 
-import com.mrnavastar.invsync.util.ConfigManager;
+import com.mrnavastar.invsync.setup.ConfigManager;
 
 import java.util.ArrayList;
 
@@ -12,30 +12,22 @@ public class PlayerDataColumns {
 
 
         if (ConfigManager.Sync_Inv) {
-            /*for (int i = 0; i < 36; i++) {
-                columns.add(new Column("inv" + i, "TEXT"));
-            }*/
-
-            addColumn("inv", "TEXT");
-
+            for (int i = 0; i < 36; i++) {
+                addColumn("inv" + i, "TEXT");
+            }
             addColumn("offHand", "TEXT");
             addColumn("selectedSlot", "INTEGER");
         }
 
         if (ConfigManager.Sync_Armour) {
-            /*for (int i = 0; i < 4; i++) {
-                columns.add(new Column("armour" + i, "TEXT"));
-            }*/
-
-            addColumn("armour", "TEXT");
+            for (int i = 0; i < 4; i++) {
+                addColumn("armour" + i, "TEXT");
+            }
         }
-
         if (ConfigManager.Sync_eChest) {
-            /*for (int i = 0; i < 27; i++) {
-                columns.add(new Column("eChest" + i, "TEXT"));
-            }*/
-
-            addColumn("eChest", "TEXT");
+            for (int i = 0; i < 27; i++) {
+                addColumn("eChest" + i, "TEXT");
+            }
         }
 
         if (ConfigManager.Sync_Xp) {

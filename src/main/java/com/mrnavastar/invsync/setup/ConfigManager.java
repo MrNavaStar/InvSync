@@ -1,4 +1,4 @@
-package com.mrnavastar.invsync.util;
+package com.mrnavastar.invsync.setup;
 
 import com.github.underscore.lodash.U;
 import com.google.gson.*;

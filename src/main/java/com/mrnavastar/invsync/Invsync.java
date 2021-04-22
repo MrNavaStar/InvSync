@@ -1,9 +1,9 @@
 package com.mrnavastar.invsync;
 
-import com.mrnavastar.invsync.setup.PlayerData;
-import com.mrnavastar.invsync.setup.PlayerRoles;
+import com.mrnavastar.invsync.setup.PlayerDataSetup;
+import com.mrnavastar.invsync.setup.PlayerRolesSetup;
 import com.mrnavastar.invsync.sql.SQLHandler;
-import com.mrnavastar.invsync.util.ConfigManager;
+import com.mrnavastar.invsync.setup.ConfigManager;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.loader.api.ModContainer;
 import net.fabricmc.loader.api.FabricLoader;
@@ -27,13 +27,15 @@ public class Invsync implements ModInitializer {
         if (SQLHandler.connection != null) {
             log(Level.INFO,"Successfully connected to database!");
 
-            PlayerData.setupProcesses();
+            PlayerDataSetup.start();
 
             //Enable syncing for supported mods when present
             for (ModContainer modContainer : FabricLoader.getInstance().getAllMods()) {
                 if (modContainer.getMetadata().getId().equals("player_roles")) {
                     log(Level.INFO, "Player Roles found! Enabling support");
-                    PlayerRoles.setupProcesses();
+                    PlayerRolesSetup.start();
+                } else {
+                    SQLHandler.dropTable(ConfigManager.Player_Roles_Table_Name);
                 }
             }
 

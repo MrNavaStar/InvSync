@@ -1,11 +1,8 @@
 package com.mrnavastar.invsync.sql;
 
-import java.io.*;
 import java.sql.*;
-import java.util.Arrays;
 
-import com.mrnavastar.invsync.util.ConfigManager;
-import org.apache.commons.io.FileUtils;
+import com.mrnavastar.invsync.setup.ConfigManager;
 import org.apache.logging.log4j.Level;
 
 import static com.mrnavastar.invsync.Invsync.log;

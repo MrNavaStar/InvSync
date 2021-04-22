@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Objects;
 
-import static com.mrnavastar.invsync.setup.PlayerRoles.playerRolesTable;
+import static com.mrnavastar.invsync.setup.PlayerRolesSetup.playerRolesTable;
 
 public class PlayerRoleConversion {
 

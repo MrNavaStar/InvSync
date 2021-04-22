@@ -1,14 +1,13 @@
 package com.mrnavastar.invsync.conversion;
 
-import com.mrnavastar.invsync.util.ConfigManager;
-import com.mrnavastar.invsync.util.ConversionHelpers;
+import com.mrnavastar.invsync.setup.ConfigManager;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 
 import java.util.ArrayList;
 
-import static com.mrnavastar.invsync.setup.PlayerData.playerDataTable;
+import static com.mrnavastar.invsync.setup.PlayerDataSetup.playerDataTable;
 
 public class PlayerDataConversion {
 
