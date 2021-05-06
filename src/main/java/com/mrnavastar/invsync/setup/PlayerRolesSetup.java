@@ -13,16 +13,14 @@ public class PlayerRolesSetup {
     public static Table playerRolesTable = new Table(tableName, PlayerRolesColumns.getColumns());
 
     public static void start() {
-        if (ConfigManager.Sync_Player_Roles) {
-            PlayerJoinCallback.EVENT.register((player, server) -> {
-                PlayerRoleConversion.sqlToRoles(player);
-                return ActionResult.PASS;
-            });
+        PlayerJoinCallback.EVENT.register((player, server) -> {
+            PlayerRoleConversion.sqlToRoles(player);
+            return ActionResult.PASS;
+        });
 
-            PlayerLeaveCallback.EVENT.register((player, server) -> {
-                PlayerRoleConversion.rolesToSql(player);
-                return ActionResult.PASS;
-            });
-        }
+        PlayerLeaveCallback.EVENT.register((player, server) -> {
+            PlayerRoleConversion.rolesToSql(player);
+            return ActionResult.PASS;
+        });
     }
 }

@@ -1,12 +1,12 @@
 package com.mrnavastar.invsync;
 
+import com.mrnavastar.invsync.setup.ConfigManager;
 import com.mrnavastar.invsync.setup.PlayerDataSetup;
 import com.mrnavastar.invsync.setup.PlayerRolesSetup;
 import com.mrnavastar.invsync.sql.SQLHandler;
-import com.mrnavastar.invsync.setup.ConfigManager;
 import net.fabricmc.api.ModInitializer;
-import net.fabricmc.loader.api.ModContainer;
 import net.fabricmc.loader.api.FabricLoader;
+import net.fabricmc.loader.api.ModContainer;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -33,7 +33,7 @@ public class Invsync implements ModInitializer {
 
             //Enable syncing for supported mods when present
             for (ModContainer modContainer : FabricLoader.getInstance().getAllMods()) {
-                if (modContainer.getMetadata().getId().equals("player_roles")) {
+                if (modContainer.getMetadata().getId().equals("player_roles") && ConfigManager.Sync_Player_Roles) {
                     log(Level.INFO, "Player Roles found! Enabling support");
                     PlayerRolesSetup.start();
                 } else {

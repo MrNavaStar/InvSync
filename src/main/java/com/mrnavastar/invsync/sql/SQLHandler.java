@@ -1,9 +1,9 @@
 package com.mrnavastar.invsync.sql;
 
-import java.sql.*;
-
 import com.mrnavastar.invsync.setup.ConfigManager;
 import org.apache.logging.log4j.Level;
+
+import java.sql.*;
 
 import static com.mrnavastar.invsync.Invsync.log;
 
@@ -63,7 +63,7 @@ public class SQLHandler {
     }
 
     public static void dropTable(String tableName) {
-        executeStatement("DROP TABLE IF EXISTS" + tableName);
+        executeStatement("DROP TABLE IF EXISTS " + tableName);
     }
 
     public static void createRow(String tableName, String id, String value) {

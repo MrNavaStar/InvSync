@@ -1,14 +1,17 @@
 package com.mrnavastar.invsync.setup;
 
 import com.github.underscore.lodash.U;
-import com.google.gson.*;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+import com.google.gson.JsonSyntaxException;
 import com.mrnavastar.invsync.Invsync;
 import net.fabricmc.loader.api.FabricLoader;
 import org.apache.logging.log4j.Level;
 
-import static com.mrnavastar.invsync.Invsync.log;
-
 import java.io.*;
+
+import static com.mrnavastar.invsync.Invsync.log;
 
 public class ConfigManager {
 
@@ -26,7 +29,7 @@ public class ConfigManager {
         SQLConfigProperties.addProperty("Player_Data_Table_Name", "PlayerData");
         SQLConfigProperties.addProperty("Database_Directory", "/Where/To/Create/Database");
 
-        SQLConfigProperties.addProperty("comment2", "Settings for what to sync between servers. These can be different between servers if you wish. Just be careful. ;)");
+        SQLConfigProperties.addProperty("comment2", "Settings for what to sync between servers. These can be different between servers if you wish.");
         SQLConfigProperties.addProperty("Sync_Inv", true);
         SQLConfigProperties.addProperty("Sync_Armour", true);
         SQLConfigProperties.addProperty("Sync_eChest", true);
@@ -36,7 +39,7 @@ public class ConfigManager {
         SQLConfigProperties.addProperty("Sync_Food_Level", true);
         SQLConfigProperties.addProperty("Sync_Status_Effects", true);
 
-        SQLConfigProperties.addProperty("comment3", "If you have the following mods installed, you can sync them too! These can be different between servers if you wish. Just be careful. ;)");
+        SQLConfigProperties.addProperty("comment3", "If you have the following mods installed, you can sync them too! These can be different between servers if you wish.");
         SQLConfigProperties.addProperty("Player_Roles_Table_Name", "PlayerRoles");
         SQLConfigProperties.addProperty("Sync_Player_Roles", true);
 
@@ -79,11 +82,13 @@ public class ConfigManager {
 
         } catch (FileNotFoundException ignore) {
         } catch (NullPointerException ignore) {
-            log(Level.ERROR, "Whoops!, it looks like something went wrong with your config!");
+            log(Level.ERROR, "Whoops! It looks like something went wrong with your config!");
             log(Level.INFO, "If you just updated the mod, the config format likely changed");
             log(Level.INFO, "Just delete the old config and let it regenerate");
-            log(Level.INFO, "If this is not the case, you may have messed up the config itself");
-            log(Level.INFO, "Generate a new config or fix the format error");
+
+        } catch (JsonSyntaxException ignore) {
+            log(Level.ERROR, "Whoops! It looks like the config file has a format error!");
+            log(Level.INFO, "Delete and generate a new config or fix the format error");
         }
     }
 
