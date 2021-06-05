@@ -43,6 +43,14 @@ public class SQLHandler {
         return executed;
     }
 
+    public static void executeStatement(String sql, String value) {
+        try {
+            PreparedStatement stmt = connection.prepareStatement(sql);
+            stmt.setString(1, value);
+            stmt.execute();
+        } catch (SQLException ignore) {}
+    }
+
     public static ResultSet executeStatementAndReturn(String sql) {
         ResultSet resultSet = null;
         try {
@@ -71,7 +79,7 @@ public class SQLHandler {
     }
 
     public static void saveString(String tableName, String where, String name, String str) {
-        executeStatement("UPDATE " + tableName + " SET " + name + " = '" + str + "' WHERE id = '" + where + "'");
+        executeStatement("UPDATE " + tableName + " SET " + name + " = ? WHERE id = '" + where + "'", str);
     }
 
     public static void saveInt(String tableName, String where, String name, int amount) {
