@@ -41,9 +41,12 @@ public class Table {
 
     public void startTransaction() {
         SQLHandler.connect();
+        SQLHandler.executeStatement("PRAGMA cache_size=10000;");
+        SQLHandler.executeStatement("BEGIN TRANSACTION;");
     }
 
     public void endTransaction() {
+        SQLHandler.executeStatement("COMMIT;");
         SQLHandler.disconnect();
     }
 
