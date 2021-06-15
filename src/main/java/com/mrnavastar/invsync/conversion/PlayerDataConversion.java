@@ -18,15 +18,15 @@ public class PlayerDataConversion {
 
         if (ConfigManager.Sync_Inv) {
             for (int i = 0; i < 36; i++) {
-                playerDataTable.set(uuid, "inv" + i, ConversionHelpers.itemStackToString(player.inventory.main.get(i)));
+                playerDataTable.set(uuid, "inv" + i, ConversionHelpers.itemStackToString(player.getInventory().main.get(i)));
             }
-            playerDataTable.set(uuid, "offHand", ConversionHelpers.itemStackToString(player.inventory.offHand.get(0)));
-            playerDataTable.set(uuid, "selectedSlot", player.inventory.selectedSlot);
+            playerDataTable.set(uuid, "offHand", ConversionHelpers.itemStackToString(player.getInventory().offHand.get(0)));
+            playerDataTable.set(uuid, "selectedSlot", player.getInventory().selectedSlot);
         }
 
         if (ConfigManager.Sync_Armour) {
             for (int i = 0; i < 4; i++) {
-                playerDataTable.set(uuid, "armour" + i, ConversionHelpers.itemStackToString(player.inventory.armor.get(i)));
+                playerDataTable.set(uuid, "armour" + i, ConversionHelpers.itemStackToString(player.getInventory().armor.get(i)));
             }
         }
 
@@ -70,25 +70,25 @@ public class PlayerDataConversion {
 
         if (ConfigManager.Sync_Inv) {
             for (int i = 0; i < 36; i++) {
-                player.inventory.main.set(i, ItemStack.fromTag(ConversionHelpers.stringToTag(playerDataTable
-                        .get(uuid, "inv" + i, ConversionHelpers.itemStackToString(player.inventory.main.get(i))))));
+                player.getInventory().main.set(i, ItemStack.fromNbt(ConversionHelpers.stringToTag(playerDataTable
+                        .get(uuid, "inv" + i, ConversionHelpers.itemStackToString(player.getInventory().main.get(i))))));
             }
-            player.inventory.offHand.set(0, ItemStack.fromTag(ConversionHelpers.stringToTag(playerDataTable
-                    .get(uuid, "offHand", ConversionHelpers.itemStackToString(player.inventory.offHand.get(0))))));
+            player.getInventory().offHand.set(0, ItemStack.fromNbt(ConversionHelpers.stringToTag(playerDataTable
+                    .get(uuid, "offHand", ConversionHelpers.itemStackToString(player.getInventory().offHand.get(0))))));
 
-            player.inventory.selectedSlot = playerDataTable.get(uuid, "selectedSlot", player.inventory.selectedSlot);
+            player.getInventory().selectedSlot = playerDataTable.get(uuid, "selectedSlot", player.getInventory().selectedSlot);
         }
 
         if (ConfigManager.Sync_Armour) {
             for (int i = 0; i < 4; i++) {
-                player.inventory.armor.set(i, ItemStack.fromTag(ConversionHelpers.stringToTag(playerDataTable
-                        .get(uuid, "armour" + i, ConversionHelpers.itemStackToString(player.inventory.armor.get(i))))));
+                player.getInventory().armor.set(i, ItemStack.fromNbt(ConversionHelpers.stringToTag(playerDataTable
+                        .get(uuid, "armour" + i, ConversionHelpers.itemStackToString(player.getInventory().armor.get(i))))));
             }
         }
 
         if (ConfigManager.Sync_eChest) {
             for (int i = 0; i < 27; i++) {
-                player.getEnderChestInventory().setStack(i, ItemStack.fromTag(ConversionHelpers.stringToTag(playerDataTable
+                player.getEnderChestInventory().setStack(i, ItemStack.fromNbt(ConversionHelpers.stringToTag(playerDataTable
                         .get(uuid, "eChest" + i, ConversionHelpers.itemStackToString(player.getEnderChestInventory().getStack(i))))));
             }
         }
@@ -107,7 +107,7 @@ public class PlayerDataConversion {
         }
 
         if (ConfigManager.Sync_Food_Level) {
-            player.getHungerManager().fromTag(ConversionHelpers.stringToTag(playerDataTable
+            player.getHungerManager().readNbt(ConversionHelpers.stringToTag(playerDataTable
                     .get(uuid, "foodLevel", ConversionHelpers.foodLevelToString(player.getHungerManager()))));
         }
 
@@ -117,7 +117,7 @@ public class PlayerDataConversion {
             if (!str.equals("[]")) {
                 String[] strArr =  str.replace("[", "").replace("]", "").split(", ");
                 for (String s : strArr) {
-                    player.addStatusEffect(StatusEffectInstance.fromTag(ConversionHelpers.stringToTag(s)));
+                    player.addStatusEffect(StatusEffectInstance.fromNbt(ConversionHelpers.stringToTag(s)));
                 }
             }
         }

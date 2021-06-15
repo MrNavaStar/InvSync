@@ -4,30 +4,30 @@ import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.player.HungerManager;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.StringNbtReader;
 
 public class ConversionHelpers {
 
     public static String itemStackToString(ItemStack item) {
-        String itemData = item.toTag(new CompoundTag()).toString();
+        String itemData = item.writeNbt(new NbtCompound()).toString();
         return itemData.replace("'", "$");
     }
 
     public static String foodLevelToString(HungerManager hungerManager) {
-        CompoundTag tag = new CompoundTag();
-        hungerManager.toTag(tag);
+        NbtCompound tag = new NbtCompound();
+        hungerManager.writeNbt(tag);
         return tag.toString();
     }
 
     public static String effectsToString(StatusEffectInstance effectInstance) {
-        CompoundTag tag = new CompoundTag();
-        effectInstance.toTag(tag);
+        NbtCompound tag = new NbtCompound();
+        effectInstance.writeNbt(tag);
         return tag.toString();
     }
 
-    public static CompoundTag stringToTag(String nbt) {
-        CompoundTag tag = null;
+    public static NbtCompound stringToTag(String nbt) {
+        NbtCompound tag = null;
         try {
             tag = StringNbtReader.parse(nbt.replace("$", "'"));
         } catch (CommandSyntaxException e) {
