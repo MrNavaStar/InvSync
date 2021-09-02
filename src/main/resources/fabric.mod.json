@@ -1,0 +1,28 @@
+{
+  "schemaVersion": 1,
+  "id": "invsync",
+  "version": "${version}",
+  "name": "Invsync",
+  "description": "",
+  "authors": [],
+  "contact": {},
+  "license": "MIT",
+  "icon": "assets/invsync/icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "client": [
+      "mrnavastar.invsync.client.InvsyncClient"
+    ],
+    "main": [
+      "mrnavastar.invsync.Invsync"
+    ]
+  },
+  "mixins": [
+    "invsync.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=0.11.6",
+    "fabric": "*",
+    "minecraft": "1.17.1"
+  }
+}
