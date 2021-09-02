@@ -20,7 +20,7 @@ Setup is very simple. Drop the mod into your mods folder on all the servers you 
 
 ## IMPORTANT NOTES 
 
-- Configs MUST be identical between all participating servers in order for the mod to function correctly.
+Configs MUST be identical between all participating servers in order for the mod to function correctly.
 
 ## Issues And Requests
 
