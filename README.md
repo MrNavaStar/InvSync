@@ -1,5 +1,7 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
 
+<img src="https://github.com/MrNavaStar/invSync/blob/master/InvSyncIcon.png" width="300" height="300">
+
 # InvSync
 
 This is a fabric mod for 1.16.x and 1.17.x that Allows you to sync player inventories, health, food level, experience and score across multiple servers! This is accomplished using an sqlite database (that is automatically generated and set up for you). Most mods should have no problem running along side, and modded items will also be sync'd.
