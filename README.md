@@ -1,4 +1,3 @@
-
 [![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://GitHub.com/Naereen/StrapDown.js/graphs/commit-activity)\
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
 [![MIT license](https://img.shields.io/badge/License-MIT-blue.svg)](https://lbesson.mit-license.org/)
@@ -7,11 +6,11 @@
 
 # InvSync
 
-This is a fabric mod for 1.16.x and 1.17.x that Allows you to sync player inventories, health, food level, experience and score across multiple servers! This is accomplished using an sqlite database (that is automatically generated and set up for you). Most mods should have no problem running along side, and modded items will also be sync'd.
+This is a fabric mod for 1.16.x and 1.17.x that Allows you to sync player inventories, health, food level, experience, score and status effects across multiple servers! This is accomplished using an sqlite database (that is automatically generated and set up for you). Most mods should have no problem running along side, and modded items will also be sync'd.
 
 ## Requirements
 
-- This mod requires [Fabric API](https://www.curseforge.com/minecraft/mc-mods/fabric-api) 
+- This mod requires [Fabric API](https://www.curseforge.com/minecraft/mc-mods/fabric-api) and [Cloth Config API](https://www.curseforge.com/minecraft/mc-mods/cloth-config)
 - You can get the mod on [Modrith](https://modrinth.com/mod/invsync) or on [CurseForge](https://www.curseforge.com/minecraft/mc-mods/invsync-fabric)
 
 ## Getting Started
@@ -25,4 +24,3 @@ Configs MUST be identical between all participating servers in order for the mod
 ## Issues And Requests
 
 If you find any bugs or glitches, be sure to make a bug report under issues and I will do my best to fix it! Just as well if you have a cool idea for something that I should add, let me know and I will consider adding it!
-
