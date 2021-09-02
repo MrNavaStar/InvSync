@@ -2,18 +2,17 @@ package mrnavastar.invsync;
 
 import me.shedaniel.autoconfig.AutoConfig;
 import me.shedaniel.autoconfig.serializer.JanksonConfigSerializer;
-import mrnavastar.invsync.api.events.PlayerJoinCallback;
-import mrnavastar.invsync.api.events.PlayerLeaveCallback;
 import mrnavastar.invsync.util.Converter;
 import mrnavastar.invsync.util.Settings;
 import mrnavastar.sqlib.api.SqlTypes;
 import mrnavastar.sqlib.api.Table;
 import mrnavastar.sqlib.util.Database;
 import net.fabricmc.api.ModInitializer;
-import net.minecraft.util.ActionResult;
+import net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+
+import java.util.concurrent.TimeUnit;
 
 public class Invsync implements ModInitializer {
 
@@ -51,14 +50,21 @@ public class Invsync implements ModInitializer {
             Database.init();
             playerData = new Table(MODID + "PlayerData");
 
-            PlayerJoinCallback.EVENT.register((player, server) -> {
-                Converter.updatePlayerData(player);
-                return ActionResult.PASS;
+            ServerPlayConnectionEvents.JOIN.register((handler, sender, server) -> {
+                try {
+                    TimeUnit.SECONDS.sleep(1); //Maybe we can find a less shit solution in the future
+                    playerData.beginTransaction();
+                    Converter.updatePlayerData(handler.getPlayer());
+                    playerData.endTransaction();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
             });
 
-            PlayerLeaveCallback.EVENT.register((player, server) -> {
-                Converter.savePlayerData(player);
-                return ActionResult.PASS;
+            ServerPlayConnectionEvents.DISCONNECT.register((handler, server) -> {
+                playerData.beginTransaction();
+                Converter.savePlayerData(handler.getPlayer());
+                playerData.endTransaction();
             });
 
             log(Level.INFO, "Complete!");
@@ -66,14 +72,7 @@ public class Invsync implements ModInitializer {
         else log(Level.INFO, "Halting initialization! You need to change some settings in InvSync.toml.");
     }
 
-    //Stuff for console logging
-    public static final Logger LOGGER = LogManager.getLogger();
-
-    public static void log(Level level, String message) {
-        log(level, message, (Object) null);
-    }
-
-    public static void log(Level level, String message, Object ... fields){
-        LOGGER.log(level, "[" + MODID + "] " + message, fields);
+    public static void log(Level level, String message){
+        LogManager.getLogger().log(level, "[" + MODID + "] " + message);
     }
 }

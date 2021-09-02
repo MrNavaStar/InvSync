@@ -4,10 +4,6 @@
   "package": "mrnavastar.invsync.api.mixin",
   "compatibilityLevel": "JAVA_16",
   "mixins": [
-    "PlayerManagerMixin",
-    "ServerPlayNetworkHandlerMixin"
-  ],
-  "client": [
   ],
   "injectors": {
     "defaultRequire": 1
