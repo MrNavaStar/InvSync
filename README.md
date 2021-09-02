@@ -1,4 +1,3 @@
-
 [![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://GitHub.com/Naereen/StrapDown.js/graphs/commit-activity)\
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
 [![MIT license](https://img.shields.io/badge/License-MIT-blue.svg)](https://lbesson.mit-license.org/)
@@ -25,4 +24,3 @@ Configs MUST be identical between all participating servers in order for the mod
 ## Issues And Requests
 
 If you find any bugs or glitches, be sure to make a bug report under issues and I will do my best to fix it! Just as well if you have a cool idea for something that I should add, let me know and I will consider adding it!
-
