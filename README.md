@@ -15,21 +15,6 @@ This is a fabric mod for 1.16.x and 1.17.x that Allows you to sync player invent
 
 Setup is very simple. Drop the mod into your mods folder on all the servers you want to sync. Starting a server will generate a config with the following contents:
 
-- SQLite Settings:
-  - Database Name: The name of the sqlite database you want generated or your existing database.
-  - Database Table Name: The name of the table that will store player data in your database.
-  - Database Directory: The directory where you want the database to be created or where your existing one already lives.
-
-- Sync Settings: 
-  - Sync Inv: Sync player inventory between servers. 
-  - Sync Armour: Sync player armour between servers.
-  - Sync eChest: Sync player ender chest between servers.
-  - Sync Xp: Sync player experience between servers.
-  - Sync Score: Sync player score between servers.
-  - Sync Health: Sync player health between servers.
-  - Sync Food Level: Sync player food level between servers.
-  - Sync Status Effects: Sync active status effects between servers.
-
 ## IMPORTANT NOTES 
 
 - Configs MUST be identical between all participating servers in order for the mod to function correctly.
