@@ -13,7 +13,7 @@ This is a fabric mod for 1.16.x and 1.17.x that Allows you to sync player invent
 
 ## Getting Started
 
-Setup is very simple. Drop the mod into your mods folder on all the servers you want to sync. Starting a server will generate a config with the following contents:
+Setup is very simple. Drop the mod into your mods folder on all the servers you want to sync. Starting a server will generate a config. The mod will not run until you edit the config.
 
 ## IMPORTANT NOTES 
 
