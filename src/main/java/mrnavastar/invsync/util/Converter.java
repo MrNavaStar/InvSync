@@ -18,16 +18,13 @@ public class Converter {
             DataContainer playerDataContainer = playerData.get(player.getUuidAsString());
 
             if (playerDataContainer != null) {
-                    NbtCompound data = playerDataContainer.getNbtCompound("NBT_DATA");
-
                     if (settings.SYNC_INVENTORY) {
-                        player.getInventory().readNbt((NbtList) data.get("INVENTORY"));
+                        player.getInventory().readNbt((NbtList) playerDataContainer.getNbt("INVENTORY"));
                         player.getInventory().selectedSlot = playerDataContainer.getInt("SELECTED_SLOT");
                     }
 
-                    if (settings.SYNC_ENDER_CHEST)
-                        player.getEnderChestInventory().readNbtList((NbtList) data.get("ECHEST"));
-                    if (settings.SYNC_FOOD_LEVEL) player.getHungerManager().readNbt(data.getCompound("HUNGER"));
+                    if (settings.SYNC_ENDER_CHEST) player.getEnderChestInventory().readNbtList((NbtList) playerDataContainer.getNbt("ECHEST"));
+                    if (settings.SYNC_FOOD_LEVEL) player.getHungerManager().readNbt((NbtCompound) playerDataContainer.getNbt("HUNGER"));
                     if (settings.SYNC_HEALTH) player.setHealth(playerDataContainer.getFloat("HEALTH"));
                     if (settings.SYNC_SCORE) player.setScore(playerDataContainer.getInt("SCORE"));
 
@@ -37,7 +34,7 @@ public class Converter {
                     }
 
                     if (settings.SYNC_STATUS_EFFECTS) {
-                        NbtList effects = (NbtList) data.get("EFFECTS");
+                        NbtList effects = (NbtList) playerDataContainer.getNbt("EFFECTS");
                         if (effects != null) {
                             player.clearStatusEffects();
                             for (NbtElement effect : effects) {
@@ -57,35 +54,27 @@ public class Converter {
                 playerData.put(playerDataContainer);
             }
 
-            NbtCompound data = new NbtCompound();
-
             if (settings.SYNC_INVENTORY) {
-                NbtList inventory = new NbtList();
-                player.getInventory().writeNbt(inventory);
-                data.put("INVENTORY", inventory);
+                playerDataContainer.put("INVENTORY", player.getInventory().writeNbt(new NbtList()));
                 playerDataContainer.put("SELECTED_SLOT", player.getInventory().selectedSlot);
             }
 
-            if (settings.SYNC_ENDER_CHEST) data.put("ECHEST", player.getEnderChestInventory().toNbtList());
+            if (settings.SYNC_ENDER_CHEST) playerDataContainer.put("ECHEST", player.getEnderChestInventory().toNbtList());
 
             if (settings.SYNC_FOOD_LEVEL) {
-                NbtCompound hunger = new NbtCompound();
-                player.getHungerManager().writeNbt(hunger);
-                data.put("HUNGER", hunger);
+                NbtCompound nbt = new NbtCompound();
+                player.getHungerManager().writeNbt(nbt);
+                playerDataContainer.put("HUNGER", nbt);
             }
 
             if (settings.SYNC_STATUS_EFFECTS) {
                 NbtList effects = new NbtList();
-                for (StatusEffectInstance effect : player.getStatusEffects()) {
-                    NbtCompound nbt = new NbtCompound();
-                    effect.writeNbt(nbt);
-                    effects.add(nbt);
-                }
-                data.put("EFFECTS", effects);
+                for (StatusEffectInstance effect : player.getStatusEffects()) effects.add(effect.writeNbt(new NbtCompound()));
+                playerDataContainer.put("EFFECTS", effects);
             }
 
-            if (!data.isEmpty()) playerDataContainer.put("NBT_DATA", data);
             if (settings.SYNC_HEALTH) playerDataContainer.put("HEALTH", player.getHealth());
+
             if (settings.SYNC_SCORE) playerDataContainer.put("SCORE", player.getScore());
 
             if (settings.SYNC_XP_LEVEL) {

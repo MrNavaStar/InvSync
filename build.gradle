@@ -8,7 +8,6 @@ group = project.maven_group
 
 repositories {
     maven { url 'https://jitpack.io' }
-    maven { url = "https://maven.modmuss50.me/" }
     maven { url "https://maven.shedaniel.me/" }
 }
 
