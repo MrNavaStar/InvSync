@@ -69,7 +69,7 @@ public class Invsync implements ModInitializer {
 
             log(Level.INFO, "Complete!");
         }
-        else log(Level.INFO, "Halting initialization! You need to change some settings in InvSync.toml.");
+        else log(Level.INFO, "Halting initialization! You need to change some settings in the InvSync config");
     }
 
     public static void log(Level level, String message){
