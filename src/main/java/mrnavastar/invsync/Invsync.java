@@ -50,15 +50,18 @@ public class Invsync implements ModInitializer {
             Database.init();
             playerData = new Table(MODID + "PlayerData");
 
-            ServerPlayConnectionEvents.JOIN.register((handler, sender, server) -> {
-                try {
+            ServerPlayConnectionEvents.INIT.register((handler, server) ->  {
+                /*try {
                     TimeUnit.SECONDS.sleep(1); //Maybe we can find a less shit solution in the future
                     playerData.beginTransaction();
                     Converter.updatePlayerData(handler.getPlayer());
                     playerData.endTransaction();
                 } catch (InterruptedException e) {
                     e.printStackTrace();
-                }
+                }*/
+                playerData.beginTransaction();
+                Converter.updatePlayerData(handler.getPlayer());
+                playerData.endTransaction();
             });
 
             ServerPlayConnectionEvents.DISCONNECT.register((handler, server) -> {
