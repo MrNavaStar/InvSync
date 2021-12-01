@@ -3,13 +3,12 @@ package mrnavastar.invsync.util;
 import me.shedaniel.autoconfig.ConfigData;
 import me.shedaniel.autoconfig.annotation.Config;
 import me.shedaniel.cloth.clothconfig.shadowed.blue.endless.jankson.Comment;
-import mrnavastar.invsync.Invsync;
-import mrnavastar.sqlib.api.SqlTypes;
+import mrnavastar.invsync.InvSync;
 
-@Config(name = Invsync.MODID)
+@Config(name = InvSync.MODID)
 public class Settings implements ConfigData {
    @Comment("Allowed Values: \"SQLITE\" | \"MYSQL\"")
-   public String DATABASE_TYPE = SqlTypes.SQLITE;
+   public String DATABASE_TYPE = "SQLITE";
    public String DATABASE_NAME = "InvSync";
 
    public String SQLITE_DIRECTORY = "/path/to/folder";

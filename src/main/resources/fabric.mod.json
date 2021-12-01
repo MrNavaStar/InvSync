@@ -2,23 +2,20 @@
   "schemaVersion": 1,
   "id": "invsync",
   "version": "${version}",
-  "name": "Invsync",
+  "name": "InvSync",
   "description": "",
-  "authors": [],
+  "authors": ["MrNavaStar"],
   "contact": {},
   "license": "MIT",
   "environment": "*",
   "entrypoints": {
     "main": [
-      "mrnavastar.invsync.Invsync"
+      "mrnavastar.invsync.InvSync"
     ]
   },
-  "mixins": [
-    "invsync.mixins.json"
-  ],
   "depends": {
-    "fabricloader": ">=0.11.6",
+    "fabricloader": ">=0.12.6",
     "fabric": "*",
-    "minecraft": "1.17.x"
+    "minecraft": "1.18.x"
   }
 }

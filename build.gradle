@@ -1,8 +1,9 @@
 plugins {
-    id 'fabric-loom' version '0.9.50'
+    id 'fabric-loom' version '0.10.62'
     id 'maven-publish'
 }
 
+def targetJavaVersion = 17
 version = project.mod_version
 group = project.maven_group
 
@@ -33,7 +34,6 @@ processResources {
     }
 }
 
-def targetJavaVersion = 16
 tasks.withType(JavaCompile).configureEach {
     // ensure that the encoding is set to UTF-8, no matter what the system default is
     // this fixes some edge cases with special characters not displaying correctly
