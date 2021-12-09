@@ -10,8 +10,8 @@ This is a fabric mod for 1.16.x and 1.17.x that Allows you to sync player invent
 
 ## Requirements
 
-- This mod requires [Fabric API](https://www.curseforge.com/minecraft/mc-mods/fabric-api) and [Cloth Config API](https://www.curseforge.com/minecraft/mc-mods/cloth-config)
-- You can get the mod on [Modrith](https://modrinth.com/mod/invsync) or on [CurseForge](https://www.curseforge.com/minecraft/mc-mods/invsync-fabric)
+- This mod requires [Fabric API](https://www.curseforge.com/minecraft/mc-mods/fabric-api) 
+- You can get the mod on [Modrith](https://modrinth.com/mod/invsync)
 
 ## Getting Started
 
