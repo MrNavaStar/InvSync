@@ -1,7 +1,6 @@
 [![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://GitHub.com/Naereen/StrapDown.js/graphs/commit-activity)\
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
 [![MIT license](https://img.shields.io/badge/License-MIT-blue.svg)](https://lbesson.mit-license.org/)\
-[![CurseForge downloads](http://cf.way2muchnoise.eu/full_462662_downloads.svg)](https://www.curseforge.com/minecraft/mc-mods/invsync-fabric)
 
 <img src="https://github.com/MrNavaStar/invSync/blob/master/InvSyncIcon.png" width="300" height="300">
 
@@ -11,8 +10,8 @@ This is a fabric mod for 1.16.x and 1.17.x that Allows you to sync player invent
 
 ## Requirements
 
-- This mod requires [Fabric API](https://www.curseforge.com/minecraft/mc-mods/fabric-api) and [Cloth Config API](https://www.curseforge.com/minecraft/mc-mods/cloth-config)
-- You can get the mod on [Modrith](https://modrinth.com/mod/invsync) or on [CurseForge](https://www.curseforge.com/minecraft/mc-mods/invsync-fabric)
+- This mod requires [Fabric API](https://www.curseforge.com/minecraft/mc-mods/fabric-api) 
+- You can get the mod on [Modrith](https://modrinth.com/mod/invsync)
 
 ## Getting Started
 
