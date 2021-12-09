@@ -1,11 +1,9 @@
 package mrnavastar.invsync.util;
 
-import me.shedaniel.autoconfig.ConfigData;
-import me.shedaniel.autoconfig.annotation.Config;
-import me.shedaniel.cloth.clothconfig.shadowed.blue.endless.jankson.Comment;
-import mrnavastar.invsync.InvSync;
+import mc.microconfig.Comment;
+import mc.microconfig.ConfigData;
 
-@Config(name = InvSync.MODID)
+
 public class Settings implements ConfigData {
    @Comment("Allowed Values: \"SQLITE\" | \"MYSQL\"")
    public String DATABASE_TYPE = "SQLITE";

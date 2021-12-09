@@ -1,7 +1,6 @@
 package mrnavastar.invsync;
 
-import me.shedaniel.autoconfig.AutoConfig;
-import me.shedaniel.autoconfig.serializer.JanksonConfigSerializer;
+import mc.microconfig.MicroConfig;
 import mrnavastar.invsync.util.Converter;
 import mrnavastar.invsync.util.Settings;
 import mrnavastar.sqlib.api.Table;
@@ -25,8 +24,7 @@ public class InvSync implements ModInitializer {
         log(Level.INFO, "Initializing...");
 
         boolean validConfig = false;
-        AutoConfig.register(Settings.class, JanksonConfigSerializer::new);
-        settings = AutoConfig.getConfigHolder(Settings.class).getConfig();
+        settings = MicroConfig.getOrCreate(MODID, new Settings());
 
         if (settings.DATABASE_TYPE.equals("SQLITE") && !settings.SQLITE_DIRECTORY.equals("/path/to/folder")) {
             database = new SQLiteDatabase(settings.DATABASE_NAME, settings.SQLITE_DIRECTORY);
