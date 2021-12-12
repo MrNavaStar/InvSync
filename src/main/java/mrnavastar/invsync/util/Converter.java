@@ -1,18 +1,21 @@
 package mrnavastar.invsync.util;
 
 import mrnavastar.sqlib.api.DataContainer;
+import net.minecraft.advancement.Advancement;
+import net.minecraft.advancement.AdvancementCriterion;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtElement;
 import net.minecraft.nbt.NbtList;
+import net.minecraft.server.network.ServerPlayerEntity;
 
 import static mrnavastar.invsync.InvSync.playerData;
 import static mrnavastar.invsync.InvSync.settings;
 
 public class Converter {
 
-    public static void updatePlayerData(PlayerEntity player) {
+    public static void updatePlayerData(ServerPlayerEntity player) {
         if (settings.SYNC_CREATIVE_MODE || !player.isCreative()) {
             DataContainer playerDataContainer = playerData.get(player.getUuid());
 

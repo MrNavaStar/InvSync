@@ -8,16 +8,21 @@ import mrnavastar.sqlib.api.databases.Database;
 import mrnavastar.sqlib.api.databases.MySQLDatabase;
 import mrnavastar.sqlib.api.databases.SQLiteDatabase;
 import net.fabricmc.api.ModInitializer;
+import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents;
+import net.minecraft.advancement.AdvancementManager;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
+
+import java.util.concurrent.TimeUnit;
 
 public class InvSync implements ModInitializer {
 
     public static final String MODID = "InvSync";
     public static Table playerData;
     public static Settings settings;
-    public static Database database;
+    public static AdvancementManager advancementManager;
+    private static Database database;
 
     @Override
     public void onInitialize() {
@@ -40,14 +45,14 @@ public class InvSync implements ModInitializer {
             playerData = database.createTable("PlayerData");
 
             ServerPlayConnectionEvents.INIT.register((handler, server) -> {
-                /*try {
+                try {
                     TimeUnit.SECONDS.sleep(1); //Maybe we can find a less shit solution in the future
                     playerData.beginTransaction();
                     Converter.updatePlayerData(handler.getPlayer());
                     playerData.endTransaction();
                 } catch (InterruptedException e) {
                     e.printStackTrace();
-                }*/
+                }
                 playerData.beginTransaction();
                 Converter.updatePlayerData(handler.getPlayer());
                 playerData.endTransaction();
