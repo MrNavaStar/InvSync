@@ -47,7 +47,7 @@ public class InvSync implements ModInitializer {
         if (validConfig) {
             playerData = database.createTable("PlayerData");
 
-            ServerPlayConnectionEvents.INIT.register((handler, server) -> {
+            ServerPlayConnectionEvents.JOIN.register((handler, s, server) -> {
                 try {
                     TimeUnit.SECONDS.sleep(1); //Maybe we can find a less shit solution in the future
                     playerData.beginTransaction();
