@@ -8,12 +8,7 @@ import mrnavastar.sqlib.api.databases.Database;
 import mrnavastar.sqlib.api.databases.MySQLDatabase;
 import mrnavastar.sqlib.api.databases.SQLiteDatabase;
 import net.fabricmc.api.ModInitializer;
-import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
-import net.fabricmc.fabric.api.networking.v1.ServerLoginConnectionEvents;
-import net.fabricmc.fabric.api.networking.v1.ServerLoginNetworking;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents;
-import net.minecraft.advancement.AdvancementManager;
-import net.minecraft.server.network.ServerLoginNetworkHandler;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 
@@ -24,7 +19,6 @@ public class InvSync implements ModInitializer {
     public static final String MODID = "InvSync";
     public static Table playerData;
     public static Settings settings;
-    public static AdvancementManager advancementManager;
     private static Database database;
 
     @Override

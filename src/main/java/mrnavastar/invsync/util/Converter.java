@@ -1,8 +1,6 @@
 package mrnavastar.invsync.util;
 
 import mrnavastar.sqlib.api.DataContainer;
-import net.minecraft.advancement.Advancement;
-import net.minecraft.advancement.AdvancementCriterion;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.NbtCompound;
@@ -20,30 +18,30 @@ public class Converter {
             DataContainer playerDataContainer = playerData.get(player.getUuid());
 
             if (playerDataContainer != null) {
-                    if (settings.SYNC_INVENTORY) {
-                        player.getInventory().readNbt((NbtList) playerDataContainer.getNbt("INVENTORY"));
-                        player.getInventory().selectedSlot = playerDataContainer.getInt("SELECTED_SLOT");
-                    }
+                if (settings.SYNC_INVENTORY) {
+                    player.getInventory().readNbt((NbtList) playerDataContainer.getNbt("INVENTORY"));
+                    player.getInventory().selectedSlot = playerDataContainer.getInt("SELECTED_SLOT");
+                }
 
-                    if (settings.SYNC_ENDER_CHEST) player.getEnderChestInventory().readNbtList((NbtList) playerDataContainer.getNbt("ECHEST"));
-                    if (settings.SYNC_FOOD_LEVEL) player.getHungerManager().readNbt((NbtCompound) playerDataContainer.getNbt("HUNGER"));
-                    if (settings.SYNC_HEALTH) player.setHealth(playerDataContainer.getFloat("HEALTH"));
-                    if (settings.SYNC_SCORE) player.setScore(playerDataContainer.getInt("SCORE"));
+                if (settings.SYNC_ENDER_CHEST) player.getEnderChestInventory().readNbtList((NbtList) playerDataContainer.getNbt("ECHEST"));
+                if (settings.SYNC_FOOD_LEVEL) player.getHungerManager().readNbt((NbtCompound) playerDataContainer.getNbt("HUNGER"));
+                if (settings.SYNC_HEALTH) player.setHealth(playerDataContainer.getFloat("HEALTH"));
+                if (settings.SYNC_SCORE) player.setScore(playerDataContainer.getInt("SCORE"));
 
-                    if (settings.SYNC_XP_LEVEL) {
-                        player.experienceLevel = playerDataContainer.getInt("XP");
-                        player.experienceProgress = playerDataContainer.getFloat("XP_PROGRESS");
-                    }
+                if (settings.SYNC_XP_LEVEL) {
+                    player.experienceLevel = playerDataContainer.getInt("XP");
+                    player.experienceProgress = playerDataContainer.getFloat("XP_PROGRESS");
+                }
 
-                    if (settings.SYNC_STATUS_EFFECTS) {
-                        NbtList effects = (NbtList) playerDataContainer.getNbt("EFFECTS");
-                        if (effects != null) {
-                            player.clearStatusEffects();
-                            for (NbtElement effect : effects) {
-                                player.addStatusEffect(StatusEffectInstance.fromNbt((NbtCompound) effect));
-                            }
+                if (settings.SYNC_STATUS_EFFECTS) {
+                    NbtList effects = (NbtList) playerDataContainer.getNbt("EFFECTS");
+                    if (effects != null) {
+                        player.clearStatusEffects();
+                        for (NbtElement effect : effects) {
+                            player.addStatusEffect(StatusEffectInstance.fromNbt((NbtCompound) effect));
                         }
                     }
+                }
             }
         }
     }
