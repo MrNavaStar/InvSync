@@ -6,7 +6,7 @@
 
 # InvSync
 
-This is a fabric mod for 1.16.x and 1.17.x that Allows you to sync player inventories, health, food level, experience, score and status effects across multiple servers or single player minecraft worlds! This is accomplished using an sql database (SQLite and MySQL supported. SQLite will be setup automatically, you must set up MySQL). Most mods should have no problem running along side, and modded items will also be sync'd.
+This is a fabric mod for 1.16, 1.17, and 1.18 that Allows you to sync player inventories, health, food level, experience, score and status effects across multiple servers or single player minecraft worlds! This is accomplished using an sql database (SQLite and MySQL supported. SQLite will be setup automatically, you must set up MySQL). Most mods should have no problem running along side, and modded items will also be sync'd.
 
 ## Requirements
 
@@ -19,7 +19,8 @@ Setup is very simple. Drop the mod into your mods folder on all the servers you 
 
 ## IMPORTANT NOTES 
 
-Configs MUST be identical between all participating servers in order for the mod to function correctly.
+- Configs MUST be identical between all participating servers in order for the mod to function correctly.
+- This mod is known to have issues with: **GolfV**
 
 ## Issues And Requests
 
