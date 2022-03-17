@@ -62,7 +62,7 @@ public class InvSync implements ModInitializer {
         } else log(Level.INFO, "Halting initialization! You need to change some settings in the InvSync config");
     }
 
-    public static void log(Level level, String message){
+    public static void log(Level level, String message) {
         LogManager.getLogger().log(level, "[" + MODID + "] " + message);
     }
 }

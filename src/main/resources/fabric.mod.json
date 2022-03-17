@@ -4,7 +4,9 @@
   "version": "${version}",
   "name": "InvSync",
   "description": "",
-  "authors": ["MrNavaStar"],
+  "authors": [
+    "MrNavaStar"
+  ],
   "contact": {},
   "license": "MIT",
   "environment": "*",
@@ -13,9 +15,14 @@
       "mrnavastar.invsync.InvSync"
     ]
   },
+  "mixins": [
+    {
+      "config": "invsync.mixins.json",
+      "environment": "*"
+    }
+  ],
   "depends": {
     "fabricloader": ">=0.12.12",
-    "fabric": "*",
-    "minecraft": "1.18.x"
+    "fabric": "*"
   }
 }
