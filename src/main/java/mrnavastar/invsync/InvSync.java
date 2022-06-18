@@ -10,7 +10,9 @@ import mrnavastar.sqlib.api.databases.SQLiteDatabase;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.server.MinecraftServer;
+import net.minecraft.server.network.ServerPlayerEntity;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 
@@ -22,7 +24,6 @@ public class InvSync implements ModInitializer {
     public static Table playerData;
     public static Settings settings;
     private static Database database;
-    private static MinecraftServer server;
 
     @Override
     public void onInitialize() {
@@ -41,14 +42,13 @@ public class InvSync implements ModInitializer {
             validConfig = true;
         }
 
-        ServerLifecycleEvents.SERVER_STARTING.register(s -> server = s);
-
         if (!validConfig) {
-            log(Level.INFO, "Halting initialization! You need to change some settings in the InvSync config");
-            server.stop(true);
+            log(Level.FATAL, "Halting initialization! You need to change some settings in the InvSync config");
+            System.exit(0);
         }
 
         playerData = database.createTable("PlayerData");
+        log(Level.INFO, "Database initialized successfully!");
 
         ServerPlayConnectionEvents.JOIN.register((handler, s, server) -> {
             try {
