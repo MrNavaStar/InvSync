@@ -8,7 +8,9 @@ import mrnavastar.sqlib.api.databases.Database;
 import mrnavastar.sqlib.api.databases.MySQLDatabase;
 import mrnavastar.sqlib.api.databases.SQLiteDatabase;
 import net.fabricmc.api.ModInitializer;
+import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents;
+import net.minecraft.server.MinecraftServer;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 
@@ -20,6 +22,7 @@ public class InvSync implements ModInitializer {
     public static Table playerData;
     public static Settings settings;
     private static Database database;
+    private static MinecraftServer server;
 
     @Override
     public void onInitialize() {
@@ -38,28 +41,33 @@ public class InvSync implements ModInitializer {
             validConfig = true;
         }
 
-        if (validConfig) {
-            playerData = database.createTable("PlayerData");
+        ServerLifecycleEvents.SERVER_STARTING.register(s -> server = s);
 
-            ServerPlayConnectionEvents.JOIN.register((handler, s, server) -> {
-                try {
-                    TimeUnit.SECONDS.sleep(1); //Maybe we can find a less shit solution in the future
-                    playerData.beginTransaction();
-                    Converter.updatePlayerData(handler.getPlayer());
-                    playerData.endTransaction();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            });
+        if (!validConfig) {
+            log(Level.INFO, "Halting initialization! You need to change some settings in the InvSync config");
+            server.stop(true);
+        }
 
-            ServerPlayConnectionEvents.DISCONNECT.register((handler, server) -> {
+        playerData = database.createTable("PlayerData");
+
+        ServerPlayConnectionEvents.JOIN.register((handler, s, server) -> {
+            try {
+                TimeUnit.SECONDS.sleep(1); //Maybe we can find a less shit solution in the future
                 playerData.beginTransaction();
-                Converter.savePlayerData(handler.getPlayer());
+                Converter.updatePlayerData(handler.getPlayer());
                 playerData.endTransaction();
-            });
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        });
 
-            log(Level.INFO, "Complete!");
-        } else log(Level.INFO, "Halting initialization! You need to change some settings in the InvSync config");
+        ServerPlayConnectionEvents.DISCONNECT.register((handler, server) -> {
+            playerData.beginTransaction();
+            Converter.savePlayerData(handler.getPlayer());
+            playerData.endTransaction();
+        });
+
+        log(Level.INFO, "Complete!");
     }
 
     public static void log(Level level, String message) {
