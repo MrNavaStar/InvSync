@@ -67,6 +67,14 @@ public class InvSync implements ModInitializer {
             playerData.endTransaction();
         });
 
+        ServerLifecycleEvents.SERVER_STOPPING.register(server -> {
+            for (net.minecraft.server.network.ServerPlayerEntity player : PlayerLookup.all(server)) {
+                playerData.beginTransaction();
+                Converter.savePlayerData(player);
+                playerData.endTransaction();
+            }
+        });
+
         log(Level.INFO, "Complete!");
     }
 
