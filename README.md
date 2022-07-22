@@ -2,6 +2,8 @@
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
 [![MIT license](https://img.shields.io/badge/License-MIT-blue.svg)](https://lbesson.mit-license.org/)
 
+[![name](https://raw.githubusercontent.com/modrinth/art/main/Branding/Badge/badge-dark.svg)](https://modrinth.com/mod/invsync)
+
 <img src="https://github.com/MrNavaStar/invSync/blob/master/InvSyncIcon.png" width="300" height="300">
 
 # InvSync
