@@ -16,6 +16,8 @@ import net.minecraft.server.network.ServerPlayerEntity;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 
+import java.io.File;
+import java.nio.file.Path;
 import java.util.concurrent.TimeUnit;
 
 public class InvSync implements ModInitializer {
@@ -33,6 +35,11 @@ public class InvSync implements ModInitializer {
         settings = MicroConfig.getOrCreate(MODID, new Settings());
 
         if (settings.DATABASE_TYPE.equals("SQLITE") && !settings.SQLITE_DIRECTORY.equals("/path/to/folder")) {
+            if (!new File(settings.SQLITE_DIRECTORY).exists()) {
+                log(Level.FATAL, "Halting initialization! " + settings.SQLITE_DIRECTORY + " does not exist!");
+                System.exit(0);
+            }
+
             database = new SQLiteDatabase(settings.DATABASE_NAME, settings.SQLITE_DIRECTORY);
             validConfig = true;
         }
