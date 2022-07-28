@@ -12,6 +12,8 @@
 
 This is a fabric mod that Allows you to sync player inventories, health, food level, experience, score, status effects and advancements across multiple servers or single player minecraft worlds! This is accomplished using an sql database (SQLite and MySQL supported. SQLite will be setup automatically, you must set up MySQL). Most mods should have no problem running along side, and modded items will also be sync'd.
 
+This mod uses [SQLib](https://github.com/MrNavaStar/SQLib) as a backend. Feel free to use it in your own projects!
+
 ## Support Me
 
 You can support me by [buying me a coffee!](https://ko-fi.com/mrnavastar)
