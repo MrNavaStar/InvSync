@@ -2,13 +2,19 @@
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
 [![MIT license](https://img.shields.io/badge/License-MIT-blue.svg)](https://lbesson.mit-license.org/)
 
-[![name](https://raw.githubusercontent.com/modrinth/art/main/Branding/Badge/badge-dark.svg)](https://modrinth.com/mod/invsync)
+[![name](https://github.com/modrinth/art/blob/main/Branding/Badge/badge-dark__184x72.png?raw=true)](https://modrinth.com/mod/invsync)
+
+[![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/G2G4DZF4D)
 
 <img src="https://github.com/MrNavaStar/invSync/blob/master/InvSyncIcon.png" width="300" height="300">
 
 # InvSync
 
-This is a fabric mod for 1.16, 1.17, and 1.18 that Allows you to sync player inventories, health, food level, experience, score and status effects across multiple servers or single player minecraft worlds! This is accomplished using an sql database (SQLite and MySQL supported. SQLite will be setup automatically, you must set up MySQL). Most mods should have no problem running along side, and modded items will also be sync'd.
+This is a fabric mod that Allows you to sync player inventories, health, food level, experience, score, status effects and advancements across multiple servers or single player minecraft worlds! This is accomplished using an sql database (SQLite and MySQL supported. SQLite will be setup automatically, you must set up MySQL). Most mods should have no problem running along side, and modded items will also be sync'd.
+
+## Support Me
+
+You can support me by [buying me a coffee!](https://ko-fi.com/mrnavastar)
 
 ## Requirements
 
