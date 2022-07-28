@@ -1,7 +1,7 @@
 package mrnavastar.invsync;
 
 import mc.microconfig.MicroConfig;
-import mrnavastar.invsync.api.SyncEvents;
+import mrnavastar.invsync.api.ServerSyncEvents;
 import mrnavastar.invsync.services.CoreSyncProcedures;
 import mrnavastar.invsync.services.Settings;
 import mrnavastar.sqlib.api.DataContainer;
@@ -54,22 +54,28 @@ public class InvSync implements ModInitializer {
             System.exit(0);
         }
 
-        Table playerData = database.createTable("PlayerData");
+        Table playerData = database.createTable(MODID + "-PlayerData");
+        Table serverData = database.createTable(MODID + "-ServerData");
         log(Level.INFO, "Database initialized successfully!");
 
         ServerLifecycleEvents.SERVER_STARTING.register(server -> advancementLoader = server.getAdvancementLoader());
 
         ServerPlayConnectionEvents.JOIN.register(((handler, sender, server) -> {
-            ServerPlayerEntity player = handler.getPlayer();
-            DataContainer playerDataContainer = playerData.get(player.getUuid());
             try {
                 TimeUnit.SECONDS.sleep(1); //Maybe we can find a better solution in the future
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
+
+            ServerPlayerEntity player = handler.getPlayer();
+            DataContainer playerDataContainer = playerData.get(player.getUuid());
+
             playerData.beginTransaction();
-            SyncEvents.FETCH_PLAYER_DATA.invoker().fetch(player, playerDataContainer);
+            ServerSyncEvents.FETCH_PLAYER_DATA.invoker().handle(player, playerDataContainer);
             playerData.endTransaction();
+            serverData.beginTransaction();
+            ServerSyncEvents.FETCH_SERVER_DATA.invoker().handle(server, serverData);
+            serverData.endTransaction();
         }));
 
         ServerPlayConnectionEvents.DISCONNECT.register(((handler, server) -> {
@@ -81,8 +87,11 @@ public class InvSync implements ModInitializer {
             }
 
             playerData.beginTransaction();
-            SyncEvents.SAVE_PLAYER_DATA.invoker().save(player, playerDataContainer);
+            ServerSyncEvents.SAVE_PLAYER_DATA.invoker().handle(player, playerDataContainer);
             playerData.endTransaction();
+            serverData.beginTransaction();
+            ServerSyncEvents.SAVE_SERVER_DATA.invoker().handle(server, serverData);
+            serverData.endTransaction();
         }));
 
         CoreSyncProcedures.init();
