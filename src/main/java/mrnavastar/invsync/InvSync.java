@@ -1,8 +1,10 @@
 package mrnavastar.invsync;
 
 import mc.microconfig.MicroConfig;
-import mrnavastar.invsync.util.Converter;
-import mrnavastar.invsync.util.Settings;
+import mrnavastar.invsync.api.SyncEvents;
+import mrnavastar.invsync.services.CoreSyncProcedures;
+import mrnavastar.invsync.services.Settings;
+import mrnavastar.sqlib.api.DataContainer;
 import mrnavastar.sqlib.api.Table;
 import mrnavastar.sqlib.api.databases.Database;
 import mrnavastar.sqlib.api.databases.MySQLDatabase;
@@ -10,22 +12,20 @@ import mrnavastar.sqlib.api.databases.SQLiteDatabase;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.server.MinecraftServer;
+import net.minecraft.server.ServerAdvancementLoader;
 import net.minecraft.server.network.ServerPlayerEntity;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 
 import java.io.File;
-import java.nio.file.Path;
 import java.util.concurrent.TimeUnit;
 
 public class InvSync implements ModInitializer {
 
     public static final String MODID = "InvSync";
-    public static Table playerData;
     public static Settings settings;
     private static Database database;
+    public static ServerAdvancementLoader advancementLoader;
 
     @Override
     public void onInitialize() {
@@ -54,26 +54,38 @@ public class InvSync implements ModInitializer {
             System.exit(0);
         }
 
-        playerData = database.createTable("PlayerData");
+        Table playerData = database.createTable("PlayerData");
         log(Level.INFO, "Database initialized successfully!");
 
-        ServerPlayConnectionEvents.JOIN.register((handler, s, server) -> {
+        ServerLifecycleEvents.SERVER_STARTING.register(server -> advancementLoader = server.getAdvancementLoader());
+
+        ServerPlayConnectionEvents.JOIN.register(((handler, sender, server) -> {
+            ServerPlayerEntity player = handler.getPlayer();
+            DataContainer playerDataContainer = playerData.get(player.getUuid());
             try {
-                TimeUnit.SECONDS.sleep(1); //Maybe we can find a less shit solution in the future
-                playerData.beginTransaction();
-                Converter.updatePlayerData(handler.getPlayer());
-                playerData.endTransaction();
+                TimeUnit.SECONDS.sleep(1); //Maybe we can find a better solution in the future
             } catch (InterruptedException e) {
-                e.printStackTrace();
+                throw new RuntimeException(e);
             }
-        });
-
-        ServerPlayConnectionEvents.DISCONNECT.register((handler, server) -> {
             playerData.beginTransaction();
-            Converter.savePlayerData(handler.getPlayer());
+            SyncEvents.FETCH_PLAYER_DATA.invoker().fetch(player, playerDataContainer);
             playerData.endTransaction();
-        });
+        }));
 
+        ServerPlayConnectionEvents.DISCONNECT.register(((handler, server) -> {
+            ServerPlayerEntity player = handler.getPlayer();
+            DataContainer playerDataContainer = playerData.get(player.getUuid());
+            if (playerDataContainer == null) {
+                playerDataContainer = playerData.createDataContainer(player.getUuid());
+                playerData.put(playerDataContainer);
+            }
+
+            playerData.beginTransaction();
+            SyncEvents.SAVE_PLAYER_DATA.invoker().save(player, playerDataContainer);
+            playerData.endTransaction();
+        }));
+
+        CoreSyncProcedures.init();
         log(Level.INFO, "Complete!");
     }
 

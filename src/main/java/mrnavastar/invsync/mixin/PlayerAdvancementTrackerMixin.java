@@ -4,7 +4,7 @@ import com.google.common.collect.Maps;
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.reflect.TypeToken;
-import mrnavastar.invsync.InvSyncPATAddon;
+import mrnavastar.invsync.interfaces.PlayerAdvancementTrackerInf;
 import net.minecraft.advancement.Advancement;
 import net.minecraft.advancement.AdvancementProgress;
 import net.minecraft.advancement.PlayerAdvancementTracker;
@@ -20,8 +20,10 @@ import java.util.Map;
 import java.util.Set;
 import java.util.stream.Stream;
 
+import static mrnavastar.invsync.InvSync.advancementLoader;
+
 @Mixin(PlayerAdvancementTracker.class)
-public abstract class PlayerAdvancementTrackerMixin implements InvSyncPATAddon {
+public abstract class PlayerAdvancementTrackerMixin implements PlayerAdvancementTrackerInf {
 
     @Shadow
     public abstract void clearCriteria();
@@ -69,7 +71,7 @@ public abstract class PlayerAdvancementTrackerMixin implements InvSyncPATAddon {
     private static TypeToken<Map<Identifier, AdvancementProgress>> JSON_TYPE;
 
     @Override
-    public void INVSYNC$load(ServerAdvancementLoader advancementLoader, JsonElement advancementData) {
+    public void writeAdvancementData(JsonElement advancementData) {
         this.clearCriteria();
         this.advancementToProgress.clear();
         this.visibleAdvancements.clear();
@@ -91,7 +93,7 @@ public abstract class PlayerAdvancementTrackerMixin implements InvSyncPATAddon {
     }
 
     @Override
-    public JsonElement INVSYNC$save() {
+    public JsonElement readAdvancementData() {
         HashMap<Identifier, AdvancementProgress> map = Maps.newHashMap();
         for (Map.Entry<Advancement, AdvancementProgress> entry : this.advancementToProgress.entrySet()) {
             AdvancementProgress advancementProgress = entry.getValue();
