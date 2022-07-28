@@ -6,7 +6,7 @@
 
 [![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/G2G4DZF4D)
 
-<img src="https://github.com/MrNavaStar/invSync/blob/master/src/main/java/resources/assets/invsync/icon.png" width="300" height="300">
+<img src="https://github.com/MrNavaStar/invSync/blob/master/src/main/resources/assets/invsync/icon.png" width="300" height="300">
 
 # InvSync
 
