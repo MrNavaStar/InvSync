@@ -9,6 +9,7 @@
   ],
   "contact": {},
   "license": "MIT",
+  "icon": "assets/invsync/icon.png",
   "environment": "*",
   "entrypoints": {
     "main": [
