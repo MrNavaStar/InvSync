@@ -1,6 +1,7 @@
 package mrnavastar.invsync;
 
 import mc.microconfig.MicroConfig;
+import mrnavastar.invsync.api.ServerSaveEvent;
 import mrnavastar.invsync.api.ServerSyncEvents;
 import mrnavastar.invsync.services.CoreSyncProcedures;
 import mrnavastar.invsync.services.Settings;
@@ -93,6 +94,19 @@ public class InvSync implements ModInitializer {
             ServerSyncEvents.SAVE_SERVER_DATA.invoker().handle(server, serverData);
             serverData.endTransaction();
         }));
+
+        ServerSaveEvent.SAVE_EVERYTHING_EVENT.register(server -> {
+            for (ServerPlayerEntity player : server.getPlayerManager().getPlayerList()) {
+                DataContainer playerDataContainer = playerData.get(player.getUuid());
+                if (playerDataContainer == null) {
+                    playerDataContainer = playerData.createDataContainer(player.getUuid());
+                    playerData.put(playerDataContainer);
+                }
+                playerData.beginTransaction();
+                ServerSyncEvents.SAVE_PLAYER_DATA.invoker().handle(player, playerDataContainer);
+                playerData.endTransaction();
+            }
+        });
 
         CoreSyncProcedures.init();
         log(Level.INFO, "Complete!");

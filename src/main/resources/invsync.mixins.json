@@ -3,6 +3,7 @@
   "package": "mrnavastar.invsync.mixin",
   "compatibilityLevel": "JAVA_17",
   "mixins": [
+    "MinecraftServerMixin",
     "PlayerAdvancementTrackerMixin"
   ],
   "injectors": {
