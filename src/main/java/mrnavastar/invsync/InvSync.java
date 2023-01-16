@@ -57,30 +57,29 @@ public class InvSync implements ModInitializer {
         ServerLifecycleEvents.SERVER_STARTING.register(server -> advancementLoader = server.getAdvancementLoader());
 
         ServerPlayConnectionEvents.JOIN.register(((handler, sender, server) -> {
-            try {
-                TimeUnit.SECONDS.sleep(1); //Maybe we can find a better solution in the future
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            }
+            new Thread(() -> {
+                try {
+                    TimeUnit.SECONDS.sleep(1);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
 
-            ServerPlayerEntity player = handler.getPlayer();
-            DataContainer playerDataContainer = playerData.get(player.getUuid());
+                ServerPlayerEntity player = handler.getPlayer();
+                DataContainer playerDataContainer = playerData.get(player.getUuid());
 
-            playerData.beginTransaction();
-            ServerSyncEvents.FETCH_PLAYER_DATA.invoker().handle(player, playerDataContainer);
-            playerData.endTransaction();
-            serverData.beginTransaction();
-            ServerSyncEvents.FETCH_SERVER_DATA.invoker().handle(server, serverData);
-            serverData.endTransaction();
+                playerData.beginTransaction();
+                ServerSyncEvents.FETCH_PLAYER_DATA.invoker().handle(player, playerDataContainer);
+                playerData.endTransaction();
+                serverData.beginTransaction();
+                ServerSyncEvents.FETCH_SERVER_DATA.invoker().handle(server, serverData);
+                serverData.endTransaction();
+            }).start();
         }));
 
         ServerPlayConnectionEvents.DISCONNECT.register(((handler, server) -> {
             ServerPlayerEntity player = handler.getPlayer();
             DataContainer playerDataContainer = playerData.get(player.getUuid());
-            if (playerDataContainer == null) {
-                playerDataContainer = playerData.createDataContainer(player.getUuid());
-                playerData.put(playerDataContainer);
-            }
+            if (playerDataContainer == null) playerDataContainer = playerData.createDataContainer(player.getUuid());
 
             playerData.beginTransaction();
             ServerSyncEvents.SAVE_PLAYER_DATA.invoker().handle(player, playerDataContainer);
