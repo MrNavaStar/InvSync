@@ -22,10 +22,7 @@ public abstract class MinecraftServerMixin {
         playerData.beginTransaction();
         this.getPlayerManager().getPlayerList().forEach(player -> {
             DataContainer playerDataContainer = playerData.get(player.getUuid());
-            if (playerDataContainer == null) {
-                playerDataContainer = playerData.createDataContainer(player.getUuid());
-                playerData.put(playerDataContainer);
-            }
+            if (playerDataContainer == null) playerDataContainer = playerData.createDataContainer(player.getUuid());
             ServerSyncEvents.SAVE_PLAYER_DATA.invoker().handle(player, playerDataContainer);
         });
         playerData.endTransaction();
