@@ -32,7 +32,6 @@ public class InvSync implements ModInitializer {
     public void onInitialize() {
         log(Level.INFO, "Initializing...");
 
-        boolean validConfig = false;
         settings = MicroConfig.getOrCreate(MODID, new Settings());
 
         if (settings.DATABASE_TYPE.equals("SQLITE") && !settings.SQLITE_DIRECTORY.equals("/path/to/folder")) {
