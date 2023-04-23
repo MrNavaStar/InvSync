@@ -72,6 +72,9 @@ public abstract class PlayerAdvancementTrackerMixin implements PlayerAdvancement
 
     @Override
     public void writeAdvancementData(JsonElement advancementData) {
+
+        this.advancementToProgress
+
         this.clearCriteria();
         this.advancementToProgress.clear();
         this.visibleAdvancements.clear();

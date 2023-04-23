@@ -1,13 +1,13 @@
 plugins {
     id 'fabric-loom' version '1.0.12'
-    id 'maven-publish'
 }
 
-def targetJavaVersion = 17
+def java_version = project.java_version as int
 version = project.mod_version
 group = project.maven_group
 
 repositories {
+    maven { url "https://api.modrinth.com/maven" }
     maven { url 'https://jitpack.io' }
     maven { url "https://maven.shedaniel.me/" }
 }
@@ -20,6 +20,9 @@ dependencies {
 
     include(modImplementation("com.github.MrNavaStar:SQLib:${project.sqlib_version}"))
     include(modImplementation("com.github.P03W:Microconfig:${project.microconfig_version}"))
+
+    // Mod Compat
+    modImplementation("maven.modrinth:cobblemon:ZuhveJd6")
 }
 
 processResources {
@@ -37,48 +40,20 @@ tasks.withType(JavaCompile).configureEach {
     // see http://yodaconditions.net/blog/fix-for-java-file-encoding-problems-with-gradle.html
     // If Javadoc is generated, this must be specified in that task too.
     it.options.encoding = "UTF-8"
-    if (targetJavaVersion >= 10 || JavaVersion.current().isJava10Compatible()) {
-        it.options.release = targetJavaVersion
+    if (java_version >= 10 || JavaVersion.current().isJava10Compatible()) {
+        it.options.release = java_version
     }
 }
 
 java {
-    def javaVersion = JavaVersion.toVersion(targetJavaVersion)
-    if (JavaVersion.current() < javaVersion) {
-        toolchain.languageVersion = JavaLanguageVersion.of(targetJavaVersion)
+    if (JavaVersion.current() < JavaVersion.toVersion(java_version)) {
+        toolchain.languageVersion = JavaLanguageVersion.of(java_version)
     }
     archivesBaseName = project.archives_base_name
-    // Loom will automatically attach sourcesJar to a RemapSourcesJar task and to the "build" task
-    // if it is present.
-    // If you remove this line, sources will not be generated.
-    withSourcesJar()
 }
 
 jar {
     from("LICENSE") {
         rename { "${it}_${project.archivesBaseName}" }
-    }
-}
-
-// configure the maven publication
-publishing {
-    publications {
-        mavenJava(MavenPublication) {
-            // add all the jars that should be included when publishing to maven
-            artifact(remapJar) {
-                builtBy remapJar
-            }
-            artifact(sourcesJar) {
-                builtBy remapSourcesJar
-            }
-        }
-    }
-
-    // See https://docs.gradle.org/current/userguide/publishing_maven.html for information on how to set up publishing.
-    repositories {
-        // Add repositories to publish to here.
-        // Notice: This block does NOT have the same function as the block in the top level.
-        // The repositories here will be used for publishing your artifact, not for
-        // retrieving dependencies.
     }
 }
