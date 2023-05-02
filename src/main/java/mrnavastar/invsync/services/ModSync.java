@@ -4,36 +4,73 @@ import com.cobblemon.mod.common.Cobblemon;
 import com.cobblemon.mod.common.api.storage.NoPokemonStoreException;
 import com.cobblemon.mod.common.api.storage.player.PlayerData;
 import mrnavastar.invsync.InvSync;
-import mrnavastar.invsync.api.ServerSyncEvents;
+import mrnavastar.sqlib.Table;
+import mrnavastar.sqlib.database.Database;
+import mrnavastar.sqlib.sql.SQLDataType;
 import net.minecraft.nbt.NbtCompound;
 
 public class ModSync {
 
-    public static void initCobblemon() {
-        Cobblemon cobblemon = Cobblemon.INSTANCE;
+    public static void initBase(Database database) {
+        Table baseData = database.createTable("base")
+                .addColumn("playerData", SQLDataType.NBT)
+                .addColumn("advancements", SQLDataType.JSON)
+                .addColumn("dataInUse", SQLDataType.BOOL)
+                .finish();
 
-        ServerSyncEvents.SAVE_PLAYER_DATA.register((player, playerData) -> {
+        SyncManager.registerMod("base", baseData);
+
+        SyncEvents.LOAD_PLAYER_DATA.register("base", (player, data) -> data.put("dataInUse", true));
+        SyncEvents.SAVE_PLAYER_DATA.register("base", (player, data) -> data.put("dataInUse", false));
+
+        if (InvSync.settings.SYNC_PLAYER_DATA) {
+            SyncEvents.LOAD_PLAYER_DATA.register("base", ((player, data) -> player.readNbt((NbtCompound) data.getNbt("playerData"))));
+            SyncEvents.SAVE_PLAYER_DATA.register("base", (player, data) -> {
+                NbtCompound nbt = new NbtCompound();
+                player.writeNbt(nbt);
+                for (String tag : InvSync.playerDataBlacklist) nbt.remove(tag);
+                data.put("playerData", nbt);
+            });
+        }
+
+        if (InvSync.settings.SYNC_ADVANCEMENTS) {
+
+        }
+    }
+
+    public static void initCobblemon(Database database) {
+        Cobblemon cobblemon = Cobblemon.INSTANCE;
+        Table cobblemonData = database.createTable("cobblemon")
+                .addColumn("playerData", SQLDataType.JSON)
+                .addColumn("pc", SQLDataType.NBT)
+                .addColumn("party", SQLDataType.NBT)
+                .finish();
+
+        SyncManager.registerMod("cobblemon", cobblemonData);
+
+        SyncEvents.SAVE_PLAYER_DATA.register("cobblemon", (player, data) -> {
             try {
                 NbtCompound pc = new NbtCompound();
                 cobblemon.getStorage().getPC(player.getUuid()).saveToNBT(pc);
-                playerData.put("cobblemon:pc", pc);
+                data.put("pc", pc);
             } catch (NoPokemonStoreException ignore) {}
 
-            playerData.put("cobblemon:playerdata", InvSync.GSON.toJson(cobblemon.getPlayerData().get(player)));
+            data.put("playerData", InvSync.GSON.toJson(cobblemon.getPlayerData().get(player)));
 
-            NbtCompound parties = new NbtCompound();
-            cobblemon.getStorage().getParty(player).saveToNBT(parties);
-            playerData.put("cobblemon:parties", parties);
+            NbtCompound party = new NbtCompound();
+            cobblemon.getStorage().getParty(player).saveToNBT(party);
+            data.put("party", party);
         });
-        ServerSyncEvents.FETCH_PLAYER_DATA.register((player, playerData) -> {
+
+        SyncEvents.LOAD_PLAYER_DATA.register("cobblemon", (player, playerData) -> {
             try {
-                cobblemon.getStorage().getPC(player.getUuid()).loadFromNBT((NbtCompound) playerData.getNbt("cobblemon:pc"));
+                cobblemon.getStorage().getPC(player.getUuid()).loadFromNBT((NbtCompound) playerData.getNbt("pc"));
             } catch (NoPokemonStoreException ignore) {}
 
-            PlayerData cobblemonPlayerData = InvSync.GSON.fromJson(playerData.getJson("cobblemon:playerdata"), PlayerData.class);
+            PlayerData cobblemonPlayerData = InvSync.GSON.fromJson(playerData.getJson("playerData"), PlayerData.class);
             cobblemon.getPlayerData().saveSingle(cobblemonPlayerData); // Idk if this is gonna work.
 
-            cobblemon.getStorage().getParty(player).loadFromNBT((NbtCompound) playerData.getNbt("cobblemon:parties"));
+            cobblemon.getStorage().getParty(player).loadFromNBT((NbtCompound) playerData.getNbt("party"));
         });
     }
 }
