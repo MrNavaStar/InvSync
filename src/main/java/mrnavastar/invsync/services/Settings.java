@@ -20,4 +20,5 @@ public class Settings implements ConfigData {
     @Comment("Sync Settings")
     public boolean SYNC_PLAYER_DATA = true;
     public boolean SYNC_ADVANCEMENTS = true;
+    public boolean SYNC_STATS = true;
 }

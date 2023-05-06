@@ -6,7 +6,6 @@ import mc.microconfig.MicroConfig;
 import mrnavastar.invsync.services.ModSync;
 import mrnavastar.invsync.services.Settings;
 import mrnavastar.invsync.services.SyncManager;
-import mrnavastar.sqlib.Table;
 import mrnavastar.sqlib.database.Database;
 import mrnavastar.sqlib.database.MySQLDatabase;
 import mrnavastar.sqlib.database.SQLiteDatabase;

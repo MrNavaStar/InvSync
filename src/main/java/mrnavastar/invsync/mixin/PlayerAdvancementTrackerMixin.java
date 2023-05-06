@@ -1,10 +1,9 @@
 package mrnavastar.invsync.mixin;
 
-import com.google.common.collect.Maps;
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.reflect.TypeToken;
-import mrnavastar.invsync.interfaces.PlayerAdvancementTrackerInf;
+import mrnavastar.invsync.interfaces.IPlayerAdvancementTracker;
 import net.minecraft.advancement.Advancement;
 import net.minecraft.advancement.AdvancementProgress;
 import net.minecraft.advancement.PlayerAdvancementTracker;
@@ -23,7 +22,7 @@ import java.util.stream.Stream;
 import static mrnavastar.invsync.InvSync.advancementLoader;
 
 @Mixin(PlayerAdvancementTracker.class)
-public abstract class PlayerAdvancementTrackerMixin implements PlayerAdvancementTrackerInf {
+public abstract class PlayerAdvancementTrackerMixin implements IPlayerAdvancementTracker {
 
     @Shadow
     public abstract void clearCriteria();
@@ -80,6 +79,7 @@ public abstract class PlayerAdvancementTrackerMixin implements PlayerAdvancement
         this.currentDisplayTab = null;
 
         Map<Identifier, AdvancementProgress> map = GSON.getAdapter(JSON_TYPE).fromJsonTree(advancementData);
+
         Stream<Map.Entry<Identifier, AdvancementProgress>> stream = map.entrySet().stream().sorted(Map.Entry.comparingByValue());
         for (Map.Entry<Identifier, AdvancementProgress> entry : stream.toList()) {
             Advancement advancement = advancementLoader.get(entry.getKey());
@@ -87,17 +87,16 @@ public abstract class PlayerAdvancementTrackerMixin implements PlayerAdvancement
             this.initProgress(advancement, entry.getValue());
         }
         this.rewardEmptyAdvancements(advancementLoader);
-        //this.updateCompleted();
         this.beginTrackingAllAdvancements(advancementLoader);
     }
 
     @Override
     public JsonElement readAdvancementData() {
-        HashMap<Identifier, AdvancementProgress> map = Maps.newHashMap();
+        HashMap<Identifier, AdvancementProgress> map = new HashMap<>();
+
         for (Map.Entry<Advancement, AdvancementProgress> entry : this.progress.entrySet()) {
             AdvancementProgress advancementProgress = entry.getValue();
-            if (!advancementProgress.isAnyObtained()) continue;
-            map.put(entry.getKey().getId(), advancementProgress);
+            if (advancementProgress.isAnyObtained()) map.put(entry.getKey().getId(), advancementProgress);
         }
         return GSON.toJsonTree(map);
     }

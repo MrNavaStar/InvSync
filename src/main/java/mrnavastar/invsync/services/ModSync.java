@@ -4,6 +4,8 @@ import com.cobblemon.mod.common.Cobblemon;
 import com.cobblemon.mod.common.api.storage.NoPokemonStoreException;
 import com.cobblemon.mod.common.api.storage.player.PlayerData;
 import mrnavastar.invsync.InvSync;
+import mrnavastar.invsync.interfaces.IPlayerAdvancementTracker;
+import mrnavastar.invsync.interfaces.IServerStatHandler;
 import mrnavastar.sqlib.Table;
 import mrnavastar.sqlib.database.Database;
 import mrnavastar.sqlib.sql.SQLDataType;
@@ -15,6 +17,7 @@ public class ModSync {
         Table baseData = database.createTable("base")
                 .addColumn("playerData", SQLDataType.NBT)
                 .addColumn("advancements", SQLDataType.JSON)
+                .addColumn("stats", SQLDataType.STRING)
                 .addColumn("dataInUse", SQLDataType.BOOL)
                 .finish();
 
@@ -34,7 +37,13 @@ public class ModSync {
         }
 
         if (InvSync.settings.SYNC_ADVANCEMENTS) {
+            SyncEvents.LOAD_PLAYER_DATA.register("base", ((player, data) -> ((IPlayerAdvancementTracker) player.getAdvancementTracker()).writeAdvancementData(data.getJson("advancements"))));
+            SyncEvents.SAVE_PLAYER_DATA.register("base", (((player, data) -> data.put("advancements", ((IPlayerAdvancementTracker) player.getAdvancementTracker()).readAdvancementData()))));
+        }
 
+        if (InvSync.settings.SYNC_STATS) {
+            SyncEvents.LOAD_PLAYER_DATA.register("base", (player, data) -> ((IServerStatHandler) player.getStatHandler()).writeStatData(data.getString("stats")));
+            SyncEvents.SAVE_PLAYER_DATA.register("base", ((player, data) -> data.put("stats", ((IServerStatHandler) player.getStatHandler()).readStatData())));
         }
     }
 
