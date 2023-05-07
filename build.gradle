@@ -21,7 +21,7 @@ dependencies {
     include(modImplementation("com.github.P03W:Microconfig:${project.microconfig_version}"))
 
     // Mod Compat
-    modImplementation("maven.modrinth:cobblemon:ZuhveJd6")
+    modImplementation("maven.modrinth:cobblemon:9R4TYt4N")
 }
 
 processResources {
