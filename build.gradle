@@ -1,5 +1,5 @@
 plugins {
-    id 'fabric-loom' version '1.0.12'
+    id 'fabric-loom' version '1.2.7'
 }
 
 def java_version = project.java_version as int
@@ -19,9 +19,6 @@ dependencies {
 
     include(modImplementation("maven.modrinth:sqlib:${project.sqlib_version}"))
     include(modImplementation("com.github.P03W:Microconfig:${project.microconfig_version}"))
-
-    // Mod Compat
-    modImplementation("maven.modrinth:cobblemon:ZuhveJd6")
 }
 
 processResources {

@@ -1,4 +1,4 @@
-package mrnavastar.invsync.services;
+package mrnavastar.invsync.sync;
 
 import mrnavastar.sqlib.DataContainer;
 import net.minecraft.server.network.ServerPlayerEntity;

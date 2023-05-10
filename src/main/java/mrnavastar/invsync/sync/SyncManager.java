@@ -1,4 +1,4 @@
-package mrnavastar.invsync.services;
+package mrnavastar.invsync.sync;
 
 import mrnavastar.sqlib.DataContainer;
 import mrnavastar.sqlib.Table;
@@ -14,10 +14,12 @@ public class SyncManager {
     private static final HashMap<String, Table> registeredMods = new HashMap<>();
 
     public static void init() {
+        Table baseTable = registeredMods.get("base");
+
         ServerPlayConnectionEvents.JOIN.register((handler, sender, server) -> new Thread(() -> {
             ServerPlayerEntity player = handler.getPlayer();
 
-            DataContainer baseData = registeredMods.get("base").get(player.getUuid());
+            DataContainer baseData = baseTable.get(player.getUuid());
             if (baseData == null) return;
 
             //Wait until data is free from all other servers
@@ -29,10 +31,15 @@ public class SyncManager {
                 }
             }
 
+            baseData.put("dataInUse", true);
             invokeLoad(player);
         }).start());
 
-        ServerPlayConnectionEvents.DISCONNECT.register((handler, server) -> invokeSave(handler.getPlayer()));
+        ServerPlayConnectionEvents.DISCONNECT.register((handler, server) -> {
+            ServerPlayerEntity player = handler.getPlayer();
+            invokeSave(player);
+            baseTable.get(player.getUuid()).put("dataInUse", false);
+        });
     }
 
     public static void registerMod(String modId, Table table) {

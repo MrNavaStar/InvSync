@@ -1,6 +1,6 @@
 package mrnavastar.invsync.mixin;
 
-import mrnavastar.invsync.services.SyncManager;
+import mrnavastar.invsync.sync.SyncManager;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.PlayerManager;
 import org.spongepowered.asm.mixin.Mixin;

@@ -1,10 +1,10 @@
-package mrnavastar.invsync.services;
+package mrnavastar.invsync;
 
 import mc.microconfig.Comment;
 import mc.microconfig.ConfigData;
 
 
-public class Settings implements ConfigData {
+public class Config implements ConfigData {
     @Comment("Allowed Values: \"SQLITE\" | \"MYSQL\"")
     public String DATABASE_TYPE = "SQLITE";
     public String DATABASE_NAME = "InvSync";

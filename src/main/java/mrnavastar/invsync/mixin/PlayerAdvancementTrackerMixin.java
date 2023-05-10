@@ -55,9 +55,11 @@ public abstract class PlayerAdvancementTrackerMixin implements IPlayerAdvancemen
     @Shadow
     protected abstract void rewardEmptyAdvancements(ServerAdvancementLoader advancementLoader);
 
-
     @Shadow
     protected abstract void beginTrackingAllAdvancements(ServerAdvancementLoader advancementLoader);
+
+    @Shadow
+    protected abstract void onStatusUpdate(Advancement advancement);
 
     @Shadow
     @Final
@@ -69,7 +71,6 @@ public abstract class PlayerAdvancementTrackerMixin implements IPlayerAdvancemen
 
     @Override
     public void writeAdvancementData(JsonElement advancementData) {
-
         this.clearCriteria();
         this.progress.clear();
         this.visibleAdvancements.clear();
@@ -79,13 +80,17 @@ public abstract class PlayerAdvancementTrackerMixin implements IPlayerAdvancemen
         this.currentDisplayTab = null;
 
         Map<Identifier, AdvancementProgress> map = GSON.getAdapter(JSON_TYPE).fromJsonTree(advancementData);
-
         Stream<Map.Entry<Identifier, AdvancementProgress>> stream = map.entrySet().stream().sorted(Map.Entry.comparingByValue());
+
         for (Map.Entry<Identifier, AdvancementProgress> entry : stream.toList()) {
             Advancement advancement = advancementLoader.get(entry.getKey());
             if (advancement == null) continue;
+
             this.initProgress(advancement, entry.getValue());
+            this.progressUpdates.add(advancement);
+            this.onStatusUpdate(advancement);
         }
+
         this.rewardEmptyAdvancements(advancementLoader);
         this.beginTrackingAllAdvancements(advancementLoader);
     }
@@ -98,6 +103,6 @@ public abstract class PlayerAdvancementTrackerMixin implements IPlayerAdvancemen
             AdvancementProgress advancementProgress = entry.getValue();
             if (advancementProgress.isAnyObtained()) map.put(entry.getKey().getId(), advancementProgress);
         }
-        return GSON.toJsonTree(map);
+        return GSON.toJsonTree(map).getAsJsonObject();
     }
 }
