@@ -17,7 +17,7 @@ public class SyncManager {
         Table baseTable = registeredMods.get("base");
 
         ServerPlayConnectionEvents.JOIN.register((handler, sender, server) -> new Thread(() -> {
-            ServerPlayerEntity player = handler.getPlayer();
+            ServerPlayerEntity player = handler.player;
 
             DataContainer baseData = baseTable.get(player.getUuid());
             if (baseData == null) return;
@@ -36,7 +36,7 @@ public class SyncManager {
         }).start());
 
         ServerPlayConnectionEvents.DISCONNECT.register((handler, server) -> {
-            ServerPlayerEntity player = handler.getPlayer();
+            ServerPlayerEntity player = handler.player;
             invokeSave(player);
             baseTable.get(player.getUuid()).put("dataInUse", false);
         });

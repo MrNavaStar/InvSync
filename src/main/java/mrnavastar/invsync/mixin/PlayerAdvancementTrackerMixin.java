@@ -29,11 +29,11 @@ public abstract class PlayerAdvancementTrackerMixin implements IPlayerAdvancemen
 
     @Shadow
     @Final
-    private Map<Advancement, AdvancementProgress> progress;
+    private Map<Advancement, AdvancementProgress> advancementToProgress;
 
     @Shadow
     @Final
-    private Set<Advancement> updatedRoots;
+    private Set<Advancement> visibilityUpdates;
 
     @Shadow
     @Final
@@ -59,7 +59,7 @@ public abstract class PlayerAdvancementTrackerMixin implements IPlayerAdvancemen
     protected abstract void beginTrackingAllAdvancements(ServerAdvancementLoader advancementLoader);
 
     @Shadow
-    protected abstract void onStatusUpdate(Advancement advancement);
+    protected abstract void updateCompleted();
 
     @Shadow
     @Final
@@ -72,9 +72,9 @@ public abstract class PlayerAdvancementTrackerMixin implements IPlayerAdvancemen
     @Override
     public void writeAdvancementData(JsonElement advancementData) {
         this.clearCriteria();
-        this.progress.clear();
+        this.advancementToProgress.clear();
         this.visibleAdvancements.clear();
-        this.updatedRoots.clear();
+        this.visibilityUpdates.clear();
         this.progressUpdates.clear();
         this.dirty = true;
         this.currentDisplayTab = null;
@@ -87,11 +87,10 @@ public abstract class PlayerAdvancementTrackerMixin implements IPlayerAdvancemen
             if (advancement == null) continue;
 
             this.initProgress(advancement, entry.getValue());
-            this.progressUpdates.add(advancement);
-            this.onStatusUpdate(advancement);
         }
 
         this.rewardEmptyAdvancements(advancementLoader);
+        this.updateCompleted();
         this.beginTrackingAllAdvancements(advancementLoader);
     }
 
@@ -99,7 +98,7 @@ public abstract class PlayerAdvancementTrackerMixin implements IPlayerAdvancemen
     public JsonElement readAdvancementData() {
         HashMap<Identifier, AdvancementProgress> map = new HashMap<>();
 
-        for (Map.Entry<Advancement, AdvancementProgress> entry : this.progress.entrySet()) {
+        for (Map.Entry<Advancement, AdvancementProgress> entry : this.advancementToProgress.entrySet()) {
             AdvancementProgress advancementProgress = entry.getValue();
             if (advancementProgress.isAnyObtained()) map.put(entry.getKey().getId(), advancementProgress);
         }

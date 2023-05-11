@@ -12,6 +12,7 @@ import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.SharedConstants;
+import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.ServerAdvancementLoader;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
@@ -22,7 +23,7 @@ import java.util.ArrayList;
 public class InvSync implements ModInitializer {
 
     public static final String MOD_ID = "InvSync";
-    private static final FabricLoader FABRIC = FabricLoader.getInstance();
+    public static final FabricLoader FABRIC = FabricLoader.getInstance();
     public static Config config = MicroConfig.getOrCreate(MOD_ID, new Config());
     private static Database database;
     public static final ArrayList<String> playerDataBlacklist = new ArrayList<>();
@@ -59,7 +60,9 @@ public class InvSync implements ModInitializer {
             throw new RuntimeException(e);
         }
 
-        ServerLifecycleEvents.SERVER_STARTING.register(server -> advancementLoader = server.getAdvancementLoader());
+        ServerLifecycleEvents.SERVER_STARTING.register(server -> {
+            advancementLoader = server.getAdvancementLoader();
+        });
 
         BaseSync.init(database);
 

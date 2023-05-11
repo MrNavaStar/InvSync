@@ -14,7 +14,7 @@ public abstract class MinecraftServerMixin {
 
     @Shadow public abstract PlayerManager getPlayerManager();
 
-    @Inject(method = "saveAll", at = @At("HEAD"))
+    @Inject(method = "save", at = @At("HEAD"))
     public void onSave(boolean suppressLogs, boolean flush, boolean force, CallbackInfoReturnable<Boolean> cir) {
         getPlayerManager().getPlayerList().forEach(SyncManager::invokeSave);
     }
