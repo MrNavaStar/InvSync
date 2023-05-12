@@ -17,7 +17,7 @@ dependencies {
     modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
     modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
 
-    include(modImplementation("maven.modrinth:sqlib:${project.sqlib_version}"))
+    modImplementation("maven.modrinth:sqlib:${project.sqlib_version}")
     include(modImplementation("com.github.P03W:Microconfig:${project.microconfig_version}"))
 }
 

@@ -77,9 +77,6 @@ public class BaseSync {
 
                 data.put("advancements", json);
             }));
-
-            //SyncEvents.LOAD_PLAYER_DATA.register("base", ((player, data) -> ((IPlayerAdvancementTracker) player.getAdvancementTracker()).writeAdvancementData(data.getJson("advancements"))));
-            //SyncEvents.SAVE_PLAYER_DATA.register("base", (((player, data) -> data.put("advancements", ((IPlayerAdvancementTracker) player.getAdvancementTracker()).readAdvancementData()))));
         }
 
         if (InvSync.config.SYNC_STATS) {
