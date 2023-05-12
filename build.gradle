@@ -19,6 +19,9 @@ dependencies {
 
     include(modImplementation("maven.modrinth:sqlib:${project.sqlib_version}"))
     include(modImplementation("com.github.P03W:Microconfig:${project.microconfig_version}"))
+
+    //Dev Env
+    modImplementation("maven.modrinth:easy-eula:1.0.0")
 }
 
 processResources {

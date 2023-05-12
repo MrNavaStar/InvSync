@@ -14,12 +14,15 @@ public class SyncManager {
     private static final HashMap<String, Table> registeredMods = new HashMap<>();
 
     public static void init() {
+        System.out.println("Sync manager setting up");
+        System.out.println(registeredMods.keySet());
+
         Table baseTable = registeredMods.get("base");
 
         ServerPlayConnectionEvents.JOIN.register((handler, sender, server) -> new Thread(() -> {
-            ServerPlayerEntity player = handler.player;
+            System.out.println("INVSYNC: Player join");
 
-            DataContainer baseData = baseTable.get(player.getUuid());
+            DataContainer baseData = baseTable.get(handler.player.getUuid());
             if (baseData == null) return;
 
             //Wait until data is free from all other servers
@@ -32,13 +35,16 @@ public class SyncManager {
             }
 
             baseData.put("dataInUse", true);
-            invokeLoad(player);
-        }).start());
+            invokeLoad(handler.player);
+        }, "invsync-load").start());
 
         ServerPlayConnectionEvents.DISCONNECT.register((handler, server) -> {
-            ServerPlayerEntity player = handler.player;
-            invokeSave(player);
-            baseTable.get(player.getUuid()).put("dataInUse", false);
+            System.out.println("INVSYNC: Player leave");
+
+            invokeSave(handler.player);
+
+            DataContainer baseData = baseTable.get(handler.player.getUuid());
+            baseData.put("dataInUse", false);
         });
     }
 
@@ -47,20 +53,24 @@ public class SyncManager {
     }
 
     public static void invokeLoad(ServerPlayerEntity player) {
+        System.out.println("INVSYNC: loading: " + player);
         registeredMods.forEach((modId, table) -> {
             DataContainer data = table.get(player.getUuid());
-            if (data == null) return;
 
-            table.beginTransaction();
+            //table.beginTransaction();
             SyncEvents.LOAD_PLAYER_DATA.getInvoker(modId).forEach(modHandler -> modHandler.handle(player, data));
-            table.endTransaction();
+            //table.endTransaction();
         });
     }
 
     public static void invokeSave(ServerPlayerEntity player) {
+        System.out.println("INVSYNC: saving: " + player);
         registeredMods.forEach((modId, table) -> {
+            System.out.println("here??????");
             DataContainer data = Objects.requireNonNullElse(table.get(player.getUuid()), table.createDataContainer(player.getUuid()));
+            System.out.println("saving??????");
             table.beginTransaction();
+
             SyncEvents.SAVE_PLAYER_DATA.getInvoker(modId).forEach(modHandler -> modHandler.handle(player, data));
             table.endTransaction();
         });

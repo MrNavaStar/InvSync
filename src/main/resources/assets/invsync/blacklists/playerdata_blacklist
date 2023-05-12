@@ -11,9 +11,12 @@ Rotation
 TicksFrozen
 UUID
 FallFlying
-
 abilities
 Dimension
+enteredNetherPosition
+LastDeathLocation
+playerGameType
+previousPlayerGameType
 RootVehicle
 ShoulderEntityLeft
 ShoulderEntityRight
@@ -24,4 +27,3 @@ SpawnX
 SpawnY
 SpawnZ
 warden_spawn_tracker
-DataVersion

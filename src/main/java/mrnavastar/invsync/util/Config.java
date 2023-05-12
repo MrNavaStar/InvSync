@@ -1,4 +1,4 @@
-package mrnavastar.invsync;
+package mrnavastar.invsync.util;
 
 import mc.microconfig.Comment;
 import mc.microconfig.ConfigData;
