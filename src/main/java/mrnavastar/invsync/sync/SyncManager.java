@@ -1,8 +1,11 @@
 package mrnavastar.invsync.sync;
 
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 import mrnavastar.sqlib.DataContainer;
 import mrnavastar.sqlib.Table;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.server.network.ServerPlayerEntity;
 
 import java.util.HashMap;
@@ -41,7 +44,7 @@ public class SyncManager {
         ServerPlayConnectionEvents.DISCONNECT.register((handler, server) -> {
             System.out.println("INVSYNC: Player leave");
 
-            invokeSave(handler.player);
+            invokeSave(SyncEvents.SAVE_PLAYER_DATA, handler.player);
 
             DataContainer baseData = baseTable.get(handler.player.getUuid());
             baseData.put("dataInUse", false);
@@ -63,16 +66,36 @@ public class SyncManager {
         });
     }
 
-    public static void invokeSave(ServerPlayerEntity player) {
-        System.out.println("INVSYNC: saving: " + player);
+    public static void loadAdvancementData(ServerPlayerEntity player, JsonObject advancementData) {
         registeredMods.forEach((modId, table) -> {
-            System.out.println("here??????");
-            DataContainer data = Objects.requireNonNullElse(table.get(player.getUuid()), table.createDataContainer(player.getUuid()));
-            System.out.println("saving??????");
-            table.beginTransaction();
+            DataContainer container = table.get(player.getUuid());
 
-            SyncEvents.SAVE_PLAYER_DATA.getInvoker(modId).forEach(modHandler -> modHandler.handle(player, data));
-            table.endTransaction();
+            //table.beginTransaction();
+            SyncEvents.LOAD_ADVANCEMENT_DATA.getInvoker(modId).forEach(modHandler -> modHandler.handle(player, advancementData, container));
+            //table.endTransaction();
         });
     }
+
+    public static void savePlayerData(ServerPlayerEntity player) {
+        registeredMods.forEach((modId, table) -> {
+            DataContainer container = Objects.requireNonNullElse(table.get(player.getUuid()), table.createDataContainer(player.getUuid()));
+            //table.beginTransaction();
+
+            NbtCompound nbt = new NbtCompound();
+            player.writeNbt(nbt);
+            SyncEvents.SAVE_PLAYER_DATA.getInvoker(modId).forEach(modHandler -> modHandler.handle(player, nbt, container));
+            //table.endTransaction();
+        });
+    }
+
+    public static void saveAdvancementData(ServerPlayerEntity player, JsonObject advancementData) {
+        registeredMods.forEach((modId, table) -> {
+            DataContainer container = Objects.requireNonNullElse(table.get(player.getUuid()), table.createDataContainer(player.getUuid()));
+            //table.beginTransaction();
+
+            SyncEvents.SAVE_ADVANCEMENT_DATA.getInvoker(modId).forEach(modHandler -> modHandler.handle(player, advancementData, container));
+            //table.endTransaction();
+        });
+    }
+
 }

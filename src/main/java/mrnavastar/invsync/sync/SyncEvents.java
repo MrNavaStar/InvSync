@@ -1,6 +1,9 @@
 package mrnavastar.invsync.sync;
 
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 import mrnavastar.sqlib.DataContainer;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.server.network.ServerPlayerEntity;
 
 import java.util.ArrayList;
@@ -21,11 +24,19 @@ public class SyncEvents {
         }
     }
 
-    public static final Event<SyncHandler> LOAD_PLAYER_DATA = new Event<>();
-    public static final Event<SyncHandler> SAVE_PLAYER_DATA = new Event<>();
+    public static final Event<PlayerDataHandler> LOAD_PLAYER_DATA = new Event<>();
+    public static final Event<PlayerDataHandler> SAVE_PLAYER_DATA = new Event<>();
+
+    public static final Event<AdvancementDataHandler> LOAD_ADVANCEMENT_DATA = new Event<>();
+    public static final Event<AdvancementDataHandler> SAVE_ADVANCEMENT_DATA = new Event<>();
 
     @FunctionalInterface
-    public interface SyncHandler {
-        void handle(ServerPlayerEntity player, DataContainer data);
+    public interface PlayerDataHandler {
+        void handle(ServerPlayerEntity player, NbtCompound playerData, DataContainer dataContainer);
+    }
+
+    @FunctionalInterface
+    public interface AdvancementDataHandler {
+        void handle(ServerPlayerEntity player, JsonObject advancementData, DataContainer dataContainer);
     }
 }

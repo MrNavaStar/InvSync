@@ -1,5 +1,6 @@
 package mrnavastar.invsync.mixin;
 
+import mrnavastar.invsync.sync.SyncEvents;
 import mrnavastar.invsync.sync.SyncManager;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.PlayerManager;
@@ -16,6 +17,9 @@ public abstract class MinecraftServerMixin {
 
     @Inject(method = "save", at = @At("HEAD"))
     public void onSave(boolean suppressLogs, boolean flush, boolean force, CallbackInfoReturnable<Boolean> cir) {
-        getPlayerManager().getPlayerList().forEach(SyncManager::invokeSave);
+        getPlayerManager().getPlayerList().forEach(player -> {
+            SyncManager.invokeSave(SyncEvents.SAVE_PLAYER_DATA, player);
+            SyncManager.invokeSave(SyncEvents.SAVE_ADVANCEMENT_DATA, player);
+        });
     }
 }

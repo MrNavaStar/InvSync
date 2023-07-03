@@ -3,6 +3,7 @@ package mrnavastar.invsync.sync.mods;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import mrnavastar.invsync.InvSync;
+import mrnavastar.invsync.interfaces.IServerPlayerEntity;
 import mrnavastar.invsync.interfaces.IServerStatHandler;
 import mrnavastar.invsync.sync.SyncEvents;
 import mrnavastar.invsync.sync.SyncManager;
@@ -50,16 +51,25 @@ public class BaseSync {
                 player.readNbt(newNbt);
             }));
 
-            SyncEvents.SAVE_PLAYER_DATA.register("base", (player, data) -> {
-                NbtCompound nbt = new NbtCompound();
-                player.writeNbt(nbt);
-                playerDataBlacklist.forEach(nbt::remove);
-                data.put("playerData", nbt);
+            SyncEvents.SAVE_PLAYER_DATA.register("base", (player, playerData, container) -> {
+                playerDataBlacklist.forEach(playerData::remove);
+                container.put("playerData", playerData);
             });
         }
 
         if (InvSync.config.SYNC_ADVANCEMENTS) {
             AdvancementProgress.Serializer serializer = new AdvancementProgress.Serializer();
+
+            SyncEvents.LOAD_ADVANCEMENT_DATA.register("base", ((player, advancementData, container) -> {
+                advancementData. container.getJson("advancements");
+            }));
+
+
+            SyncEvents.SAVE_ADVANCEMENT_DATA.register("base", ((player, advancementData, container) -> {
+                container.put("advancements", advancementData);
+            }));
+
+
 
             SyncEvents.LOAD_PLAYER_DATA.register("base", (player, data) -> {
                 try {
