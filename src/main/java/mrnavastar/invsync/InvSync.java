@@ -51,7 +51,7 @@ public class InvSync implements ModInitializer {
         log(Level.INFO, "Database initialized successfully!");
 
         try {
-            InputStream stream = Resources.getResource("assets/invsync/blacklists/" + SharedConstants.getGameVersion().getName()).openStream();
+            InputStream stream = Resources.getResource("assets/invsync/blacklist").openStream();
             BufferedReader reader = new BufferedReader(new InputStreamReader(stream));
             playerDataBlacklist.addAll(reader.lines().toList());
             stream.close();
