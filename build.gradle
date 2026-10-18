@@ -1,55 +1,29 @@
 plugins {
-    id 'fabric-loom' version '1.2.7'
+    id 'net.fabricmc.fabric-loom' version "${loom_version}"
 }
 
-def java_version = project.java_version as int
 version = project.mod_version
 group = project.maven_group
-
-repositories {
-    maven { url "https://api.modrinth.com/maven" }
-    maven { url 'https://jitpack.io' }
-}
+base.archivesName = project.archives_base_name
 
 dependencies {
     minecraft "com.mojang:minecraft:${project.minecraft_version}"
-    mappings "net.fabricmc:yarn:${project.yarn_mappings}:v2"
-    modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
-    modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
+    implementation "net.fabricmc:fabric-loader:${project.loader_version}"
+    implementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
 
-    include(modImplementation("maven.modrinth:sqlib:${project.sqlib_version}"))
-    include(modImplementation("com.github.P03W:Microconfig:${project.microconfig_version}"))
+    // Bundle sqlite-jdbc as a nested jar. Loom's include is nontransitive; Minecraft supplies SLF4J.
+    include(implementation("org.xerial:sqlite-jdbc:${project.sqlite_jdbc_version}"))
 }
 
 processResources {
     inputs.property "version", project.version
-    filteringCharset "UTF-8"
-
     filesMatching("fabric.mod.json") {
         expand "version": project.version
     }
 }
 
 tasks.withType(JavaCompile).configureEach {
-    // ensure that the encoding is set to UTF-8, no matter what the system default is
-    // this fixes some edge cases with special characters not displaying correctly
-    // see http://yodaconditions.net/blog/fix-for-java-file-encoding-problems-with-gradle.html
-    // If Javadoc is generated, this must be specified in that task too.
     it.options.encoding = "UTF-8"
-    if (java_version >= 10 || JavaVersion.current().isJava10Compatible()) {
-        it.options.release = java_version
-    }
+    it.options.release = 25
 }
 
-java {
-    if (JavaVersion.current() < JavaVersion.toVersion(java_version)) {
-        toolchain.languageVersion = JavaLanguageVersion.of(java_version)
-    }
-    archivesBaseName = project.archives_base_name
-}
-
-jar {
-    from("LICENSE") {
-        rename { "${it}_${project.archivesBaseName}" }
-    }
-}

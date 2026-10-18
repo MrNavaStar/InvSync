@@ -1,11 +1,9 @@
 {
   "required": true,
   "package": "mrnavastar.invsync.mixin",
-  "compatibilityLevel": "JAVA_17",
-  "mixins": [
-    "MinecraftServerMixin",
-    "PlayerAdvancementTrackerMixin",
-    "ServerStatHandlerMixin"
+  "compatibilityLevel": "JAVA_25",
+  "server": [
+    "PlayerListMixin"
   ],
   "injectors": {
     "defaultRequire": 1

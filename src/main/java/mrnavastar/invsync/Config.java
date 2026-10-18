@@ -1,24 +1,28 @@
 package mrnavastar.invsync;
 
-import mc.microconfig.Comment;
-import mc.microconfig.ConfigData;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 
-public class Config implements ConfigData {
-    @Comment("Allowed Values: \"SQLITE\" | \"MYSQL\"")
-    public String DATABASE_TYPE = "SQLITE";
-    public String DATABASE_NAME = "InvSync";
+/**
+ * config/invsync.json. All servers must resolve sqlite_file to the same database and use matching sync settings.
+ * Disabling a sync category preserves its stored data without loading or updating it.
+ */
+public class Config {
+    public String sqlite_file = "/path/to/shared/invsync.db";
+    /** Seconds to wait for the previous server to release the player's row before taking over, even if it is still locked. */
+    public int lock_timeout_seconds = 10;
+    public boolean sync_player_data = true;
+    public boolean sync_advancements = true;
+    public boolean sync_stats = true;
 
-    public String SQLITE_DIRECTORY = "/path/to/folder";
-
-    public String MYSQL_ADDRESS = "127.0.0.1";
-    public String MYSQL_PORT = "3306";
-    @Comment("The mod will not start if you use these as your actual credentials - please keep your data secure")
-    public String MYSQL_USERNAME = "username";
-    public String MYSQL_PASSWORD = "password";
-
-    @Comment("Sync Settings")
-    public boolean SYNC_PLAYER_DATA = true;
-    public boolean SYNC_ADVANCEMENTS = true;
-    public boolean SYNC_STATS = true;
+    static Config load(Path file) throws IOException {
+        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+        if (Files.exists(file)) return gson.fromJson(Files.readString(file), Config.class);
+        Files.writeString(file, gson.toJson(new Config()));
+        return new Config();
+    }
 }
